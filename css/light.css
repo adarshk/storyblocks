@@ -28,10 +28,10 @@ input.Number {
 
 #viewport {
 	position: absolute;
-	top: 32px;
+	top: 0px;
 	left: 0px;
 	right: 300px;
-	bottom: 32px;
+	bottom: 0px;
 }
 
 	#viewport #info {
@@ -121,7 +121,7 @@ input.Number {
 #sidebar {
 	position: absolute;
 	right: 0px;
-	top: 32px;
+	top: 0px;
 	bottom: 0px;
 	width: 300px;
 	background: #eee;
@@ -194,11 +194,55 @@ input.Number {
 	#toolbar button {
 		margin-right: 6px;
 	}
-#ViewportContainers {
+
+
+.icon-container{
+
+	display: inline-block;
+    /*border: 1px solid #ccc;*/
+    border-radius: 6px;
+    /*margin: 60px;*/
+    padding: 20px;
+}
+
+.states-container{
+
+	display: inline-block;
+    /*border: 1px solid #ccc;*/
+    border-radius: 6px;
+    /*margin: 60px;*/
+    padding: 20px;
+}
+
+.fa{
+	/*vertical-align: middle;*/
+}
+.formname{
+	
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: small;
+	padding-top: 5px;
+	/*margin: 5px;*/
+	/*margin-left: 5px;*/
+	/*margin-top: 5px;*/
+	vertical-align: middle;
+}
+
+.draggable{
+	background:teal;
+}
+
+/*.formname:first-letter{
+	text-transform: capitalize;
+}*/
+
+
+/*#ViewportContainers {
 	position: absolute;
 	top: 32px;
 	left: 0px;
 	right: 300px;
 	bottom: 32px;
 	background: rgba(255,255,255,0);
-}
+}*/

@@ -11,33 +11,33 @@
 <!--div id="map-container"></div-->
 
 			<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Welcome to Facade</h4>
-        <h5>Choose your story type</h5>
-      </div>
-      <div class="modal-body">
-        <div class="btn-group">
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">Welcome to Facade</h4>
+			        <h5>Choose your story type</h5>
+			      </div>
+			      <div class="modal-body">
+			        <div class="btn-group">
 
-        <div id="linear-img">
-  			<img class="one-edge-shadow" src="images/swipe.png" style="float: left; margin-left: 8%; margin-right: 2%;"  width="40%";height="40%" class="img-responsive img-rounded" alt="Responsive image">
-  		</div>
+			        <div id="linear-img">
+			  			<img class="one-edge-shadow" src="images/swipe.png" style="float: left; margin-left: 8%; margin-right: 2%;"  width="40%";height="40%" class="img-responsive img-rounded" alt="Responsive image">
+			  		</div>
 
-  		<div id="full_img">
-  			<img src="images/infographics.png" style="float: right; margin-left: 1%; margin-right: 4%;" width="40%";height="40%" class="img-responsive img-rounded" alt="Responsive image">
-  		</div>
-</div>
-      </div>
-      <div class="modal-footer">
-        <!--button type="button" class="btn btn-default" data-dismiss="modal">Close</button-->
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+			  		<div id="full_img">
+			  			<img src="images/infographics.png" style="float: right; margin-left: 1%; margin-right: 4%;" width="40%";height="40%" class="img-responsive img-rounded" alt="Responsive image">
+			  		</div>
+			</div>
+			      </div>
+			      <div class="modal-footer">
+			        <!--button type="button" class="btn btn-default" data-dismiss="modal">Close</button-->
+			        <button type="button" class="btn btn-primary">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 
 			<link rel="stylesheet" type="text/css" href="css/main.css">
 			<link id="theme" href="css/light.css" rel="stylesheet" />
@@ -318,6 +318,26 @@
 	    			//#fff0dc  72FFE6 87FFBC 
 	    		}
 			);*/
+
+			</script>
+
+			<script>
+
+				$(function() {
+    $('body').on('mousedown', '.icon-container', function() {
+        $(this).addClass('draggable').parents().on('mousemove', function(e) {
+            $('.draggable').offset({
+                top: e.pageY - $('.draggable').outerHeight() / 2,
+                left: e.pageX - $('.draggable').outerWidth() / 2
+            }).on('mouseup', function() {
+                $(this).removeClass('draggable');
+            });
+        });
+        e.preventDefault();
+    }).on('mouseup', function() {
+        $('.draggable').removeClass('draggable');
+    });
+});
 
 			</script>
 
