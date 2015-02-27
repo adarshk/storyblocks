@@ -194,3 +194,11 @@ input.Number {
 	#toolbar button {
 		margin-right: 6px;
 	}
+#ViewportContainers {
+	position: absolute;
+	top: 32px;
+	left: 0px;
+	right: 300px;
+	bottom: 32px;
+	background: rgba(255,255,255,0);
+}

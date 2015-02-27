@@ -139,6 +139,15 @@ textarea, input { outline: none; } /* osx */
     padding: 20px;
 }
 
+.states-container{
+
+	display: inline-block;
+    /*border: 1px solid #ccc;*/
+    border-radius: 6px;
+    /*margin: 60px;*/
+    padding: 20px;
+}
+
 .fa{
 	/*vertical-align: middle;*/
 }

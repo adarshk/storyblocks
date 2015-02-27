@@ -40,6 +40,12 @@ UI.Media = function(){
 
 	var scope = this;
 
+
+	var dom = document.createElement('div');
+	dom.className = 'icon-container';
+
+	this.dom = dom;
+
 /*	
 	var dom = document.createElement('div');
 	//dom.className = 'container-fluid media';
@@ -102,10 +108,7 @@ UI.Media.prototype.appendText = function(formName){
 
 	// var formName = String(formName);
 
-	var dom = document.createElement('div');
-	dom.className = 'icon-container';
-
-	this.dom = dom;
+	this.dom.id = formName;
 
 	var col6 = document.createElement('div');
 	col6.className = 'col-md-4';

@@ -1,14 +1,12 @@
-/**
- * @author mrdoob / http://mrdoob.com/
- */
 
-var Sidebar = function ( editor ) {
+
+var ViewportContainers = function ( editor ) {
 
 	var container = new UI.Panel();
-	container.setId( 'sidebar' );
+	container.setId( 'ViewportContainers' );
 
-	container.add( new Sidebar.Forms( editor ) );
-	container.add( new Sidebar.States( editor ) );
+	// container.add( new Sidebar.Forms( editor ) );
+	// container.add( new Sidebar.States( editor ) );
 
 	//container.add( new Sidebar.Properties( editor ) );
 

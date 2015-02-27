@@ -5,6 +5,8 @@ Sidebar.Forms = function(editor){
 
 	var signals = editor.signals;
 
+	signals.fogColorChanged.dispatch( 'a6bddb' );
+
 	var container = new UI.CollapsiblePanel();
 
 	container.setCollapsed(editor.config.getKey('ui/sidebar/forms/collapsed'));
@@ -37,7 +39,7 @@ Sidebar.Forms = function(editor){
 
 	var mapBox = new UI.Media();
 	// mapBox.addContainer();
-	mapBox.appendText('map-marker');
+	mapBox.appendText(formNames[0]);
 	// mapBox.appendText('area-chart');
 		/*mapBox.addContainer().addRow();
 		mapBox.appendText('map-marker');
@@ -45,10 +47,28 @@ Sidebar.Forms = function(editor){
 		mapBox.appendText('area-chart');*/
 		container.add(mapBox);
 
-	mapBox.onChange(function() {
+	mapBox.onMouseOver(function() {
 
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[0]).css('background','#72FFE6');
 
 	});
+
+	mapBox.onMouseOut(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[0]).css('background','');
+
+	});
+
+	mapBox.onClick(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[0]).css('background','#72FFE6');
+
+	});
+
+
 
 
 	var chartBox = new UI.Media();
@@ -56,17 +76,108 @@ Sidebar.Forms = function(editor){
 		chartBox.appendText('area-chart');
 		container.add(chartBox);
 
+
+
+	chartBox.onMouseOver(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[1]).css('background','#72FFE6');
+
+	});
+
+	chartBox.onMouseOut(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[1]).css('background','');
+
+	});
+
+	chartBox.onClick(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[1]).css('background','#72FFE6');
+
+	});
+
 	var textBox = new UI.Media();
 		textBox.appendText('text');
 		container.add(textBox);
+
+
+	textBox.onMouseOver(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[2]).css('background','#72FFE6');
+
+	});
+
+	textBox.onMouseOut(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[2]).css('background','');
+
+	});
+
+	textBox.onClick(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[2]).css('background','#72FFE6');
+
+	});
+
+
 
 	var imageBox = new UI.Media();
 		imageBox.appendText('image');
 		container.add(imageBox);
 
+
+	imageBox.onMouseOver(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[3]).css('background','#72FFE6');
+
+	});
+
+	imageBox.onMouseOut(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[3]).css('background','');
+
+	});
+
+	imageBox.onClick(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[3]).css('background','#72FFE6');
+
+	});
+
 	var videoBox = new UI.Media();
 		videoBox.appendText('video');
 		container.add(videoBox);
+
+
+	videoBox.onMouseOver(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[4]).css('background','#72FFE6');
+
+	});
+
+	videoBox.onMouseOut(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[4]).css('background','');
+
+	});
+
+	videoBox.onClick(function() {
+
+		// mapBox.dom.background = '#72FFE6';				
+		$('#'+formNames[4]).css('background','#72FFE6');
+
+	});
 
 
 	container.add(new UI.Break());
