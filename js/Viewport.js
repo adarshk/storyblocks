@@ -20,7 +20,7 @@ var Viewport = function ( editor ) {
 	// helpers
 
 	var grid = new THREE.GridHelper( 500, 25 );
-	sceneHelpers.add( grid );
+	// sceneHelpers.add( grid );
 
 	//
 
@@ -70,11 +70,24 @@ var Viewport = function ( editor ) {
 
 	// fog
 
-	var oldFogType = "None";
-	var oldFogColor = 0xaaaaaa;
+	var oldFogType = "Fog";
+	var oldFogColor = 0xffffff;
 	var oldFogNear = 1;
 	var oldFogFar = 5000;
 	var oldFogDensity = 0.00025;
+
+	var rendererBackgroundColor = 0xffffff;
+
+	
+	// sceneHelpers.fog = new THREE.Fog(oldFogColor,oldFogNear,oldFogFar);
+	// signals.fogTypeChanged.dispatch('Fog');
+	//scene.fog=new THREE.Fog( 0xcfffcf, 0.015);
+	//sceneHelpers.fog=new THREE.Fog( 0xcfffcf, 0.015);
+
+
+
+	//signals.fogColorChanged.dispatch(0xffffff);
+	//signals.fogParametersChanged.dispatch( oldFogNear,oldFogFar,oldFogDensity );
 
 	// object picking
 
@@ -224,6 +237,14 @@ var Viewport = function ( editor ) {
 	} );
 
 	// signals
+
+	signals.rendererColorChanged.add( function ( renderColor ) {
+
+		rendererBackgroundColor = renderColor;
+
+		render();
+
+	} );
 
 	signals.editorCleared.add( function () {
 
@@ -536,8 +557,9 @@ var Viewport = function ( editor ) {
 
 	var clearColor;
 	var renderer = createRenderer( editor.config.getKey( 'renderer' ), editor.config.getKey( 'renderer/antialias' ) );
+	
 	container.dom.appendChild( renderer.domElement );
-
+	signals.rendererColorChanged.dispatch(0xffffff);
 	animate();
 
 	//
@@ -614,6 +636,7 @@ var Viewport = function ( editor ) {
 		scene.updateMatrixWorld();
 
 		renderer.clear();
+		renderer.setClearColor(rendererBackgroundColor);		
 		renderer.render( scene, camera );
 
 		if ( renderer instanceof THREE.RaytracingRenderer === false ) {

@@ -65,7 +65,9 @@ var Editor = function () {
 		fogParametersChanged: new SIGNALS.Signal(),
 		windowResize: new SIGNALS.Signal(),
 
-		showGridChanged: new SIGNALS.Signal()
+		showGridChanged: new SIGNALS.Signal(),
+
+		rendererColorChanged: new SIGNALS.Signal()
 
 	};
 

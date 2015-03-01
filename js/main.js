@@ -1,4 +1,4 @@
-window.URL = window.URL || window.webkitURL;
+			window.URL = window.URL || window.webkitURL;
 			window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
 
 			var editor = new Editor();
@@ -16,7 +16,7 @@ window.URL = window.URL || window.webkitURL;
 			document.body.appendChild(sidebar.dom);
 
 			var vc = new ViewportContainers(editor);
-			document.body.appendChild(vc.dom);			
+			document.body.appendChild(vc.dom);	
 
 			// $('.icon-container').on('mouseenter', 'option', function(e) {
 			// 	console.log("Touched");
