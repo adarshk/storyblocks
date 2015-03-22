@@ -5,6 +5,16 @@
 			<title></title>
 			<meta charset="utf-8">
 			<meta name-"viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+			<link rel="stylesheet" type="text/css" href="css/main.css">
+			<link id="theme" href="css/light.css" rel="stylesheet" />
+
+			<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+			<link rel="stylesheet" href="css/modal.css">
+
+			<link rel="stylesheet" type="text/css" href="js/vendor/codemirror/codemirror.css">
+			<link rel="stylesheet" type="text/css" href="js/vendor/codemirror/theme/monokai.css">
 		</head>
 		<body>
 
@@ -23,11 +33,11 @@
 			        <div class="btn-group">
 
 			        <div id="linear-img">
-			  			<img class="one-edge-shadow" src="images/swipe.png" style="float: left; margin-left: 8%; margin-right: 2%;"  width="40%";height="40%" class="img-responsive img-rounded" alt="Responsive image">
+			  			<img class="one-edge-shadow" src="assets/swipe.png" style="float: left; margin-left: 8%; margin-right: 2%;"  width="40%";height="40%" class="img-responsive img-rounded" alt="Responsive image">
 			  		</div>
 
 			  		<div id="full_img">
-			  			<img src="images/infographics.png" style="float: right; margin-left: 1%; margin-right: 4%;" width="40%";height="40%" class="img-responsive img-rounded" alt="Responsive image">
+			  			<img src="assets/infographics.png" style="float: right; margin-left: 1%; margin-right: 4%;" width="40%";height="40%" class="img-responsive img-rounded" alt="Responsive image">
 			  		</div>
 			</div>
 			      </div>
@@ -39,27 +49,21 @@
 			  </div>
 			</div>
 
-			<link rel="stylesheet" type="text/css" href="css/main.css">
-			<link id="theme" href="css/light.css" rel="stylesheet" />
-
-			<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-			<link rel="stylesheet" href="css/modal.css">
-			<script src="js/jquery/jquery.min.js"></script>
+			
+			<script src="js/vendor/jquery.min.js"></script>
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 			<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
 
 
-			<script src="build/three.js"></script>
+			
+			<script src="js/vendor/d3.min.js"></script>
+			<script src="js/vendor/three.js"></script>
 			<script src="examples/js/libs/system.min.js"></script>
+			<script src="js/vendor/Detector.js"></script>
 
-
-			<!--script src="build/d3.min.js"></script>
-			<script src="build/d3-threeD.js"></script>
-			<script src="build/ThreeCSG.js"></script>
-			<script src="build/Detector.js"></script>
-			<script src="build/tween.js"></script-->
+			
+			
 
 			<script src="examples/js/controls/EditorControls.js"></script>
 			<script src="examples/js/controls/TransformControls.js"></script>
@@ -69,62 +73,77 @@
 			<script src="examples/js/renderers/RaytracingRenderer.js"></script>
 
 
-			<link rel="stylesheet" type="text/css" href="js/libs/codemirror/codemirror.css">
-			<link rel="stylesheet" type="text/css" href="js/libs/codemirror/theme/monokai.css">
-			<script src="js/libs/codemirror/codemirror.js"></script>
-			<script src="js/libs/codemirror/mode/javascript.js"></script>
+			<script src="js/vendor/d3-threeD.js"></script>
+			<script src="js/vendor/ThreeCSG.js"></script>
+			
+			<script src="js/vendor/tween.js"></script>
 
-			<script src="js/libs/signals.min.js"></script>
 
-			<script src="js/libs/ui.js"></script>
-			<script src="js/libs/ui.three.js"></script>
-			<script src="js/libs/ui.media.js"></script>
-			<script src="js/libs/ui.states.js"></script>
+			
+			<script src="js/vendor/codemirror/codemirror.js"></script>
+			<script src="js/vendor/codemirror/mode/javascript.js"></script>
 
-			<script src="js/libs/app.js"></script>
-			<script src="js/Player.js"></script>
-			<script src="js/Script.js"></script>
-			<!--script src="js/Storage.js"></script-->
+			<script src="js/vendor/signals.min.js"></script>
 
-			<script src="js/Editor.js"></script>
-			<script src="js/Config.js"></script>
-			<script src="js/Loader.js"></script>
+			<script src="js/views/ui.js"></script>
+			<script src="js/views/ui.three.js"></script>
+			<script src="js/views/ui.media.js"></script>
+			<script src="js/views/ui.states.js"></script>
 
-			<!--script src="js/Menubar.js"></script>
-			<script src="js/Sidebar.js"></script>
-			<script src="js/Toolbar.js"></script-->
+			<script src="js/render/app.js"></script>
+			<script src="js/render/Player.js"></script>
+			<script src="js/views/Script.js"></script>
+			<!--script src="js/utils/Storage.js"></script-->
 
-			<script src="js/Sidebar.js"></script>
-			<!--script src="js/Sidebar.Properties.js"></script-->
-			<script src="js/Sidebar.Forms.js"></script>
-			<script src="js/Sidebar.States.js"></script>
-			<script src="js/Viewport.js"></script>
-			<script src="js/Viewport.Info.js"></script>
-			<script src="js/ViewportContainers.js"></script>
+			<script src="js/utils/Editor.js"></script>
+			<script src="js/utils/Config.js"></script>
+			<script src="js/utils/Loader.js"></script>
 
-			<!--script src="js/modal.js"></script-->
+			<!--script src="js/views/menubar/Menubar.js"></script>
+			<script src="js/views/sidebar/Sidebar.js"></script>
+			<script src="js/views/toolbar/Toolbar.js"></script-->
+
+			<script src="js/views/sidebar/Sidebar.js"></script>
+			<!--script src="js/views/sidebar/Sidebar.Properties.js"></script-->
+			<script src="js/views/sidebar/Sidebar.Forms.js"></script>
+			<script src="js/views/sidebar/Sidebar.States.js"></script>
+			<script src="js/render/Viewport.js"></script>
+			<script src="js/render/Viewport.Info.js"></script>
+			<script src="js/render/ViewportContainers.js"></script>
+
+			<script src="js/views/modal.js"></script>
 			<script src="js/main.js"></script>
 
+			<script src="js/render/map.js"></script>
 
-			<script>
+			<script src="js/vendor/interact.js"></script>
 
-				$(function() {
-				    $('body').on('mousedown', '.icon-container', function() {
-				        $(this).addClass('draggable').parents().on('mousemove', function(e) {
-				            $('.draggable').offset({
-				                top: e.pageY - $('.draggable').outerHeight() / 2,
-				                left: e.pageX - $('.draggable').outerWidth() / 2
-				            }).on('mouseup', function() {
-				                $(this).removeClass('draggable');
-				            });
-				        });
-				        e.preventDefault();
-				    }).on('mouseup', function() {
-				        $('.draggable').removeClass('draggable');
-				    });
-				});
 
-			</script>
+			<!--div class="list-group event">
+			  <a href="#" class="list-group-item active">
+			    New York
+			  </a>
+			  <a href="#" class="list-group-item">London</a>
+			  <a href="#" class="list-group-item">Morbi leo risus</a>
+			  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+			  <a href="#" class="list-group-item">Vestibulum at eros</a>
+			</div-->
+
+			<!--p class="event">
+				The Supreme Court has become a more partisan institution in recent decades, more closely resembling the other branches of government than it once did. This week will start to show just how partisan the court has become.
+
+On Wednesday, it will hear arguments in the latest challenge to the health care law, a case that has received less attention than the 2012 challenge did but also is of great consequence. Of the 10 million people who have health insurance thanks to the law, the court could effectively take it from about five million of them.
+
+There are few if any historical precedents for a rollback of the social safety net as large as this one would be. Social Security, Medicare and the minimum wage were never extended to millions of people and then withdrawn. This case, King v. Burwell, has the potential by next year to reduce the number of Americans with health insurance by eight million — the equivalent of the entire population of Virginia.
+
+Continue reading the main story
+RELATED COVERAGE
+
+Arguments before the Supreme Court next week could decide the viability of Obamacare plans in many states. The New Health Care: How an Adverse Supreme Court Ruling Would Send Obamacare Into a TailspinFEB. 27, 2015
+Video Feature: King v. Burwell: A Quick Take on a Crucial CaseFEB. 25, 2015
+graphic The Potential Impact of the Supreme Court’s Decision on Health Care SubsidiesMARCH 3, 2015
+If it happens, the decision is most likely to be along sharply partisan lines, with the five Republican-appointed justices voting one way and the four Democratic-appointed justices the other.
+</p -->
 
 
 		</body>

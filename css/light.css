@@ -31,6 +31,7 @@ input.Number {
 	top: 0px;
 	left: 0px;
 	right: 300px;
+	/*bottom: 50%;*/
 	bottom: 0px;
 }
 
@@ -125,7 +126,7 @@ input.Number {
 	bottom: 0px;
 	width: 300px;
 	background: #eee;
-	overflow: auto;
+	/*overflow: auto;*/
 }
 
 	#sidebar * {
@@ -196,7 +197,7 @@ input.Number {
 	}
 
 
-.icon-container{
+.icon-container .col-md-4{
 
 	display: inline-block;
     /*border: 1px solid #ccc;*/
@@ -238,11 +239,19 @@ input.Number {
 }*/
 
 
-/*#ViewportContainers {
+#ViewportContainers {
 	position: absolute;
-	top: 32px;
+	top: 0px;
 	left: 0px;
 	right: 300px;
-	bottom: 32px;
+	bottom: 50%;
 	background: rgba(255,255,255,0);
-}*/
+}
+
+.event{
+	position: absolute;
+	top: 50%;
+	left: 200px;
+	right: 40%;
+	bottom: 0px;
+}

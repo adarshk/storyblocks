@@ -32,7 +32,8 @@
    //  		});
 
 			
-						editor.setTheme( editor.config.getKey( 'theme' ) );
+			//editor.setTheme( editor.config.getKey( 'theme' ) );
+			editor.setTheme( '/css/light.css' );
 
 			/*editor.storage.init( function () {
 

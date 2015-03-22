@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>StoryBlocks</title>
+
+    <link rel="stylesheet" type="text/css" href="/js/react/common/app.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link id="theme" href="/css/light.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/modal.css">
+
+    <link rel="stylesheet" type="text/css" href="/js/vendor/codemirror/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="/js/vendor/codemirror/theme/monokai.css">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <script src="/js/vendor/jquery.min.js"></script>
+    <script src="/js/vendor/bootstrap/bootstrap.min.js"></script>
+
+    <script src="/js/vendor/d3.min.js"></script>
+    <script src="/js/vendor/three.js"></script>
+    <script src="/examples/js/libs/system.min.js"></script>
+    <script src="/js/vendor/Detector.js"></script>
+    <script src="/js/vendor/d3-threeD.js"></script>
+    <script src="/js/vendor/ThreeCSG.js"></script>
+    <script src="/js/vendor/tween.js"></script>
+
+    <script src="/examples/js/controls/EditorControls.js"></script>
+    <script src="/examples/js/controls/TransformControls.js"></script>
+    <script src="/examples/js/controls/OrbitControls.js"></script>
+
+    <script src="/examples/js/renderers/Projector.js"></script>
+    <script src="/examples/js/renderers/RaytracingRenderer.js"></script>
+
+    <script src="/js/vendor/codemirror/codemirror.js"></script>
+    <script src="/js/vendor/codemirror/mode/javascript.js"></script>
+    <script src="/js/vendor/signals.min.js"></script>
+    <script src="/js/vendor/interact.js"></script>
+
+    
+
+
+    <script src="/js/render/app.js"></script>
+    <script src="/js/render/Player.js"></script>
+
+    <script src="/js/render/Viewport.js"></script>
+    <script src="/js/render/Viewport.Info.js"></script>
+    <script src="/js/render/ViewportContainers.js"></script>
+
+    <script src="/js/render/map.js"></script>
+
+
+
+    <!--script src="js/utils/Storage.js"></script-->
+
+    <script src="/js/utils/Editor.js"></script>
+    <script src="/js/utils/Config.js"></script>
+    <script src="/js/utils/Loader.js"></script>
+
+    <script src="/js/views/ui.js"></script>
+    <script src="/js/views/ui.three.js"></script>
+    <script src="/js/views/ui.media.js"></script>
+    <script src="/js/views/ui.states.js"></script>
+
+    <script src="/js/views/Script.js"></script>
+
+
+    <script src="/js/views/sidebar/Sidebar.js"></script>
+    <!--script src="js/views/sidebar/Sidebar.Properties.js"></script-->
+    <script src="/js/views/sidebar/Sidebar.Forms.js"></script>
+    <script src="/js/views/sidebar/Sidebar.States.js"></script>
+
+    <script src="/js/views/modal.js"></script>
+
+    <!--script src="/js/react/common/touch-emulator.js"></script-->
+    <!--script type="text/javascript">
+      TouchEmulator();
+    </script-->
+  </head>
+  
+
+  <body>
+
+    
+    <script src="/js/main.js"></script>
+
+    <div id="main"></div>
+    <script src="/build/app.js"></script>
+
+    <script>
+        //Experiments
+        var scene = editor.scene;
+        var mainid = document.getElementById("main");
+        var canvas2d = mainid.children[0];
+        var ctx2d = canvas2d.getContext('2d');
+
+        var texture2d = new THREE.Texture(canvas2d) 
+        texture2d.needsUpdate = true;
+
+        var spriteMaterial2d = new THREE.SpriteMaterial( 
+          { map: texture2d, useScreenCoordinates: false} );
+        var sprite2d = new THREE.Sprite( spriteMaterial2d );
+        sprite2d.scale.set(400,100,1.0);
+        scene.add(sprite2d);
+        // return sprite;  
+    </script>
+
+  </body>
+</html>
