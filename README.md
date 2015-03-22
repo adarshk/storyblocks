@@ -4,4 +4,4 @@ Thesis! (in Progress)
 
 1. npm install
 2. npm start
-3. Go to http://localhost:3000/
+3. Go to localhost:3000/
