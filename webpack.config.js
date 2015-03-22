@@ -20,7 +20,7 @@ module.exports = {
   resolve: {
     root: __dirname,
     alias: {
-      'react-canvas': 'lib/ReactCanvas.js'
+      'react-canvas': 'react-canvas/ReactCanvas.js'
     }
   }
 };
