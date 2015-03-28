@@ -115,7 +115,8 @@ UI.Media.prototype.addIcon = function(formName){
 
 	var col6 = document.createElement('div');
 	// col6.className = 'col-sm-4';
-	col6.className = 'col-md-4';
+	// col6.className = 'col-md-4';
+	// col6.className = formName + 'Container';
 
 	var col4 = document.createElement('div');
 	col4.className = 'col-md-4';
@@ -155,12 +156,12 @@ UI.Media.prototype.addIcon = function(formName){
 
 
 
-	if (formName === 'area-chart' || formName === 'map-marker'){
-		icon.className = 'fa fa-' + formName+ ' fa-4x';
-	}
-	else{
-		icon.className = 'fa fa-file-' + formName+ '-o fa-4x';
-	}
+	// if (formName === 'area-chart' || formName === 'map-marker'){
+	// 	icon.className = 'fa fa-' + formName+ ' fa-4x';
+	// }
+	// else{
+	// 	icon.className = 'fa fa-file-' + formName+ '-o fa-4x';
+	// }
 	icon.id = formName;
 	
 

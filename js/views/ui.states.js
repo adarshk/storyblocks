@@ -74,7 +74,7 @@ UI.States.prototype.addIcon = function(stateName){
 	this.dom.id = stateName + '-container';
 
 	var col6 = document.createElement('div');
-	col6.className = 'col-md-4';
+	// col6.className = 'col-md-4';
 
 	var col4 = document.createElement('div');
 	col4.className = 'col-md-4';

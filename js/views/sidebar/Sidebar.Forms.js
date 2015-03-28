@@ -18,14 +18,14 @@ Sidebar.Forms = function(editor){
 	});
 
 
-	var formNames = ['map-marker', 'area-chart', 'text', 'image','video'];
-	// var formNames = ['Map', 'Chart', 'Text', 'Image','Video'];
+	// var formNames = ['map-marker', 'area-chart', 'text', 'image','video'];
+	var formNames = ['Map', 'Chart', 'Text', 'Image','Video'];
 
 	container.addStatic(new UI.Text('Forms'));
 	container.add(new UI.Break());
 
 		editor.signals.elementDragnDrop.add(function(elementId){
-		if(elementId == 'map-marker'){
+		if(elementId == 'Map'){
 			var map = new Map();
 			var country = new Country(map,data,editor);
 			var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.1 );
