@@ -197,23 +197,6 @@ input.Number {
 	}
 
 
-.icon-container .col-md-4{
-
-	display: inline-block;
-    /*border: 1px solid #ccc;*/
-    border-radius: 6px;
-    /*margin: 60px;*/
-    padding: 20px;
-}
-
-.states-container .col-md-4{
-
-	display: inline-block;
-    /*border: 1px solid #ccc;*/
-    border-radius: 6px;
-    /*margin: 60px;*/
-    padding: 20px;
-}
 
 .fa{
 	/*vertical-align: middle;*/
