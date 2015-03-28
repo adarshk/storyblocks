@@ -1,0 +1,92 @@
+
+
+
+Sidebar.Container = function(editor){
+
+	var signals = editor.signals;
+
+
+
+	var container = new UI.CollapsiblePanel();
+
+	container.setCollapsed(editor.config.getKey('ui/sidebar/forms/collapsed'));
+
+	container.onCollapsedChange(function(boolean){
+
+		editor.config.setKey('ui/sidebar/forms/collapsed',boolean);
+
+	});
+
+
+
+
+	container.addStatic(new UI.Text('Containter'));
+	container.add(new UI.Break());
+
+
+	var mainContainer = new UI.Container();
+
+	mainContainer.appendIcon();
+	container.add(mainContainer);
+
+	mainContainer.onMouseOver(function() {
+
+		// mapBox.dom.background = '#72FFE6';
+		$('#container-icon').css('background','#72FFE6');
+
+	});
+
+	mainContainer.onMouseOut(function() {
+
+		// mapBox.dom.background = '#72FFE6';
+		$('#container-icon').css('background','');
+
+	});
+
+		// interact('.'+'fa-'+formNames[0])
+			interact('#container-icon')
+				.draggable({
+				inertia: true,
+				restrict: {
+				      restriction: 'parent',
+				      endOnly: true,
+				      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+				    },
+				    onmove: function (event) {
+				    var target = event.target;
+					x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+					y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+				target.style.webkitTransform =
+				target.style.transform =
+					'translate(' + x + 'px, ' + y + 'px)';
+
+				      // update the posiion attributes
+				      target.setAttribute('data-x', x);
+				      target.setAttribute('data-y', y);
+				    },
+
+			})
+
+
+
+
+	editor.signals.elementDragnDrop.add(function(elementId){
+		if(elementId == 'container-icon'){
+
+			var freeContainer = new FreeContainer(editor);
+			document.body.appendChild(freeContainer.dom);
+
+		}
+	});
+
+
+
+	container.add(new UI.Break());
+
+
+
+	return container;
+
+
+
+};
