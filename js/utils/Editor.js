@@ -69,7 +69,9 @@ var Editor = function () {
 
 		rendererColorChanged: new SIGNALS.Signal(),
 
-		elementDragnDrop: new SIGNALS.Signal()
+		//myDefinitions
+		elementDragnDrop: new SIGNALS.Signal(),
+
 
 	};
 
