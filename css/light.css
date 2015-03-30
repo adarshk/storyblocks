@@ -126,6 +126,7 @@ input.Number {
 	bottom: 0px;
 	width: 300px;
 	background: #eee;
+	z-index: 1;
 	/*overflow: auto;*/
 }
 

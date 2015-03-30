@@ -57,6 +57,10 @@ Sidebar.Forms = function(editor){
 			country.addObject();
 
 		}
+
+		if(elementId == 'Text'){
+
+		}
 	});
 
 
