@@ -1,6 +1,4 @@
 
-
-
 Sidebar.Container = function(editor){
 
 	var signals = editor.signals;
@@ -86,10 +84,21 @@ Sidebar.Container = function(editor){
 	editor.signals.elementDragnDrop.add(function(elementId){
 		if(elementId == 'container-icon'){
 
-			var freeContainer = new FreeContainer(editor);
-			document.body.appendChild(freeContainer);
-			editor.signals.addInteractToContainer.dispatch(freeContainer);
-			editor.signals.addDragToContainer.dispatch(freeContainer);
+			function addFreeContainer(callback){
+				var freeContainer = new FreeContainer(editor);
+				$('body').append(freeContainer);
+
+				callback(freeContainer);
+			}
+
+			function sendSignal(freeContainer) {
+				editor.signals.addInteractToContainer.dispatch(freeContainer.id);
+				editor.signals.addDragToContainer.dispatch(freeContainer);
+			}
+
+			addFreeContainer(sendSignal);
+
+
 		}
 	});
 

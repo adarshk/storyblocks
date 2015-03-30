@@ -35,19 +35,3 @@ interact('#viewport').dropzone({
 			}
 
 		});
-
-
-
-
-// interact('#'+divContainer.id).dropzone({
-//           ondropactivate: function (event) {
-//               console.log(event.relatedTarget.id);
-//               // editor.signals.elementDragnDrop.dispatch(event.relatedTarget.id);
-
-//             },
-
-//           ondrop : function (event){
-//             console.log(event);
-//           }
-
-//     });
