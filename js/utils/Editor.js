@@ -71,6 +71,9 @@ var Editor = function () {
 
 		//myDefinitions
 		elementDragnDrop: new SIGNALS.Signal(),
+		addInteractToContainer: new SIGNALS.Signal(),
+		addDragToContainer: new SIGNALS.Signal(),
+		deleteFreeContainer: new SIGNALS.Signal(),
 
 
 	};

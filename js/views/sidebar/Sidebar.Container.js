@@ -24,22 +24,35 @@ Sidebar.Container = function(editor){
 	container.add(new UI.Break());
 
 
-	var mainContainer = new UI.Container();
+	var mainContainer = new UI.Panel();
+	mainContainer.setClass("sidebar-container");
+
+	var col6 = document.createElement('div');
+
 	
-	mainContainer.appendIcon();
+	var icon = document.createElement('span');
+	icon.className = 'fa fa-square-o fa-4x';
+	
+	icon.id = 'container-icon';
+    col6.appendChild(icon);
+
+
+    mainContainer.dom.appendChild(col6);
+	
+	// mainContainer.appendIcon();
 	container.add(mainContainer);
 
 	mainContainer.onMouseOver(function() {
 
 		// mapBox.dom.background = '#72FFE6';				
-		$('#container-icon').css('background','#72FFE6');
+		$('.sidebar-container').css('background','#72FFE6');
 
 	});
 
 	mainContainer.onMouseOut(function() {
 
 		// mapBox.dom.background = '#72FFE6';				
-		$('#container-icon').css('background','');
+		$('.sidebar-container').css('background','');
 
 	});
 
@@ -74,8 +87,9 @@ Sidebar.Container = function(editor){
 		if(elementId == 'container-icon'){
 
 			var freeContainer = new FreeContainer(editor);
-			document.body.appendChild(freeContainer.dom);
-
+			document.body.appendChild(freeContainer);
+			editor.signals.addInteractToContainer.dispatch(freeContainer);
+			editor.signals.addDragToContainer.dispatch(freeContainer);
 		}
 	});
 

@@ -231,7 +231,7 @@ input.Number {
 	background: rgba(255,255,255,0);
 }
 
-#freeContainer {
+.free-container {
 	position: absolute;
 	top: 50%;
 	left: 30%;
@@ -239,6 +239,31 @@ input.Number {
 	bottom: 10%;
 	background: rgba(0,255,255,0);
 	outline: 1px dashed red;
+}
+
+.ui-container {
+	position: absolute;
+    height: auto;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-right: 10px;
+	
+}
+
+.free-container-cross {
+	position: relative;
+	display:block;
+    height: auto;
+    bottom: 90%;
+    top: 0;
+    left: 0;
+    right: 0;
+    float:right;
+    margin-left:auto; 
+    margin-right:15px;
+    margin-top:15px;
 }
 
 .event{
