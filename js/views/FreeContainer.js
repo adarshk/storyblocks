@@ -59,12 +59,12 @@ var FreeContainer = function ( editor ) {
               },
               // call this function on every dragend event
               onend: function (event) {
-                var textEl = event.target.querySelector('p');
+                /*var textEl = event.target.querySelector('p');
 
                 textEl && (textEl.textContent =
                   'moved a distance of '
                   + (Math.sqrt(event.dx * event.dx +
-                               event.dy * event.dy)|0) + 'px');
+                               event.dy * event.dy)|0) + 'px');*/
               }
               
             }).resizable({
@@ -115,6 +115,8 @@ var FreeContainer = function ( editor ) {
             console.log('drag leave');
             console.log(event);
             event.target.style.background = '';
+            $(event.target.children[0]).append('<p>Start typing here ...</p>');
+            // console.log(event.target.children[0]);
             // event.target.classList.add('drop-activated');
             });
       });

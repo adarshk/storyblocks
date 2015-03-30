@@ -15,7 +15,7 @@
 
 			var sidebar = new Sidebar(editor);
 			document.body.appendChild(sidebar.dom);
-			$('#'+sidebar.dom.id).css('z-index','1');
+			// $('#'+sidebar.dom.id).css('z-index','1');
 
 			var toolbar = new Toolbar(editor);
 			document.body.appendChild(toolbar.dom);
