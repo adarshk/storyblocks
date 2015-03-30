@@ -50,7 +50,7 @@ var Toolbar = function ( editor ) {
 	buttons.add( local );
 	buttons.add( new UI.Text( 'local' ) );
 
-	var showGrid = new UI.Checkbox().onChange( update ).setValue( true );
+	var showGrid = new UI.Checkbox().onChange( update ).setValue( false );
 	buttons.add( showGrid );
 	buttons.add( new UI.Text( 'show' ) );
 
