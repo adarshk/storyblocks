@@ -22,11 +22,21 @@ var FreeContainer = function ( editor ) {
 		$("#"+containerDelete.id).remove();
 	});
 
+  editor.signals.resizeContainer.add(function(containerResize) {
+
+    $("#"+containerResize.id).resize();
+  });
+
 	var divContainer = document.createElement('div');
 	divContainer.appendChild(container.dom);
 	divContainer.className = "free-container";
 	divContainer.id = 'A'+THREE.Math.generateUUID().toString();
 	divContainer.appendChild(icon.dom);
+
+  icon.onClick(function() {
+    editor.signals.deleteFreeContainer.dispatch(this.dom.parentNode);
+
+  });
 
         editor.signals.addInteractToContainer.add(function(cntrId){
 
@@ -34,6 +44,7 @@ var FreeContainer = function ( editor ) {
             .draggable({
               // enable inertial throwing
               inertia: true,
+              manualStart  : true,
               // keep the element within the area of it's parent
               restrict: {
                 restriction: "parent",
@@ -88,6 +99,38 @@ var FreeContainer = function ( editor ) {
                                         + offset.y + 'px)');
 
               // target.textContent = event.rect.width + '×' + event.rect.height;
+            }).on('hold', function (event) {
+                  var interaction = event.interaction;
+
+                  if (!interaction.interacting()) {
+                    interaction.start({ name: 'drag' },
+                                      event.interactable,
+                                      event.currentTarget);
+                  }
+              });
+
+            $('#'+cntrId).mouseover(function(event) {
+
+
+              if( event.currentTarget.children[3]){
+                event.preventDefault();
+                console.log(event.currentTarget.children);
+
+                console.log($('.wysihtml5-sandbox').contents().find('body'));
+                $(this).find('.wysihtml5-sandbox').contents().find('body').focus();
+                //$('#'+event.currentTarget.children[3].id).focus();
+
+                // $(event.currentTarget.children[3]).focus();
+
+                //$(event.currentTarget.children[3]).autofocus = false;
+                //$(event.currentTarget.children[3]).autofocus = true;
+                // console.log(event);
+                // console.log(event.currentTarget.children[4]);
+              }
+              // $('#'+event.target.).focus();
+                // $('#'+commentid).wysihtml5.Editor().focus();
+                // $('#'+commentid).focus();
+                // $('#'+commentid)[0].accessKey = '8';
             });
 
     });
@@ -115,11 +158,102 @@ var FreeContainer = function ( editor ) {
             console.log('drag leave');
             console.log(event);
             event.target.style.background = '';
-            $(event.target.children[0]).append('<p>Start typing here ...</p>');
+            //$(event.target.children[0]).append('<p>Start typing here ...</p>');
+
+            if (event.relatedTarget.id == 'Text') {
+            var commentid = event.target.id + '-comment';
+            console.log(commentid);
+            $(event.target).append('<textarea class="form-control" autofocus="" rows="5" id="' + commentid +'"></textarea>');
+            $('#'+commentid).wysihtml5();
+          }
+
+          if (event.relatedTarget.id == 'Chart') {
+
+              var data = [4, 8, 15, 16, 23, 42];
+
+              var x = d3.scale.linear()
+                  .domain([0, d3.max(data)])
+                  .range([0, 420]);
+              $(event.target).append('<div class="d3Chart"></div>');
+
+                var dReturn = d3.select('#'+event.target.id)
+                .selectAll(".d3Chart")
+                  .data(data)
+                .enter().append("div")
+                  .style("width", function(d) { return x(d) + "px"; })
+                  .style('font', 'font: 10px sans-serif')
+                  .style('background-color', 'steelblue')
+                  .style('text-align', 'right')
+                  .style('padding', '3px')
+                  .style('margin', '1px')
+                  .style('color', 'white')
+                  .text(function(d) { return d; });
+
+                  /*console.log('dReturn',dReturn);
+                  var styleProps = $( dReturn[0]).css([
+                         "background-color"
+                      ]);
+
+                  $.each( styleProps, function( prop, value ) {
+                      html.push( prop + ": teal" );
+                    });*/
+
+                  // $( dReturn ).css('background-color','teal');
+                  /*var styleProps = $( dReturn ).css([
+                        "font", "height", "color", "background-color"
+                      ]);
+
+                    $.each( styleProps, function( prop, value ) {
+                      html.push( prop + ": " + value );
+                    });*/
+                  // $(event.target).css('','');
+
+              /*.chart div {
+              font: 10px sans-serif;
+              background-color: steelblue;
+              text-align: right;
+              padding: 3px;
+              margin: 1px;
+              color: white;
+              }*/
+          }
+
+          if (event.relatedTarget.id == 'Image') {
+                console.log('Image');
+                var commentid = event.target.id + '-Image';
+                console.log(commentid);
+                $(event.target).append('<img src="http://images5.fanpop.com/image/photos/28700000/Elephant-elephants-28788752-1024-768.jpg" id="' + commentid +'"></img>');
+                /*$(event.target).append('<textarea class="form-control" autofocus="" rows="5" id="' + commentid +'"></textarea>');
+                $('#'+commentid).wysihtml5({
+                  toolbar: {
+                    "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+                    "emphasis": false, //Italics, bold, etc. Default true
+                    "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                    "html": false, //Button which allows you to edit the generated HTML. Default false
+                    "link": false, //Button to insert a link. Default true
+                    "image": true, //Button to insert an image. Default true,
+                    "color": false, //Button to change color of font
+                    "blockquote": false, //Blockquote
+                    }
+              });*/
+
+
+              editor.signals.resizeContainer.dispatch(cntr);
+          }
+
+
+
+            /*$('.wysihtml5-sandbox').contents().find('body').on("keydown",function() {
+              console.log("Handler for .keypress() called.");
+              });*/
+
+
             // console.log(event.target.children[0]);
             // event.target.classList.add('drop-activated');
             });
       });
+
+
 
 	return divContainer;
 

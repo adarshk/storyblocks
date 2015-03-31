@@ -58,9 +58,6 @@ Sidebar.Forms = function(editor){
 
 		}
 
-		if(elementId == 'Text'){
-
-		}
 	});
 
 
