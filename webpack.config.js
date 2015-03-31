@@ -4,7 +4,8 @@ module.exports = {
   watch: true,
 
   entry: {
-    'app': ['./js/react/app.js']
+    'app': ['./js/react/app.js'],
+    'example': ['./js/react/example.js']
   },
 
   output: {

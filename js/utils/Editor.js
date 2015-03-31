@@ -74,6 +74,7 @@ var Editor = function () {
 		addInteractToContainer: new SIGNALS.Signal(),
 		addDragToContainer: new SIGNALS.Signal(),
 		deleteFreeContainer: new SIGNALS.Signal(),
+		resizeContainer: new SIGNALS.Signal(),
 
 
 	};
