@@ -44,7 +44,7 @@ var FreeContainer = function ( editor ) {
             .draggable({
               // enable inertial throwing
               inertia: true,
-              manualStart  : true,
+              manualStart  : false,
               // keep the element within the area of it's parent
               restrict: {
                 restriction: "parent",
@@ -99,7 +99,7 @@ var FreeContainer = function ( editor ) {
                                         + offset.y + 'px)');
 
               // target.textContent = event.rect.width + '×' + event.rect.height;
-            }).on('hold', function (event) {
+            });/*.on('hold', function (event) {
                   var interaction = event.interaction;
 
                   if (!interaction.interacting()) {
@@ -107,7 +107,7 @@ var FreeContainer = function ( editor ) {
                                       event.interactable,
                                       event.currentTarget);
                   }
-              });
+              });*/
 
             $('#'+cntrId).mouseover(function(event) {
               
@@ -163,8 +163,22 @@ var FreeContainer = function ( editor ) {
             if (event.relatedTarget.id == 'Text') {
             var commentid = event.target.id + '-comment';
             console.log(commentid);
+
             $(event.target).append('<textarea class="form-control" autofocus="" rows="5" id="' + commentid +'"></textarea>');
-            $('#'+commentid).wysihtml5();
+            $('#'+commentid).html('Start typing here ... ');
+            $('#'+commentid).wysihtml5({
+                  
+                    "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+                    "emphasis": true, //Italics, bold, etc. Default true
+                    "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                    "html": true, //Button which allows you to edit the generated HTML. Default false
+                    "link": true, //Button to insert a link. Default true
+                    "image": true, //Button to insert an image. Default true,
+                    "color": true, //Button to change color of font  
+                    "blockquote": true, //Blockquote  
+                  
+              });
+            //$('#'+commentid).wysihtml5();
           }
 
           if (event.relatedTarget.id == 'Chart') {
@@ -222,7 +236,7 @@ var FreeContainer = function ( editor ) {
                 console.log('Image');
                 var commentid = event.target.id + '-Image';
                 console.log(commentid);
-                $(event.target).append('<img src="http://images5.fanpop.com/image/photos/28700000/Elephant-elephants-28788752-1024-768.jpg" id="' + commentid +'"></img>');
+                $(event.target).append('<img src="http://www.eonline.com/eol_images/Entire_Site/201438/rs_560x415-140408154504-1024.baby-elephant-grass.ls.4814.jpg" id="' + commentid +'"></img>');
                 /*$(event.target).append('<textarea class="form-control" autofocus="" rows="5" id="' + commentid +'"></textarea>');
                 $('#'+commentid).wysihtml5({
                   toolbar: {
