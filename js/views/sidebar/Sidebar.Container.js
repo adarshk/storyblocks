@@ -85,7 +85,7 @@ Sidebar.Container = function(editor){
 		if(elementId == 'container-icon'){
 
 			function addFreeContainer(callback){
-				var freeContainer = new FreeContainer(editor);
+				var freeContainer = new FreeContainer(editor,'free-container');
 				$('body').append(freeContainer);
 
 				callback(freeContainer);
@@ -93,7 +93,7 @@ Sidebar.Container = function(editor){
 
 			function sendSignal(freeContainer) {
 				editor.signals.addInteractToContainer.dispatch(freeContainer.id);
-				editor.signals.addDragToContainer.dispatch(freeContainer);
+				editor.signals.addDragnDropToContainer.dispatch(freeContainer);
 			}
 
 			addFreeContainer(sendSignal);

@@ -1,4 +1,4 @@
-$(window).load(function() {
+/*$(window).load(function() {
 
 
 	var canv = $('#viewport').children();
@@ -12,4 +12,4 @@ $(window).load(function() {
     $(this).addClass('edge-shadow');
 	});
 
-});
+});*/

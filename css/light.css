@@ -268,6 +268,20 @@ input.Number {
     margin-top:15px;
 }
 
+.outnode {
+	position: relative;
+	display:block;
+    height: auto;
+    bottom: 80%;
+    top: 0;
+    left: 0;
+    right: 0;
+    float:right;
+    margin-left:auto;
+    margin-right:15px;
+    margin-top:15px;
+}
+
 .event{
 	position: absolute;
 	top: 50%;

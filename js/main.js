@@ -1,11 +1,15 @@
 			window.URL = window.URL || window.webkitURL;
 			window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
 
+			window.connectedNodes = {};
+
 			var editor = new Editor();
 
 
 			var viewport = new Viewport( editor );
 			document.body.appendChild( viewport.dom );
+
+			
 
 			/*var script = new Script( editor );
 			document.body.appendChild( script.dom );
@@ -15,10 +19,15 @@
 
 			var sidebar = new Sidebar(editor);
 			document.body.appendChild(sidebar.dom);
+
+			// var fc = new FreeContainer(editor);
+			// document.body.appendChild( fc );
 			// $('#'+sidebar.dom.id).css('z-index','1');
 
-			var toolbar = new Toolbar(editor);
-			document.body.appendChild(toolbar.dom);
+			// var toolbar = new Toolbar(editor);
+			// document.body.appendChild(toolbar.dom);
+
+			dispatchers(editor);
 
 			// var freeContainer = new FreeContainer(editor);
 			// document.body.appendChild(freeContainer.dom);
@@ -117,7 +126,26 @@
 
 			//
 
-			document.addEventListener( 'dragover', function ( event ) {
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// Uncomment later
+		/*	document.addEventListener( 'dragover', function ( event ) {
 
 				event.preventDefault();
 				event.dataTransfer.dropEffect = 'copy';
@@ -174,4 +202,4 @@
 
 				}
 
-			}
+			}*/

@@ -72,9 +72,11 @@ var Editor = function () {
 		//myDefinitions
 		elementDragnDrop: new SIGNALS.Signal(),
 		addInteractToContainer: new SIGNALS.Signal(),
-		addDragToContainer: new SIGNALS.Signal(),
+		addDragnDropToContainer: new SIGNALS.Signal(),
 		deleteFreeContainer: new SIGNALS.Signal(),
 		resizeContainer: new SIGNALS.Signal(),
+		updateRelationship: new SIGNALS.Signal(),
+
 
 
 	};

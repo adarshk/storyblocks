@@ -48,3 +48,24 @@ UI.Cross = function(){
 
 UI.Cross.prototype = Object.create(UI.Element.prototype);
 UI.Cross.prototype.constructor = UI.Cross;
+
+
+UI.OutNode = function(){
+
+	UI.Element.call(this);
+
+	var scope = this;
+
+
+	var dom = document.createElement('span');
+	dom.className = "fa fa-arrows-h outnode";
+
+	this.dom = dom;
+
+
+	return this;
+
+};
+
+UI.OutNode.prototype = Object.create(UI.Element.prototype);
+UI.OutNode.prototype.constructor = UI.Cross;
