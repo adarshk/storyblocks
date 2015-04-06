@@ -33,6 +33,8 @@ Interactions:
 ###Demo###
 
 This is a work in progress but the demo will be up soon on my website at adarshk.com and the link will be updated here to reflect that.
+###Sample images###
+![Image]({{ site.url }}/images/FormsAndStates_mixMatch.png)
 
 ###Tech###
 
