@@ -5,11 +5,11 @@ Sidebar.Container = function(editor){
 
 	var container = new UI.CollapsiblePanel();
 
-	container.setCollapsed(editor.config.getKey('ui/sidebar/forms/collapsed'));
+	container.setCollapsed(editor.config.getKey('ui/sidebar/containers/collapsed'));
 
 	container.onCollapsedChange(function(boolean){
 
-		editor.config.setKey('ui/sidebar/forms/collapsed',boolean);
+		editor.config.setKey('ui/sidebar/properties/collapsed',boolean);
 
 	});
 
