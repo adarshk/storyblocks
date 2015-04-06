@@ -61,17 +61,16 @@ Sidebar.Forms = function(editor){
 	});
 
 
+	
 
-
+	
 
 	for (var i = 0; i < formNames.length; i++) {
+		
 
+		(function() {
 
-		addInteract(i);
-	}
-
-	function addInteract(i){
-		var j = i;
+			var j = i;
 
 			var addForm = new UI.Media();
 			addForm.addIcon(formNames[j]);
@@ -99,28 +98,32 @@ Sidebar.Forms = function(editor){
 			// interact('.'+'fa-'+formNames[0])
 			//interact('#'+formNames[0])
 			interact('#'+formIconId)
-				.draggable({
-					inertia: true,
-					restrict: {
-						restriction: 'parent',
-					endOnly: true,
-						elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
-					},
-					onmove: function (event) {
-					var target = event.target;
-						x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-						y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-					target.style.webkitTransform =
-					target.style.transform =
-						'translate(' + x + 'px, ' + y + 'px)';
 
-					// update the posiion attributes
-					target.setAttribute('data-x', x);
-					target.setAttribute('data-y', y);
-					},
+		  		.draggable({
+		    		inertia: true,
+		    		restrict: {
+				      restriction: 'parent',
+				      endOnly: true,
+				      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+				    },
+				    onmove: function (event) {
+				    var target = event.target;
+				    	x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+	          			y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+	          		target.style.webkitTransform =
+	      			target.style.transform =
+	        			'translate(' + x + 'px, ' + y + 'px)';
 
-			});
-	}
+				      // update the posiion attributes
+				      target.setAttribute('data-x', x);
+				      target.setAttribute('data-y', y);
+				    },
+		    		
+		  	})
+
+
+		}())
+	};
 
 
 

@@ -128,7 +128,6 @@ UI.Media.prototype.addIcon = function(formName){
 	// var formNames = ['Map', 'Chart', 'Text', 'Image','Video'];
 	// var formNames = ['map-marker', 'area-chart', 'text', 'image','video'];
 
-
 	if (formName === 'Map'){
 		icon.className = 'fa fa-map-marker fa-4x';
 	}
@@ -151,6 +150,9 @@ UI.Media.prototype.addIcon = function(formName){
 
 	else{
 		icon.className = 'fa fa-file-text-o fa-4x';
+
+	else{
+		icon.className = 'fa fa-file-text-o fa-4x';
 	}
 
 
@@ -163,7 +165,7 @@ UI.Media.prototype.addIcon = function(formName){
 	// 	icon.className = 'fa fa-file-' + formName+ '-o fa-4x';
 	// }
 	icon.id = formName;
-
+	
 
 	var name = document.createElement('p');
 	name.className = 'text-capitalize formname';

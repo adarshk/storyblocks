@@ -9,7 +9,6 @@
 			var viewport = new Viewport( editor );
 			document.body.appendChild( viewport.dom );
 
-			
 
 			/*var script = new Script( editor );
 			document.body.appendChild( script.dom );
@@ -19,6 +18,8 @@
 
 			var sidebar = new Sidebar(editor);
 			document.body.appendChild(sidebar.dom);
+			// $('#'+sidebar.dom.id).css('z-index','1');
+
 
 			// var fc = new FreeContainer(editor);
 			// document.body.appendChild( fc );

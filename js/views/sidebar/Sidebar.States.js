@@ -25,6 +25,7 @@ Sidebar.States = function(editor){
 
 	for (var i = 0; i < stateNames.length; i++) {
 
+		
 
 		(function() {
 
@@ -42,7 +43,8 @@ Sidebar.States = function(editor){
 
 			addState.onMouseOver(function() {
 
-			// mapBox.dom.background = '#72FFE6';
+			// mapBox.dom.background = '#72FFE6';				
+
 			$('#'+stateId).css('background','#72FFE6');
 			$('#'+stateId).attr('title',stateIconId);
 
@@ -50,7 +52,7 @@ Sidebar.States = function(editor){
 
 			addState.onMouseOut(function() {
 
-			// mapBox.dom.background = '#72FFE6';
+			// mapBox.dom.background = '#72FFE6';				
 			$('#'+stateId).css('background','');
 
 			});
@@ -61,32 +63,33 @@ Sidebar.States = function(editor){
 			// interact('.'+'fa-'+stateNames[0])
 			//interact('#'+stateNames[0])
 			interact('#'+stateIconId)
-				.draggable({
-				inertia: true,
-				restrict: {
+
+		  		.draggable({
+		    		inertia: true,
+		    		restrict: {
 				      restriction: 'parent',
 				      endOnly: true,
 				      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
 				    },
 				    onmove: function (event) {
 				    var target = event.target;
-					x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-					y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-				target.style.webkitTransform =
-				target.style.transform =
-					'translate(' + x + 'px, ' + y + 'px)';
+
+				    	x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+	          			y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+	          		target.style.webkitTransform =
+	      			target.style.transform =
+	        			'translate(' + x + 'px, ' + y + 'px)';
 
 				      // update the posiion attributes
 				      target.setAttribute('data-x', x);
 				      target.setAttribute('data-y', y);
 				    },
-
-			})
+		    		
+		  	})
 
 
 		}())
 	};
-
 
 
 	container.add(new UI.Break());

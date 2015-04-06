@@ -154,7 +154,8 @@ textarea, input { outline: none; } /* osx */
     /*border: 1px solid #ccc;*/
     border-radius: 6px;
     /*margin: 60px;*/
-    padding: 20px;
+
+    padding: 20px;	
 }
 
 .fa{

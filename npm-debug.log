@@ -1,0 +1,131 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@1.4.3
+3 info using node@v0.10.26
+4 verbose readDependencies using package.json deps
+5 verbose install where, deps [ '/Users/test/OneDrive/threejs70/StoryBlocks',
+5 verbose install   [ 'scroller',
+5 verbose install     'del',
+5 verbose install     'envify',
+5 verbose install     'gulp',
+5 verbose install     'gulp-connect',
+5 verbose install     'gulp-webpack',
+5 verbose install     'jest-cli',
+5 verbose install     'jsx-loader',
+5 verbose install     'react',
+5 verbose install     'transform-loader',
+5 verbose install     'webpack',
+5 verbose install     'bootstrap3-wysiwyg-npm' ] ]
+6 info preinstall editor-separatedOut@0.0.0
+7 verbose readDependencies using package.json deps
+8 verbose already installed skipping gulp-connect@^2.2.0 /Users/test/OneDrive/threejs70/StoryBlocks
+9 verbose already installed skipping gulp-webpack@^1.2.0 /Users/test/OneDrive/threejs70/StoryBlocks
+10 verbose already installed skipping jest-cli@^0.2.2 /Users/test/OneDrive/threejs70/StoryBlocks
+11 verbose already installed skipping jsx-loader@^0.12.2 /Users/test/OneDrive/threejs70/StoryBlocks
+12 verbose already installed skipping react@^0.13.0-beta.1 /Users/test/OneDrive/threejs70/StoryBlocks
+13 verbose already installed skipping transform-loader@^0.2.1 /Users/test/OneDrive/threejs70/StoryBlocks
+14 verbose already installed skipping webpack@^1.5.3 /Users/test/OneDrive/threejs70/StoryBlocks
+15 verbose cache add [ 'bootstrap3-wysiwyg-npm@^0.2.0', null ]
+16 verbose cache add name=undefined spec="bootstrap3-wysiwyg-npm@^0.2.0" args=["bootstrap3-wysiwyg-npm@^0.2.0",null]
+17 verbose parsed url { protocol: null,
+17 verbose parsed url   slashes: null,
+17 verbose parsed url   auth: null,
+17 verbose parsed url   host: null,
+17 verbose parsed url   port: null,
+17 verbose parsed url   hostname: null,
+17 verbose parsed url   hash: null,
+17 verbose parsed url   search: null,
+17 verbose parsed url   query: null,
+17 verbose parsed url   pathname: 'bootstrap3-wysiwyg-npm@^0.2.0',
+17 verbose parsed url   path: 'bootstrap3-wysiwyg-npm@^0.2.0',
+17 verbose parsed url   href: 'bootstrap3-wysiwyg-npm@^0.2.0' }
+18 verbose cache add name="bootstrap3-wysiwyg-npm" spec="^0.2.0" args=["bootstrap3-wysiwyg-npm","^0.2.0"]
+19 verbose parsed url { protocol: null,
+19 verbose parsed url   slashes: null,
+19 verbose parsed url   auth: null,
+19 verbose parsed url   host: null,
+19 verbose parsed url   port: null,
+19 verbose parsed url   hostname: null,
+19 verbose parsed url   hash: null,
+19 verbose parsed url   search: null,
+19 verbose parsed url   query: null,
+19 verbose parsed url   pathname: '^0.2.0',
+19 verbose parsed url   path: '^0.2.0',
+19 verbose parsed url   href: '^0.2.0' }
+20 verbose addNamed [ 'bootstrap3-wysiwyg-npm', '^0.2.0' ]
+21 verbose addNamed [ null, '>=0.2.0-0 <0.3.0-0' ]
+22 silly lockFile f5dbd87c-bootstrap3-wysiwyg-npm-0-2-0 bootstrap3-wysiwyg-npm@^0.2.0
+23 verbose lock bootstrap3-wysiwyg-npm@^0.2.0 /Users/test/.npm/f5dbd87c-bootstrap3-wysiwyg-npm-0-2-0.lock
+24 verbose already installed skipping envify@^3.2.0 /Users/test/OneDrive/threejs70/StoryBlocks
+25 silly addNameRange { name: 'bootstrap3-wysiwyg-npm',
+25 silly addNameRange   range: '>=0.2.0-0 <0.3.0-0',
+25 silly addNameRange   hasData: false }
+26 verbose cache add [ 'scroller@git://github.com/mjohnston/scroller', null ]
+27 verbose cache add name=undefined spec="scroller@git://github.com/mjohnston/scroller" args=["scroller@git://github.com/mjohnston/scroller",null]
+28 verbose parsed url { protocol: null,
+28 verbose parsed url   slashes: null,
+28 verbose parsed url   auth: null,
+28 verbose parsed url   host: null,
+28 verbose parsed url   port: null,
+28 verbose parsed url   hostname: null,
+28 verbose parsed url   hash: null,
+28 verbose parsed url   search: null,
+28 verbose parsed url   query: null,
+28 verbose parsed url   pathname: 'scroller@git://github.com/mjohnston/scroller',
+28 verbose parsed url   path: 'scroller@git://github.com/mjohnston/scroller',
+28 verbose parsed url   href: 'scroller@git://github.com/mjohnston/scroller' }
+29 verbose url raw bootstrap3-wysiwyg-npm
+30 verbose url resolving [ 'https://registry.npmjs.org/', './bootstrap3-wysiwyg-npm' ]
+31 verbose url resolved https://registry.npmjs.org/bootstrap3-wysiwyg-npm
+32 info trying registry request attempt 1 at 12:36:06
+33 http GET https://registry.npmjs.org/bootstrap3-wysiwyg-npm
+34 verbose already installed skipping del@^1.1.1 /Users/test/OneDrive/threejs70/StoryBlocks
+35 verbose already installed skipping gulp@^3.8.10 /Users/test/OneDrive/threejs70/StoryBlocks
+36 verbose cache add name="scroller" spec="git://github.com/mjohnston/scroller" args=["scroller","git://github.com/mjohnston/scroller"]
+37 verbose parsed url { protocol: 'git:',
+37 verbose parsed url   slashes: true,
+37 verbose parsed url   auth: null,
+37 verbose parsed url   host: 'github.com',
+37 verbose parsed url   port: null,
+37 verbose parsed url   hostname: 'github.com',
+37 verbose parsed url   hash: null,
+37 verbose parsed url   search: null,
+37 verbose parsed url   query: null,
+37 verbose parsed url   pathname: '/mjohnston/scroller',
+37 verbose parsed url   path: '/mjohnston/scroller',
+37 verbose parsed url   href: 'git://github.com/mjohnston/scroller' }
+38 silly lockFile 440e2a6b-it-github-com-mjohnston-scroller git://github.com/mjohnston/scroller
+39 verbose lock git://github.com/mjohnston/scroller /Users/test/.npm/440e2a6b-it-github-com-mjohnston-scroller.lock
+40 verbose addRemoteGit [ 'git://github.com/mjohnston/scroller', 'master' ]
+41 verbose git remote.origin.url git://github.com/mjohnston/scroller
+42 http 404 https://registry.npmjs.org/bootstrap3-wysiwyg-npm
+43 silly registry.get cb [ 404,
+43 silly registry.get   { date: 'Tue, 31 Mar 2015 16:36:05 GMT',
+43 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+43 silly registry.get     'content-type': 'application/json',
+43 silly registry.get     'cache-control': 'max-age=0',
+43 silly registry.get     'content-length': '51',
+43 silly registry.get     'accept-ranges': 'bytes',
+43 silly registry.get     via: '1.1 varnish',
+43 silly registry.get     age: '0',
+43 silly registry.get     'x-served-by': 'cache-jfk1028-JFK',
+43 silly registry.get     'x-cache': 'MISS',
+43 silly registry.get     'x-cache-hits': '0',
+43 silly registry.get     'x-timer': 'S1427819765.532060,VS0,VE21',
+43 silly registry.get     'keep-alive': 'timeout=10, max=50',
+43 silly registry.get     connection: 'Keep-Alive' } ]
+44 silly lockFile f5dbd87c-bootstrap3-wysiwyg-npm-0-2-0 bootstrap3-wysiwyg-npm@^0.2.0
+45 silly lockFile f5dbd87c-bootstrap3-wysiwyg-npm-0-2-0 bootstrap3-wysiwyg-npm@^0.2.0
+46 error 404 'bootstrap3-wysiwyg-npm' is not in the npm registry.
+46 error 404 You should bug the author to publish it
+46 error 404 It was specified as a dependency of 'editor-separatedOut'
+46 error 404
+46 error 404 Note that you can also install from a
+46 error 404 tarball, folder, or http url, or git url.
+47 error System Darwin 13.4.0
+48 error command "node" "/usr/local/bin/npm" "install"
+49 error cwd /Users/test/OneDrive/threejs70/StoryBlocks
+50 error node -v v0.10.26
+51 error npm -v 1.4.3
+52 error code E404
+53 verbose exit [ 1, true ]

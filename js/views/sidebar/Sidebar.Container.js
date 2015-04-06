@@ -3,8 +3,6 @@ Sidebar.Container = function(editor){
 
 	var signals = editor.signals;
 
-
-
 	var container = new UI.CollapsiblePanel();
 
 	container.setCollapsed(editor.config.getKey('ui/sidebar/forms/collapsed'));
@@ -17,7 +15,6 @@ Sidebar.Container = function(editor){
 
 
 
-
 	container.addStatic(new UI.Text('Containter'));
 	container.add(new UI.Break());
 
@@ -27,10 +24,10 @@ Sidebar.Container = function(editor){
 
 	var col6 = document.createElement('div');
 
-
+	
 	var icon = document.createElement('span');
 	icon.className = 'fa fa-square-o fa-4x';
-
+	
 	icon.id = 'container-icon';
     col6.appendChild(icon);
 
@@ -42,41 +39,46 @@ Sidebar.Container = function(editor){
 
 	mainContainer.onMouseOver(function() {
 
-		// mapBox.dom.background = '#72FFE6';
+		// mapBox.dom.background = '#72FFE6';				
 		$('.sidebar-container').css('background','#72FFE6');
 
 	});
 
 	mainContainer.onMouseOut(function() {
 
-		// mapBox.dom.background = '#72FFE6';
+
+		// mapBox.dom.background = '#72FFE6';				
 		$('.sidebar-container').css('background','');
 
 	});
 
 		// interact('.'+'fa-'+formNames[0])
 			interact('#container-icon')
-				.draggable({
-				inertia: true,
-				restrict: {
+
+		  		.draggable({
+		    		inertia: true,
+		    		restrict: {
 				      restriction: 'parent',
 				      endOnly: true,
 				      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
 				    },
 				    onmove: function (event) {
 				    var target = event.target;
-					x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-					y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-				target.style.webkitTransform =
-				target.style.transform =
-					'translate(' + x + 'px, ' + y + 'px)';
+
+				    	x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+	          			y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+	          		target.style.webkitTransform =
+	      			target.style.transform =
+	        			'translate(' + x + 'px, ' + y + 'px)';
 
 				      // update the posiion attributes
 				      target.setAttribute('data-x', x);
 				      target.setAttribute('data-y', y);
 				    },
 
-			})
+		    		
+		  	})
+
 
 
 
@@ -85,7 +87,9 @@ Sidebar.Container = function(editor){
 		if(elementId == 'container-icon'){
 
 			function addFreeContainer(callback){
+
 				var freeContainer = new FreeContainer(editor,'free-container');
+
 				$('body').append(freeContainer);
 
 				callback(freeContainer);
@@ -93,6 +97,7 @@ Sidebar.Container = function(editor){
 
 			function sendSignal(freeContainer) {
 				editor.signals.addInteractToContainer.dispatch(freeContainer.id);
+
 				editor.signals.addDragnDropToContainer.dispatch(freeContainer);
 			}
 
