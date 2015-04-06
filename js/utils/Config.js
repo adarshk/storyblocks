@@ -20,6 +20,7 @@ var Config = function () {
 		'ui/sidebar/properties/collapsed': true,
 		'ui/sidebar/forms/collapsed': true,
 		'ui/sidebar/states/collapsed': true,
+		'ui/sidebar/containers/collapsed': true,
 
 		'ui/sidebar/animation/collapsed': true,
 		'ui/sidebar/geometry/collapsed': true,
