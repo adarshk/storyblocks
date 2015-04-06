@@ -34,7 +34,17 @@ Interactions:
 
 This is a work in progress but the demo will be up soon on my website at adarshk.com and the link will be updated here to reflect that.
 ###Sample images###
+**Concept**
+
 <img src="images/FormsAndStates_mixMatch.png" width="50%" height="50%"/>
+
+**Working Prototype**
+
+<img src="images/dragndrop.png" width="50%" height="50%"/>
+
+<img src="images/image&graphics.png" width="50%" height="50%"/>
+
+
 
 
 ###Tech###
