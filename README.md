@@ -30,12 +30,12 @@ Interactions:
 2. npm start
 3. Go to localhost:3000/
 
-####Demo####
-<br/>
+###Demo###
+
 This is a work in progress but the demo will be up soon on my website at adarshk.com and the link will be updated here to reflect that.
 
-####Tech####
-<br/>
+###Tech###
+
 Thanks to these great opensource libraries that StoryBlocks uses
 
 1. d3.js
@@ -43,7 +43,7 @@ Thanks to these great opensource libraries that StoryBlocks uses
 3. jquery
 4. threejs.org/editor
 
-####FAQ####
+###FAQ###
 <br/>
 
 1. What level of technical knowledge is required to use this tool? <br/> A. StoryBlocks abstracts away things like graphs, charts and graphics and provides a low barrier to entry ideally making it really simple to use.  
@@ -51,6 +51,6 @@ Thanks to these great opensource libraries that StoryBlocks uses
 
 
 
-####License####
-<br/>
+###License###
+
 MIT
