@@ -16,160 +16,81 @@ Sidebar.States = function(editor){
 	});
 
 
-	var stateNames = ['animations', 'transitions', 'userClick', 'timeline','connectedEvents'];
+	var stateNames = ['Animations', 'Transitions', 'Click', 'Timeline','ConnectedEvents'];
 
 	container.addStatic(new UI.Text('States'));
 	container.add(new UI.Break());
 
-	// var states = new UI.Form();
-	// states.addContainer();
-	// states.addRow();
+
+
+	for (var i = 0; i < stateNames.length; i++) {
+
+		
+
+		(function() {
+
+			var j = i;
+
+			var addState = new UI.States();
+			// mapBox.addContainer();
+			addState.addIcon(stateNames[j]);
+			container.add(addState);
+
+			var stateId = addState.getId();
+			var stateIconId = addState.getIconId();
+
+			//uiMedias.push(addState);
+
+			addState.onMouseOver(function() {
+
+			// mapBox.dom.background = '#72FFE6';				
+
+			$('#'+stateId).css('background','#72FFE6');
+			$('#'+stateId).attr('title',stateIconId);
+
+			});
+
+			addState.onMouseOut(function() {
+
+			// mapBox.dom.background = '#72FFE6';				
+			$('#'+stateId).css('background','');
+
+			});
 
 
 
-	/*for(var i=0;i<formNames.length;i++){
 
-		var addBox = new UI.States();
-		addBox.appendText(formNames[i]);
-		container.add(addBox);
+			// interact('.'+'fa-'+stateNames[0])
+			//interact('#'+stateNames[0])
+			interact('#'+stateIconId)
 
-	}*/
+		  		.draggable({
+		    		inertia: true,
+		    		restrict: {
+				      restriction: 'parent',
+				      endOnly: true,
+				      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+				    },
+				    onmove: function (event) {
+				    var target = event.target;
 
-	var animations = new UI.States();
-	// mapBox.addContainer();
-	animations.appendText('animations');
-	// mapBox.appendText('area-chart');
-		/*mapBox.addContainer().addRow();
-		mapBox.appendText('map-marker');
-		mapBox.addRow();
-		mapBox.appendText('area-chart');*/
-		container.add(animations);
+				    	x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+	          			y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+	          		target.style.webkitTransform =
+	      			target.style.transform =
+	        			'translate(' + x + 'px, ' + y + 'px)';
 
-	animations.onMouseOver(function() {
-
-		// animations.dom.background = '#72FFE6';				
-		$('#'+stateNames[0]).css('background','#72FFE6');
-
-	});
-
-	animations.onMouseOut(function() {
-
-		// animations.dom.background = '#72FFE6';				
-		$('#'+stateNames[0]).css('background','');
-
-	});
-
-	animations.onClick(function() {
-
-		// animations.dom.background = '#72FFE6';				
-		$('#'+stateNames[0]).css('background','#72FFE6');
-
-	});
+				      // update the posiion attributes
+				      target.setAttribute('data-x', x);
+				      target.setAttribute('data-y', y);
+				    },
+		    		
+		  	})
 
 
-	var transitions = new UI.States();
-	// transitions.addContainer();
-		transitions.appendText('transitions');
-		container.add(transitions);
+		}())
+	};
 
-
-	transitions.onMouseOver(function() {
-
-		// transitions.dom.background = '#72FFE6';				
-		$('#'+stateNames[1]).css('background','#72FFE6');
-
-	});
-
-	transitions.onMouseOut(function() {
-
-		// transitions.dom.background = '#72FFE6';				
-		$('#'+stateNames[1]).css('background','');
-
-	});
-
-	transitions.onClick(function() {
-
-		// transitions.dom.background = '#72FFE6';				
-		$('#'+stateNames[1]).css('background','#72FFE6');
-
-	});
-
-	var userClick = new UI.States();
-		userClick.appendText('userClick');
-		container.add(userClick);
-
-
-	userClick.onMouseOver(function() {
-
-		// userClick.dom.background = '#72FFE6';				
-		$('#'+stateNames[2]).css('background','#72FFE6');
-
-	});
-
-	userClick.onMouseOut(function() {
-
-		// userClick.dom.background = '#72FFE6';				
-		$('#'+stateNames[2]).css('background','');
-
-	});
-
-	userClick.onClick(function() {
-
-		// userClick.dom.background = '#72FFE6';				
-		$('#'+stateNames[2]).css('background','#72FFE6');
-
-	});
-
-	var timeline = new UI.States();
-		timeline.appendText('timeline');
-		container.add(timeline);
-
-
-	timeline.onMouseOver(function() {
-
-		// timeline.dom.background = '#72FFE6';				
-		$('#'+stateNames[3]).css('background','#72FFE6');
-
-	});
-
-	timeline.onMouseOut(function() {
-
-		// timeline.dom.background = '#72FFE6';				
-		$('#'+stateNames[3]).css('background','');
-
-	});
-
-	timeline.onClick(function() {
-
-		// timeline.dom.background = '#72FFE6';				
-		$('#'+stateNames[3]).css('background','#72FFE6');
-
-	});
-
-	var connectedEvents = new UI.States();
-		connectedEvents.appendText('connectedEvents');
-		container.add(connectedEvents);
-
-	connectedEvents.onMouseOver(function() {
-
-		// connectedEvents.dom.background = '#72FFE6';				
-		$('#'+stateNames[4]).css('background','#72FFE6');
-
-	});
-
-	connectedEvents.onMouseOut(function() {
-
-		// connectedEvents.dom.background = '#72FFE6';				
-		$('#'+stateNames[4]).css('background','');
-
-	});
-
-	connectedEvents.onClick(function() {
-
-		// connectedEvents.dom.background = '#72FFE6';				
-		$('#'+stateNames[4]).css('background','#72FFE6');
-
-	});
 
 	container.add(new UI.Break());
 

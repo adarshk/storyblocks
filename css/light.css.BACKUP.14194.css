@@ -251,7 +251,11 @@ input.Number {
     left: 0;
     right: 0;
     margin-right: 10px;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 2714b2675ccecc22153a40f02f1b4dc8916a5433
 }
 
 .free-container-cross {
@@ -263,7 +267,7 @@ input.Number {
     left: 0;
     right: 0;
     float:right;
-
+<<<<<<< HEAD
     margin-left:auto;
     margin-right:15px;
     margin-top:15px;
@@ -279,6 +283,9 @@ input.Number {
     right: 0;
     float:right;
     margin-left:auto;
+=======
+    margin-left:auto; 
+>>>>>>> 2714b2675ccecc22153a40f02f1b4dc8916a5433
     margin-right:15px;
     margin-top:15px;
 }

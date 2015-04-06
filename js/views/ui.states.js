@@ -67,14 +67,14 @@ UI.States.prototype.setOptions = function(options){
 
 };
 
-UI.States.prototype.appendText = function(formName){
+UI.States.prototype.addIcon = function(stateName){
 
-	// var formName = String(formName);
+	// var stateName = String(stateName);
 
-	this.dom.id = formName;
+	this.dom.id = stateName + '-container';
 
 	var col6 = document.createElement('div');
-	col6.className = 'col-md-4';
+	// col6.className = 'col-md-4';
 
 	var col4 = document.createElement('div');
 	col4.className = 'col-md-4';
@@ -93,21 +93,21 @@ UI.States.prototype.appendText = function(formName){
 
 	var icon = document.createElement('span');
 
-	if (formName === 'animations'){
+	if (stateName === 'Animations'){
 		icon.className = 'fa fa-play-circle-o fa-4x';
 	}
-	else if (formName === 'transitions'){
+	else if (stateName === 'Transitions'){
 		icon.className = 'fa fa-th-list fa-4x';
 	}
 
-	else if (formName === 'userClick'){
+	else if (stateName === 'Click'){
 		icon.className = 'fa fa-user fa-4x';
 	}
-	else if (formName === 'timeline'){
+	else if (stateName === 'Timeline'){
 		icon.className = 'fa fa-sort-amount-desc fa-4x';
 	}
 
-	else if (formName === 'connectedEvents'){
+	else if (stateName === 'ConnectedEvents'){
 		icon.className = 'fa fa-connectdevelop fa-4x';
 	}
 
@@ -115,11 +115,11 @@ UI.States.prototype.appendText = function(formName){
 		icon.className = 'fa fa-play-circle-o fa-4x';
 	}
 
-
+	icon.id = stateName;
 	var name = document.createElement('p');
-	name.className = 'text-capitalize formname';
+	name.className = 'text-capitalize stateName';
 
-	name.textContent = formName;
+	name.textContent = stateName;
 
     col6.appendChild(icon);
     //col6.appendChild(name);
@@ -145,4 +145,14 @@ UI.States.prototype.appendText = function(formName){
 UI.States.prototype.getValue = function(){
 
 	return this.dom.value;
+};
+
+UI.States.prototype.getId = function(){
+
+	return this.dom.id;
+};
+
+UI.States.prototype.getIconId = function(){
+
+	return this.dom.firstChild.firstChild.id;
 };

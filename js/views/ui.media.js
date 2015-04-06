@@ -104,18 +104,19 @@ UI.Media.prototype.setOptions = function(options){
 
 };
 
-UI.Media.prototype.appendText = function(formName){
+UI.Media.prototype.addIcon = function(formName){
 
 	// var formName = String(formName);
 
-	this.dom.id = formName + 'Container';
+	this.dom.id = formName + '-container';
 
 	var col6Container = document.createElement('div');
 	col6Container.className = 'col-md-4';
 
 	var col6 = document.createElement('div');
 	// col6.className = 'col-sm-4';
-	col6.className = formName+'Container';
+	// col6.className = 'col-md-4';
+	// col6.className = formName + 'Container';
 
 	var col4 = document.createElement('div');
 	col4.className = 'col-md-4';
@@ -124,76 +125,45 @@ UI.Media.prototype.appendText = function(formName){
 	
 	var icon = document.createElement('span');
 
-	if (formName === 'area-chart' || formName === 'map-marker'){
-		icon.className = 'fa fa-' + formName+ ' fa-4x';
+	// var formNames = ['Map', 'Chart', 'Text', 'Image','Video'];
+	// var formNames = ['map-marker', 'area-chart', 'text', 'image','video'];
+
+	if (formName === 'Map'){
+		icon.className = 'fa fa-map-marker fa-4x';
 	}
+
+	else if (formName === 'Chart'){
+		icon.className = 'fa fa-area-chart fa-4x';
+	}
+
+	else if (formName === 'Text'){
+		icon.className = 'fa fa-file-text-o fa-4x';
+	}
+
+	else if (formName === 'Image'){
+		icon.className = 'fa fa-file-image-o fa-4x';
+	}
+
+	else if (formName === 'Video'){
+		icon.className = 'fa fa-file-video-o fa-4x';
+	}
+
+
 	else{
-		icon.className = 'fa fa-file-' + formName+ '-o fa-4x';
+		icon.className = 'fa fa-file-text-o fa-4x';
 	}
+
+
+
+
+	// if (formName === 'area-chart' || formName === 'map-marker'){
+	// 	icon.className = 'fa fa-' + formName+ ' fa-4x';
+	// }
+	// else{
+	// 	icon.className = 'fa fa-file-' + formName+ '-o fa-4x';
+	// }
 	icon.id = formName;
 	
-	// para.appendChild(icon);
-
-
-	// var textNode = document.createTextNode(formName);
-	// textNode.className = 'formName';
-	// para.appendChild(textNode);
-
-	// col.appendChild(para);
-	// icon.appendChild(textNode);
-
-
-/*	var listGroup = document.createElement('div');
-	listGroup.className = 'list-group';
-		
-		var listGroupItem = document.createElement('a');
-		listGroupItem.className = 'list-group-item active';
-
-			var panel = document.createElement('div');
-			panel.className = 'panel panel-default';
-
-				var panelHeading = document.createElement('div');
-				panelHeading.className = 'panel-heading';
-
-					var textNode = document.createTextNode(formName);
-					textNode.className = 'Map';
-
-				panelHeading.appendChild(textNode);
-
-
-				var panelBody = document.createElement('div');
-				panelBody.className = 'panel-body';	
-				panelBody.appendChild(icon);
-
-
-
-
-			panel.appendChild(panelHeading);
-			panel.appendChild(panelBody);
-
-		listGroupItem.appendChild(panel);
-
-	listGroup.appendChild(listGroupItem);*/
-
-
-
-/*<div class="list-group">
-  <a href="#" class="list-group-item active">
-    <div class="panel panel-default">
-  <div class="panel-heading">Map</div>
-  <div class="panel-body">
-    Map
-  </div>
-</div>
-  </a>
-
-
-  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-  <a href="#" class="list-group-item">Morbi leo risus</a>
-  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-  <a href="#" class="list-group-item">Vestibulum at eros</a>
-</div>*/
-
 
 	var name = document.createElement('p');
 	name.className = 'text-capitalize formname';
@@ -234,4 +204,15 @@ UI.Media.prototype.appendText = function(formName){
 UI.Media.prototype.getValue = function(){
 
 	return this.dom.value;
+};
+
+
+UI.Media.prototype.getId = function(){
+
+	return this.dom.id;
+};
+
+UI.Media.prototype.getIconId = function(){
+
+	return this.dom.firstChild.firstChild.id;
 };

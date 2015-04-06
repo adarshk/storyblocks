@@ -9,6 +9,7 @@ var Sidebar = function ( editor ) {
 
 	container.add( new Sidebar.Forms( editor ) );
 	container.add( new Sidebar.States( editor ) );
+	container.add( new Sidebar.Container( editor ) );
 
 	//container.add( new Sidebar.Properties( editor ) );
 

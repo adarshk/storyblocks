@@ -11,6 +11,7 @@
     <link id="theme" href="css/light.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap/bootstrap3-wysihtml5.min.css"></link>
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/modal.css">
 
@@ -19,8 +20,10 @@
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
 
+
     <script src="js/vendor/jquery.min.js"></script>
     <script src="js/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="js/vendor/bootstrap/bootstrap3-wysihtml5.all.min.js"></script>
 
     <script src="js/vendor/d3.min.js"></script>
     <script src="js/vendor/three.js"></script>
@@ -29,6 +32,7 @@
     <script src="js/vendor/d3-threeD.js"></script>
     <script src="js/vendor/ThreeCSG.js"></script>
     <script src="js/vendor/tween.js"></script>
+    <script src="js/vendor/jquery.curvedarrow.js"></script>
 
     <script src="examples/js/controls/EditorControls.js"></script>
     <script src="examples/js/controls/TransformControls.js"></script>
@@ -66,6 +70,7 @@
     <script src="js/views/ui.three.js"></script>
     <script src="js/views/ui.media.js"></script>
     <script src="js/views/ui.states.js"></script>
+    <script src="js/views/ui.container.js"></script>
 
     <script src="js/views/Script.js"></script>
 
@@ -74,7 +79,15 @@
     <!--script src="js/views/sidebar/Sidebar.Properties.js"></script-->
     <script src="js/views/sidebar/Sidebar.Forms.js"></script>
     <script src="js/views/sidebar/Sidebar.States.js"></script>
+    <script src="js/views/sidebar/Sidebar.Container.js"></script>
 
+    <script src="js/views/toolbar/Toolbar.js"></script>
+
+    <script src="js/views/FreeContainer.js"></script>
+
+    <script src="js/interactEvents.js"></script>
+
+    <script src="js/utils/dispatchers.js"></script>
     
 
     <!--script src="/js/react/common/touch-emulator.js"></script-->
@@ -90,10 +103,13 @@
     <script src="js/views/modal.js"></script>
     <script src="js/main.js"></script>
 
-    <div id="main"></div>
-    <script src="build/app.js"></script>
+    <div id="main" style="visibility:hidden"></div>
 
-    <script>
+    <!--script src="build/app.js"></script-->
+
+    <!--script src="build/example.js"></script-->
+
+    <!--script>
         //Experiments
         var scene = editor.scene;
         var mainid = document.getElementById("main");
@@ -109,7 +125,7 @@
         sprite2d.scale.set(400,100,1.0);
         scene.add(sprite2d);
         // return sprite;  
-    </script>
+    </script-->
 
     <!-- Modal -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -31,9 +31,8 @@ input.Number {
 	top: 0px;
 	left: 0px;
 	right: 300px;
-	bottom: 50%;
-	/*bottom: 0px;*/
-	outline: 1px dashed red;
+	/*bottom: 50%;*/
+	bottom: 0px;
 }
 
 	#viewport #info {
@@ -127,7 +126,6 @@ input.Number {
 	bottom: 0px;
 	width: 300px;
 	background: #eee;
-	z-index: 1;
 	/*overflow: auto;*/
 }
 
@@ -199,6 +197,23 @@ input.Number {
 	}
 
 
+.icon-container .col-md-4{
+
+	display: inline-block;
+    /*border: 1px solid #ccc;*/
+    border-radius: 6px;
+    /*margin: 60px;*/
+    padding: 20px;
+}
+
+.states-container{
+
+	display: inline-block;
+    /*border: 1px solid #ccc;*/
+    border-radius: 6px;
+    /*margin: 60px;*/
+    padding: 20px;
+}
 
 .fa{
 	/*vertical-align: middle;*/
@@ -231,56 +246,6 @@ input.Number {
 	right: 300px;
 	bottom: 50%;
 	background: rgba(255,255,255,0);
-}
-
-.free-container {
-	position: absolute;
-	top: 50%;
-	left: 30%;
-	right: 300px;
-	bottom: 10%;
-	background: rgba(0,255,255,0);
-	outline: 1px dashed red;
-}
-
-.ui-container {
-	position: absolute;
-    height: auto;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin-right: 10px;
-
-}
-
-.free-container-cross {
-	position: relative;
-	display:block;
-    height: auto;
-    bottom: 90%;
-    top: 0;
-    left: 0;
-    right: 0;
-    float:right;
-
-    margin-left:auto;
-    margin-right:15px;
-    margin-top:15px;
-}
-
-.outnode {
-	position: relative;
-	display:block;
-    height: auto;
-    bottom: 80%;
-    top: 0;
-    left: 0;
-    right: 0;
-    float:right;
-    margin-left:auto;
-    margin-right:15px;
-    margin-top:15px;
 }
 
 .event{
