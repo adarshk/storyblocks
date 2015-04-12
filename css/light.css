@@ -233,7 +233,7 @@ input.Number {
 	background: rgba(255,255,255,0);
 }
 
-.free-container {
+/*.free-container {
 	position: absolute;
 	top: 50%;
 	left: 30%;
@@ -241,7 +241,7 @@ input.Number {
 	bottom: 10%;
 	background: rgba(0,255,255,0);
 	outline: 1px dashed red;
-}
+}*/
 
 .ui-container {
 	position: absolute;
@@ -283,10 +283,32 @@ input.Number {
     margin-top:15px;
 }
 
+.square {
+	position: relative;
+	display:block;
+    height: auto;
+    bottom: 80%;
+    top: 0;
+    left: 0;
+    right: 0;
+    float:right;
+    margin-left:auto;
+    margin-right:15px;
+    margin-top:15px;
+}
+
 .event{
 	position: absolute;
 	top: 50%;
 	left: 200px;
 	right: 40%;
 	bottom: 0px;
+}
+
+#overflowTest{
+	position: relative;
+	top: 100%;
+	width: 200px;
+	height: 200px;
+	outline: 1px dashed red;
 }

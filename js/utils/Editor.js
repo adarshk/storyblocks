@@ -77,6 +77,7 @@ var Editor = function () {
 		deleteFreeContainer: new SIGNALS.Signal(),
 		resizeContainer: new SIGNALS.Signal(),
 		updateRelationship: new SIGNALS.Signal(),
+		showSpectrum : new SIGNALS.Signal(),
 
 
 	};

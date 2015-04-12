@@ -20,7 +20,7 @@ Sidebar.ContainerProperties = function(editor){
 
 
 	var mainContainer = new UI.Panel();
-	mainContainer.setClass("sidebar-containerproperties");
+	mainContainer.setClass("sidebar-container-properties");
 
 	var col6 = document.createElement('div');
 
@@ -39,22 +39,22 @@ Sidebar.ContainerProperties = function(editor){
 
 	mainContainer.onMouseOver(function() {
 
-		$('.sidebar-containerproperties').css('background','#72FFE6');
-
+		$('.sidebar-container-properties').css('background','#72FFE6');
 
 	});
 
 	mainContainer.onMouseOut(function() {
 
-		$('.sidebar-containerproperties').css('background','');
+		$('.sidebar-container-properties').css('background','');
 
 	});
 
+	
 	mainContainer.onClick(function(){
 
-		$("#properties-icon").spectrum({
-			    color: "#f00"
-			});
+	$("#properties-icon").spectrum({
+		color: "#f00"
+	});
 
 	});
 

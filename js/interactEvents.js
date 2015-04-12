@@ -23,16 +23,35 @@ interact('#viewport')
   });
 
 
-interact('#viewport').dropzone({
+//interact('#viewport').dropzone({
+  interact('body').dropzone({
 			ondropactivate: function (event) {
 
-    			// console.log(event.relatedTarget.id);
-    			editor.signals.elementDragnDrop.dispatch(event.relatedTarget.id);
+    			console.log(event.relatedTarget.id);
+    			
     			
   			},
 			
 			ondrop : function (event){
-				// console.log(event);
+        console.log('logged');
+				console.log(event);
+        console.log(event.relatedTarget.id);
+        console.log(event.interaction.curCoords);
+        console.log(event.interaction.curCoords.page.x);
+        //editor.signals.elementDragnDrop.dispatch(event.relatedTarget.id);
 			}
 
-		});
+		})
+    .on('dragenter', function (event) {
+      // console.log("drag entered");
+      // console.log(event);
+    })
+    .on('dropmove', function (event) {
+      // console.log("drop move");
+      // console.log(event);
+    })
+    .on('drop', function (event) {
+      // console.log("drop outer");
+      // console.log(event);
+    })
+    ;

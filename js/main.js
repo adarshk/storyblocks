@@ -6,8 +6,8 @@
 			var editor = new Editor();
 
 
-			var viewport = new Viewport( editor );
-			document.body.appendChild( viewport.dom );
+			// var viewport = new Viewport( editor );
+			// document.body.appendChild( viewport.dom );
 
 
 			/*var script = new Script( editor );

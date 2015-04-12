@@ -68,4 +68,25 @@ UI.OutNode = function(){
 };
 
 UI.OutNode.prototype = Object.create(UI.Element.prototype);
-UI.OutNode.prototype.constructor = UI.Cross;
+UI.OutNode.prototype.constructor = UI.OutNode;
+
+
+UI.Square = function(){
+
+	UI.Element.call(this);
+
+	var scope = this;
+
+
+	var dom = document.createElement('span');
+	dom.className = "fa fa-square square";
+
+	this.dom = dom;
+
+
+	return this;
+
+};
+
+UI.Square.prototype = Object.create(UI.Element.prototype);
+UI.Square.prototype.constructor = UI.Square;

@@ -2,7 +2,7 @@ body {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	margin: 0;
-	overflow: hidden;
+	overflow: scroll;
 }
 
 hr {
@@ -150,6 +150,15 @@ textarea, input { outline: none; } /* osx */
 }
 
 .sidebar-container{
+	display: inline-block;
+    /*border: 1px solid #ccc;*/
+    border-radius: 6px;
+    /*margin: 60px;*/
+
+    padding: 20px;	
+}
+
+.sidebar-container-properties{
 	display: inline-block;
     /*border: 1px solid #ccc;*/
     border-radius: 6px;

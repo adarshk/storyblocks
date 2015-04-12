@@ -5,6 +5,8 @@ Sidebar.Container = function(editor){
 
 	var container = new UI.CollapsiblePanel();
 
+	var freeContainer;
+
 	container.setCollapsed(editor.config.getKey('ui/sidebar/containers/collapsed'));
 
 	container.onCollapsedChange(function(boolean){
@@ -52,43 +54,82 @@ Sidebar.Container = function(editor){
 
 	});
 
+
 		// interact('.'+'fa-'+formNames[0])
-			interact('#container-icon')
+		interact('#container-icon')
 
-		  		.draggable({
-		    		inertia: true,
-		    		restrict: {
-				      restriction: 'parent',
-				      endOnly: true,
-				      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
-				    },
-				    onmove: function (event) {
-				    var target = event.target;
+	  		.draggable({
+	    		inertia: true,
+	    		
+			    onmove: function (event) {
+			    	// console.log("onmove event");
+			    	// console.log(event);
+			    /*var target = event.target;
 
-				    	x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-	          			y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-	          		target.style.webkitTransform =
-	      			target.style.transform =
-	        			'translate(' + x + 'px, ' + y + 'px)';
+			    	x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+	      			y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+	      		target.style.webkitTransform =
+	  			target.style.transform =
+	    			'translate(' + x + 'px, ' + y + 'px)';
 
-				      // update the posiion attributes
-				      target.setAttribute('data-x', x);
-				      target.setAttribute('data-y', y);
-				    },
+			      // update the posiion attributes
+			      target.setAttribute('data-x', x);
+			      target.setAttribute('data-y', y);*/
+			    },
 
-		    		
-		  	})
+			    onend: function(event){
+			    	console.log("onEnd");
+			    	console.log(event);
+			    }
+
+	    		
+	  	})
+
+		interact('#container-icon')
+			.on('dragstart',dragstart)
+			.on('dragmove',dragmove)
+			.on('dragend',dragend);
+
+		function dragstart(event){
+			/*console.log("start");
+			console.log(event);*/
+			freeContainer = new FreeContainer(editor,'free-container',event);
+			$('body').append(freeContainer);
+		}
+
+		function dragmove(event){
+			/*console.log("moving");
+			console.log(event);*/
+
+			
+			// if(event.speed < 10){
+			$(freeContainer).css('left', event.pageX);
+			$(freeContainer).css('top', event.pageY);
+			// }
+			
+
+			
+		}
+
+		function dragend(event){
+			/*console.log("moveend");
+			console.log(event);*/
+			editor.signals.addInteractToContainer.dispatch(freeContainer.id);
+
+			editor.signals.addDragnDropToContainer.dispatch(freeContainer);
+
+		}
 
 
 
 
 
-	editor.signals.elementDragnDrop.add(function(elementId){
+	/*editor.signals.elementDragnDrop.add(function(elementId, mousePos){
 		if(elementId == 'container-icon'){
 
-			function addFreeContainer(callback){
+			function addFreeContainer(callback,mPos){
 
-				var freeContainer = new FreeContainer(editor,'free-container');
+				var freeContainer = new FreeContainer(editor,'free-container',mPos);
 
 				$('body').append(freeContainer);
 
@@ -101,11 +142,11 @@ Sidebar.Container = function(editor){
 				editor.signals.addDragnDropToContainer.dispatch(freeContainer);
 			}
 
-			addFreeContainer(sendSignal);
+			addFreeContainer(sendSignal,mousePos);
 
 
 		}
-	});
+	});*/
 
 
 
