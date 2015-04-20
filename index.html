@@ -48,6 +48,8 @@
     <script src="js/vendor/signals.min.js"></script>
     <script src="js/vendor/interact.js"></script>
     <script src="js/vendor/spectrum.js"></script>
+    <script src="js/vendor/dropzone.js"></script>
+    <script src="js/vendor/jsPlumb.js"></script>
 
     
 
@@ -83,6 +85,7 @@
     <script src="js/views/sidebar/Sidebar.Forms.js"></script>
     <script src="js/views/sidebar/Sidebar.States.js"></script>
     <script src="js/views/sidebar/Sidebar.Container.js"></script>
+    <script src="js/views/sidebar/Sidebar.ContainerThrowaway.js"></script>
     <script src="js/views/sidebar/Sidebar.ContainerProperties.js"></script>
 
     <script src="js/views/toolbar/Toolbar.js"></script>
@@ -162,6 +165,304 @@
 
 
       <div id="overflowTest"></div>
+
+
+      <!--form action="/file-upload" enctype="multipart/form-data" class="dropzone dz-clickable drp"><p> Drop here </p></form-->
+
+      <!--form action="/file-upload" enctype="multipart/form-data" class="dropzone dz-clickable drp" id="drpo"><p> Drop here </p></form-->
+
+    <!--form action="/tweets" method="POST">
+        <input type="submit" name="TheButton" value="Tweets">
+    </form-->
+
+    <!--script>
+
+        $.ajax({
+          method: "POST",
+          url: "/tweets",
+          data: {}
+        })
+          .done(function( data ) {
+
+            console.log(data);
+
+            var jsonTable = $("<div></div>")
+            .append('<table class="table">  <thead> <tr> <th>Tweet</th><th>Username</th> </tr></thead> <tbody class="tablebody"></tbody></table>');
+            $('body').append(jsonTable);
+            $.each(data.statuses, function(index, val) {
+
+                $(".tablebody").append('<tr><td>'+ val.text + '</td><td>'+ val.user.screen_name+ '</td></tr>');
+                 
+            });
+          });
+    </script-->
+
+      <script>
+      CodeMirror.defineMode("strings", function() {
+  return {
+    startState: function() {return {inString: false};},
+    token: function(stream, state) {
+      // If a string starts here
+      if (!state.inString && stream.peek() == '"') {
+        stream.next();            // Skip quote
+        state.inString = true;    // Update state
+      }
+
+      if (state.inString) {
+        if (stream.skipTo('"')) { // Quote found on this line
+          stream.next();          // Skip quote
+          state.inString = false; // Clear flag
+        } else {
+           stream.skipToEnd();    // Rest of line is string
+        }
+        return "string";          // Token style
+      } else {
+        stream.skipTo('"') || stream.skipToEnd();
+        return null;              // Unstyled token
+      }
+    }
+  };
+});
+
+
+CodeMirror.defineMode("arrows", function() {
+  return {
+    startState: function() {return {inString: false};},
+    token: function(stream, state) {
+      // If a string starts here
+      if (!state.inString && stream.peek() == '<') {
+        stream.next();            // Skip quote
+        state.inString = true;    // Update state
+      }
+
+      if (state.inString) {
+        if (stream.skipTo('>')) { // Quote found on this line
+          stream.next();          // Skip quote
+          state.inString = false; // Clear flag
+        } else {
+           stream.skipToEnd();    // Rest of line is string
+        }
+        return "string";          // Token style
+      } else {
+        stream.skipTo('<') || stream.skipToEnd();
+        return null;              // Unstyled token
+      }
+    }
+  };
+});
+
+
+
+      </script>
+
+      <script>
+              /*var myCodeMirror = CodeMirror(document.body, {
+          value: '<Hello>',
+          mode:  "arrows"
+        });*/
+
+    </script>
+
+<div id="storyBlocks">
+    <!--canvas id="canvas1" width="800" height="800"></canvas-->
+</div>
+
+
+<!--script>
+
+  var canvas = document.getElementById('canvas1');
+  var ctx = canvas.getContext('2d');
+
+  var sx = 50;
+  var sy = 190;
+  var ex = 100;
+  var ey = 100;
+
+  var drag = false;
+  var pos = {};
+
+    /*ctx.beginPath();
+    ctx.moveTo(100, 225);             // P0
+    ctx.arcTo(300, 25, 500, 225, 75); // P1, P2 and the radius
+    ctx.lineTo(500, 225);             // P2
+    ctx.stroke();*/
+
+
+  function drawArrowhead(locx, locy, angle, sizex, sizey) {
+    var hx = sizex / 2;
+    var hy = sizey / 2;
+    ctx.translate((locx ), (locy));
+    ctx.rotate(angle);
+    ctx.translate(-hx,-hy);
+
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(0,1*sizey);    
+    ctx.lineTo(1*sizex,1*hy);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.translate(hx,hy);
+    ctx.rotate(-angle);
+    ctx.translate(-locx,-locy);
+
+    }
+    
+
+  // returns radians
+  function findAngle(sx, sy, ex, ey) {
+      // make sx and sy at the zero point
+      return Math.atan2((ey - sy) , (ex - sx));
+  }
+
+
+  canvas.addEventListener('mousedown',function(event){
+
+        drag = true;
+
+        ctx.beginPath();
+
+        pos  =  {
+              x: event.clientX,
+              y: event.clientY
+            };
+
+        ctx.moveTo(event.clientX, event.clientY);
+
+        /*var rect = canvas.getBoundingClientRect();
+        pos  =  {
+              x: event.clientX - rect.left,
+              y: event.clientY - rect.top
+            };
+
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(55, 217, 56,1)";
+        ctx.moveTo(pos.x,pos.y);*/
+
+  });
+
+  canvas.addEventListener('mousemove',function(event){
+
+      if (!drag){ return};
+
+
+
+        /*sx = (event.clientX - pos.x)/2;
+        sy = (event.clientY - pos.y)/2;
+        ex = event.clientX;
+        ey = event.clientY;
+
+        ctx.quadraticCurveTo(sx, sy, ex, ey);
+
+
+        // ctx.quadraticCurveTo((event.clientX - pos.x)/2, (event.clientY - pos.y)/2, event.clientX, event.clientY);
+        ctx.stroke();
+
+        var ang = findAngle(sx, sy, ex, ey);
+        ctx.fillRect(ex, ey, 2, 2);
+        drawArrowhead(ex, ey, ang, 12, 12);*/
+
+        ctx.arcTo((event.clientX + pos.x) / 2, 25, event.clientX, event.clientY, 100);
+        ctx.lineTo(event.clientX, event.clientY);
+        ctx.stroke();
+
+        
+
+  });
+
+  canvas.addEventListener('mouseup',function(event){
+
+      if (drag) {
+
+
+        ctx.arcTo((event.clientX + pos.x) / 2, 25, event.clientX, event.clientY, 100);
+        ctx.lineTo(event.clientX, event.clientY);
+        ctx.stroke();
+
+        /*ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        sx = (event.clientX - pos.x)/2;
+        sy = (event.clientY - pos.y)/2;
+        ex = event.clientX;
+        ey = event.clientY;
+
+        ctx.quadraticCurveTo(sx, sy, ex, ey);
+
+
+        // ctx.quadraticCurveTo((event.clientX - pos.x)/2, (event.clientY - pos.y)/2, event.clientX, event.clientY);
+        ctx.stroke();
+
+        var ang = findAngle(sx, sy, ex, ey);
+        ctx.fillRect(ex, ey, 2, 2);
+        drawArrowhead(ex, ey, ang, 12, 12);*/
+
+        };
+
+      drag = false;
+      // ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+</script-->
+
+<!--svg>
+  <line x1="10" y1="10" x2="90" y2="90" stroke-width="1" stroke="black"/>
+  </svg-->
+
+<!--div id="svgDiv"></div-->
+    <!--script>
+    var line;
+
+      var vis = d3.select("#storyBlocks").append("svg")
+          .on("mousedown", mousedown)
+          .on("mouseup", mouseup);
+
+      function mousedown() {
+          var m = d3.mouse(this);
+          line = vis.append("line")
+              .attr("x1", m[0])
+              .attr("y1", m[1])
+              .attr("x2", m[0])
+              .attr("y2", m[1])
+              .attr("id", 'arrows')
+              .style('stroke','black')
+              .style('stroke-width','2px');
+          
+          vis.on("mousemove", mousemove);
+      }
+
+      function mousemove() {
+          var m = d3.mouse(this);
+          line.attr("x2", m[0])
+              .attr("y2", m[1]);
+      }
+
+      function mouseup() {
+          vis.on("mousemove", null);
+      }
+    </script-->
+
+
+<!--svg>
+    <defs>
+    <marker id="markerCircle" markerWidth="8" markerHeight="8" refx="5" refy="5">
+        <circle cx="5" cy="5" r="3" style="stroke: none; fill:#000000;"/>
+    </marker>
+
+    <marker id="markerArrow" markerWidth="13" markerHeight="13" refx="2" refy="6"
+           orient="auto">
+        <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+    </marker>
+</defs>
+
+<path d="M100,20 L150,60"
+      style="stroke: #6666ff; stroke-width: 1px; fill: none;
+                   marker-start: url(#markerCircle);
+                   marker-end: url(#markerArrow);
+                 "
+
+        />
+
+  </svg-->
 
   </body>
 </html>

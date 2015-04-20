@@ -1,3 +1,15 @@
+var codeMirrorDict = {};
+var rs = '';
+
+function randomString(){
+
+return '' + (function co(lor){   return (lor +=
+  [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
+  && (lor.length == 6) ?  lor : co(lor); })('');
+
+}
+
+
 function dispatchers(editor){
 
   editor.signals.addInteractToContainer.add(function(cntrId){
@@ -76,10 +88,10 @@ function dispatchers(editor){
               
               if( event.currentTarget.children[3]){
                 event.preventDefault();
-                console.log(event.currentTarget.children);
+                // console.log(event.currentTarget.children);
                 
-                console.log($('.wysihtml5-sandbox').contents().find('body'));
-                $(this).find('.wysihtml5-sandbox').contents().find('body').focus();
+                // console.log($('.wysihtml5-sandbox').contents().find('body'));
+                // $(this).find('.wysihtml5-sandbox').contents().find('body').focus();
                 //$('#'+event.currentTarget.children[3].id).focus();
 
                 // $(event.currentTarget.children[3]).focus();
@@ -99,6 +111,8 @@ function dispatchers(editor){
 
       editor.signals.addDragnDropToContainer.add(function(cntr) {
         console.log(cntr);
+
+        window.mainTinyColor = 'rgba(0,0,0,1)';
         interact('#'+cntr.id).dropzone({
                 ondrop: function (event) {
                   console.log("ondropactivate");
@@ -113,39 +127,457 @@ function dispatchers(editor){
         .on('dragenter', function (event) {
             console.log('drag Enter');
             console.log(event);
-            event.target.style.background = '#72FFE6';
+            // event.target.style.background = '#72FFE6';
             // event.target.classList.add('drop-activated');
-            })
-        .on('dragleave', function (event) {
-            console.log('drag leave');
-            console.log(event);
-            event.target.style.background = '';
-            //$(event.target.children[0]).append('<p>Start typing here ...</p>');
 
             if (event.relatedTarget.id == 'Text') {
             var commentid = event.target.id + '-comment';
-            console.log(commentid);
+            console.log('commentid',commentid);
 
-            var childContainer = new FreeContainer(editor,'chart-container');
+            // console.log("children", $(event.target).children);
+
+
+
+            // var childContainer = new FreeContainer(editor,'text-container',event);
+            var childContainer = $('<div class="text-container"> </div>');
+
+             
+
               
-            $(childContainer).append('<textarea class="form-control" autofocus="" rows="5" id="' + commentid +'"></textarea>');
 
-            $(event.target).append(childContainer);
-            $('#'+commentid).html('Start typing here ... ');
-            $('#'+commentid).wysihtml5({
+                
                   
-                    "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+                $(childContainer).append('<textarea class="form-control" rows="5" id="' + commentid +'"></textarea>');
+
+                $(event.target).append(childContainer);
+
+
+              CodeMirror.defineMode("arrows", function() {
+                    return {
+                      startState: function() {return {inString: false};},
+                      token: function(stream, state) {
+                        // If a string starts here
+                        if (!state.inString && stream.peek() == '<') {
+                          stream.next();            // Skip quote
+                          state.inString = true;    // Update state
+                        }
+
+                        if (state.inString) {
+                          if (stream.skipTo('>')) { // Quote found on this line
+                            stream.next();          // Skip quote
+                            state.inString = false; // Clear flag
+                          } else {
+                             stream.skipToEnd();    // Rest of line is string
+                          }
+                          return "arrows";          // Token style
+                        } else {
+                          stream.skipTo('<') || stream.skipToEnd();
+                          return null;              // Unstyled token
+                        }
+                      }
+                    };
+                  });
+
+
+
+                var myCodeMirror = CodeMirror($(childContainer)[0], {
+                      value: 'Start typing here. Insert <> to connect blocks using arrows',
+                      mode:  "arrows",
+                      viewportMargin: 5,
+                    });
+
+                codeMirrorDict[event.target.id] = {};
+
+                myCodeMirror.on('change', function(cm,change) {
+                    
+                    // console.log($(childContainer)[0]);
+                    // console.log(event.target);
+
+                    if (change.text[0] == '<') {
+                      
+                      rs = randomString();
+                      var uniqueId = event.target.id +'-' +rs;
+
+
+                      codeMirrorDict[event.target.id][change.to.ch] = {};
+                      codeMirrorDict[event.target.id][change.to.ch]['text'] =  change.text[0];
+                      codeMirrorDict[event.target.id][change.to.ch]['id'] = randomString();
+                      codeMirrorDict[event.target.id][change.to.ch]['relationId'] = uniqueId;
+
+
+
+                      var appendedDiv = $(event.target).append('<span class="fa fa-arrows-h arrowNode" id="'+ uniqueId +'"></span>');
+
+                        var leftDist = Object.keys(codeMirrorDict[event.target.id]).length * 20;
+                      
+                          $('#'+uniqueId).css({
+
+                            'position' : 'fixed',
+                            'display':'block',
+                            'height': 'auto',
+                            'bottom': '90%',
+                            'top': '0',
+                            'left': leftDist + 'px',
+                            'right': '0',
+                            'float':'right',
+
+                            'margin-left':'auto',
+                            'margin-right':'15px',
+                            'margin-top':'15px'
+
+
+                          });
+
+                $('#'+uniqueId).mouseenter(mouseStart(uniqueId));
+                $('#'+uniqueId).mouseleave(mouseEnd(uniqueId));
+
+                function mouseStart(s){
+                  return function() {
+                    $('#'+s).css('color','red');
+                  };
+                }
+
+                function mouseEnd(s){
+                  return function() {$('#'+s).css('color','');};
+                }
+
+
+                      //console.log('rs',rs);
+                      
+                      // editor.signals.addArrowtoContainer.dispatch(event.target,uniqueId,change.to.ch,change.text[0]);
+                    }
+
+                    if (change.removed[0] == '<') {
+                      $('#'+codeMirrorDict[event.target.id][change.from.ch]['relationId']).remove();
+                      delete codeMirrorDict[event.target.id][change.from.ch];
+                      // editor.signals.deleteArrowfromContainer.dispatch(event.target);
+                    }
+
+                });
+
+
+              myCodeMirror.on('update', function(cm) {
+
+                // console.log('updated');
+                // console.log('cm',cm);
+                // console.log('myCodeMirror',myCodeMirror);
+                // var hoverid = event.target.id + '-' +randomString();
+                //var noIdArrow = $(event.target).find($('*:not([id]).cm-arrows'));
+                var noIdArrow = $(event.target).find('.cm-arrows');
+
+
+                // var noIdArrow = $('.cm-arrows').children();
+
+                // console.log(noIdArrow);
+                //console.log(noIdArrow[noIdArrow.length - 1]);
+                var ind = 0;
+
+                for (var g in codeMirrorDict[event.target.id]){
+
+                  noIdArrow[ind].id = codeMirrorDict[event.target.id][g].id;
+
+
+                  $('#'+codeMirrorDict[event.target.id][g].id).mouseenter(mouseStart(codeMirrorDict[event.target.id][g]));
+                  $('#'+codeMirrorDict[event.target.id][g].id).mouseleave(mouseEnd(codeMirrorDict[event.target.id][g]));
+                  
+                  
+
+                    
+
+
+                  ind++;
+
+                }
+
+                function mouseStart(s){
+                  return function() {$('#'+s['relationId']).css('color','red');};
+                }
+
+                function mouseEnd(s){
+                  return function() {$('#'+s['relationId']).css('color','');};
+                }
+
+
+                
+
+                });
+
+                
+
+
+
+                
+                $('#'+commentid).html('Start typing here ... ');
+
+
+                var myCustomTemplates = {
+                    custom1: function(context) {
+                      return "<li>" +
+                        "<a id="+ commentid + "-color-button " +  "class='btn btn-default' data-wysihtml5-command='' href='" +
+                        
+                        "' data-wysihtml5-command-value='&hellip;'>" +
+                        "<span class='fa fa-minus-square-o'></span></a>" +
+                        "</li>";
+                    },
+
+                    custom2: function(context) {
+                      return "<li>" +
+                        "<a id="+ commentid + "-background-color-cnbutton " +  "class='btn btn-default' data-wysihtml5-command='' href='" +
+                        
+                        "' data-wysihtml5-command-value='&hellip;'>" +
+                        "<span class='fa fa-minus-square'></span></a>" +
+                        "</li>";
+                    },
+
+                    customFontStyles: function(context) {
+                      return '<li class="dropdown">' +
+                        '<a class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-expanded="false">' +
+                          
+                            '<span class="fa fa-font"></span>'+
+                          
+                          '<span class="current-font">Heading 1</span>'+
+                          '<b class="caret"></b>'+
+                        '</a>'+
+                        '<ul class="dropdown-menu">'+
+                          '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p" tabindex="-1" href="javascript:;" unselectable="on">Normal text</a></li>'+
+                          '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1" tabindex="-1" href="javascript:;" unselectable="on" class="wysihtml5-command-active">Heading 1</a></li>'+
+                          '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" tabindex="-1" href="javascript:;" unselectable="on" class="">Heading 2</a></li>'+
+                          '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h3" tabindex="-1" href="javascript:;" unselectable="on">Heading 3</a></li>'+
+                          '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h4" tabindex="-1" href="javascript:;" unselectable="on">Heading 4</a></li>'+
+                          '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h5" tabindex="-1" href="javascript:;" unselectable="on">Heading 5</a></li>'+
+                          '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h6" tabindex="-1" href="javascript:;" unselectable="on">Heading 6</a></li>'+
+                        '</ul>'+
+                      '</li>';
+                    }
+
+
+                  };
+
+                var texteditor = $('#'+commentid).wysihtml5({
+                      
+                  toolbar: {
+                    customFontStyles: true,
+                    "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
                     "emphasis": true, //Italics, bold, etc. Default true
                     "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-                    "html": true, //Button which allows you to edit the generated HTML. Default false
+                    "html": false, //Button which allows you to edit the generated HTML. Default false
                     "link": true, //Button to insert a link. Default true
                     "image": true, //Button to insert an image. Default true,
-                    "color": true, //Button to change color of font  
+                    "color": false,
+                    custom1: true,
+                    custom2: true,
+                    
                     "blockquote": true, //Blockquote  
+                    
+                    fa:true,
+                  },
+                  customTemplates: myCustomTemplates
+                      
+                  })
+                
                   
-              });
+                ;
+                
+
+                $(event.target).find('iframe').remove();
+                
+                $(event.target).find('.wysihtml5-toolbar').css('display','');
+                $(event.target).find('.form-control').remove();
+
+                $('.dropdown-menu li a').click(function(event){
+
+                  console.log($(this)[0].attributes[1].value);
+
+
+                });
+
+
+                
+
+
+                $('.wysihtml5-sandbox').contents().find('body').on("focus",function(event) {
+                      console.log("Handler for .focus() called.");
+                      console.log(event);
+                      console.log(mainTinyColor);
+                      console.log($('.wysihtml5-sandbox').contents()[0].activeElement);
+                      $('.wysihtml5-sandbox').contents()[0].activeElement.style.color = mainTinyColor;
+                  });
+                
+
+                $('.wysihtml5-sandbox').contents().find('body').on("focus:composer",function(event) {
+                      console.log("Handler for .focus:composer() called.");
+                      console.log(event);
+                      console.log(mainTinyColor);
+                      console.log($('.wysihtml5-sandbox').contents().find('body'));
+                      $(event.currentTarget).css('color',mainTinyColor);
+                  });
+
+                $('.wysihtml5-sandbox').contents().find('body').on("focus:textarea",function(event) {
+                      console.log("Handler for .focus:textarea() called.");
+                      console.log(event);
+                      console.log(mainTinyColor);
+                      console.log($('.wysihtml5-sandbox').contents().find('body'));
+                      $(event.currentTarget).css('color',mainTinyColor);
+                  });
+
+                
+                
+
+
+                $('#'+commentid+ "-color-button").click(function(event){
+
+                    console.log("pencil clicked",event);
+                    console.log($(event.currentTarget.parentElement.parentElement.parentElement));
+
+                    console.log($(event.currentTarget.parentElement.parentElement.parentElement)[0].children[2].contentDocument.activeElement);
+
+
+                    // editor.signals.showSpectrum.dispatch(commentid+ "-color-button");
+
+                    $(event.currentTarget.parentElement.parentElement.parentElement).spectrum({
+                        color: "#ffffff",
+                        showInput:true,
+                        preferredFormat: "rgb",
+                        containerClassName: "color-picker"
+                        });
+
+
+                    $(event.currentTarget.parentElement.parentElement.parentElement)
+
+                      .on('move.spectrum', function(e, tinycolor) {
+                        // console.log(tinycolor);
+                        // console.log(tinycolor.toHexString());
+                        mainTinyColor = tinycolor;
+                        $($(event.currentTarget.parentElement.parentElement.parentElement)[0].children[2].contentDocument.activeElement).css('color',tinycolor);
+                        
+                        
+                      
+                      })
+                        .on('change.spectrum', function(e, tinycolor) {
+
+
+                          mainTinyColor = tinycolor;
+                          $($(event.currentTarget.parentElement.parentElement.parentElement)[0].children[2].contentDocument.activeElement).css('color',tinycolor);
+                        
+                        
+                      
+                      })
+
+                        .on('hide.spectrum', function(e, tinycolor) {
+                        console.log(tinycolor);
+
+                        mainTinyColor = tinycolor;
+                        $($(event.currentTarget.parentElement.parentElement.parentElement)[0].children[2].contentDocument.activeElement).css('color',tinycolor);
+
+                        $(event.currentTarget.parentElement.parentElement.parentElement).spectrum('disable');
+                        // console.log(tinycolor.toHexString());
+                        /*$('#'+showColorId).css('background',tinycolor.toHexString());
+                        $('#'+showColorId).css('opacity',''+1);
+                        if (tinycolor.toHexString() !== "#ffffff") {
+                          $('#'+showColorId).children().css('color','#ffffff');
+                        }
+                        else{
+                          $('#'+showColorId).children().css('color','#000000');
+                        }
+                        $('#'+showColorId).spectrum("disable");*/
+                        
+                      
+                      })
+                      ;
+
+                  });
+
+
+
+                  
+
+          
+
             //$('#'+commentid).wysihtml5();
+
+            
           }
+
+          if (event.relatedTarget.id == 'Image') {
+
+              // var imageContainer = new FreeContainer(editor,'image-container');
+              var imagedivid = event.target.id + '-image-div';
+              var imageContainer = $('<div class="image-container"> </div>');
+
+              // $(imageContainer).append("<p>Upload Image here</p>");
+              // $(imageContainer).append();
+
+
+
+              $(event.target).append('<p>Click or drop here to upload file</p>');
+              // var imageDropzone = $('#'+event.target.id).dropzone({ url: "/file-upload" });
+
+              var myDropzone = new Dropzone('#'+event.target.id, { url: "/file-upload"});
+
+              // var eventTargetID = event.target.id;
+
+
+              myDropzone.on('success',function(){
+
+                  $.ajax({
+                method: "GET",
+                url: "/last-photo",
+                contentType: 'image/jpeg'
+              })
+              .done(function(data){
+
+                console.log("success");
+                $( "p" ).remove( ":contains('Click')" );
+                $( "div" ).remove( ".dz-preview" );
+                
+                imageContainer.append('<img src=' +  data + '></img>');
+                $(event.target).append(imageContainer);
+
+                //$(event.target).append('<p> Success</p>');
+                //$(event.target).append('<img src=data:image/jpeg;base64,' + data + '></img>');
+                
+              });
+
+              });
+
+
+
+/*              var imageid = event.target.id + '-Image';
+              console.log(imageid);
+              var img = '<img src="http://www.eonline.com/eol_images/Entire_Site/201438/rs_560x415-140408154504-1024.baby-elephant-grass.ls.4814.jpg" id="' + imageid +'"></img>';
+              
+              $(childContainer).append(img);
+              // childContainer.appendChild(img);
+              $(event.target).append(childContainer);*/
+                
+                /*$(event.target).append('<textarea class="form-control" autofocus="" rows="5" id="' + imageid +'"></textarea>');
+                $('#'+imageid).wysihtml5({
+                  toolbar: {
+                    "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+                    "emphasis": false, //Italics, bold, etc. Default true
+                    "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                    "html": false, //Button which allows you to edit the generated HTML. Default false
+                    "link": false, //Button to insert a link. Default true
+                    "image": true, //Button to insert an image. Default true,
+                    "color": false, //Button to change color of font  
+                    "blockquote": false, //Blockquote  
+                    }
+              });*/
+
+
+              // editor.signals.resizeContainer.dispatch(cntr);
+          }
+
+
+
+            })
+        .on('dragleave', function (event) {
+            /*console.log('drag leave');
+            console.log(event);*/
+            // event.target.style.background = '';
+            //$(event.target.children[0]).append('<p>Start typing here ...</p>');
+
+            
 
           if (event.relatedTarget.id == 'Chart') {
 
@@ -203,36 +635,7 @@ function dispatchers(editor){
               }*/
           }
 
-          if (event.relatedTarget.id == 'Image') {
-
-              var childContainer = new FreeContainer(editor,'image-container');
-
-              console.log('Image');
-              var imageid = event.target.id + '-Image';
-              console.log(imageid);
-              var img = '<img src="http://www.eonline.com/eol_images/Entire_Site/201438/rs_560x415-140408154504-1024.baby-elephant-grass.ls.4814.jpg" id="' + imageid +'"></img>';
-              
-              $(childContainer).append(img);
-              // childContainer.appendChild(img);
-              $(event.target).append(childContainer);
-                
-                /*$(event.target).append('<textarea class="form-control" autofocus="" rows="5" id="' + imageid +'"></textarea>');
-                $('#'+imageid).wysihtml5({
-                  toolbar: {
-                    "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
-                    "emphasis": false, //Italics, bold, etc. Default true
-                    "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-                    "html": false, //Button which allows you to edit the generated HTML. Default false
-                    "link": false, //Button to insert a link. Default true
-                    "image": true, //Button to insert an image. Default true,
-                    "color": false, //Button to change color of font  
-                    "blockquote": false, //Blockquote  
-                    }
-              });*/
-
-
-              // editor.signals.resizeContainer.dispatch(cntr);
-          }
+          
 
 
 

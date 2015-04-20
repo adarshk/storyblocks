@@ -24,7 +24,7 @@ interact('#viewport')
 
 
 //interact('#viewport').dropzone({
-  interact('body').dropzone({
+  interact('#storyBlocks').dropzone({
 			ondropactivate: function (event) {
 
     			console.log(event.relatedTarget.id);

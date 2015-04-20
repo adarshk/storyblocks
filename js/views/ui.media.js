@@ -148,6 +148,10 @@ UI.Media.prototype.addIcon = function(formName){
 		icon.className = 'fa fa-file-video-o fa-4x';
 	}
 
+	else if (formName === 'Tweet'){
+		icon.className = 'fa fa-twitter-square fa-4x';
+	}
+
 
 	else{
 		icon.className = 'fa fa-file-text-o fa-4x';

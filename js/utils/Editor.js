@@ -78,6 +78,8 @@ var Editor = function () {
 		resizeContainer: new SIGNALS.Signal(),
 		updateRelationship: new SIGNALS.Signal(),
 		showSpectrum : new SIGNALS.Signal(),
+		addArrowtoContainer: new SIGNALS.Signal(),
+		deleteArrowfromContainer: new SIGNALS.Signal(),
 
 
 	};

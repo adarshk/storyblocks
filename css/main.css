@@ -158,6 +158,15 @@ textarea, input { outline: none; } /* osx */
     padding: 20px;	
 }
 
+.main-throwaway-container{
+	display: inline-block;
+    /*border: 1px solid #ccc;*/
+    border-radius: 6px;
+    /*margin: 60px;*/
+
+    padding: 20px;	
+}
+
 .sidebar-container-properties{
 	display: inline-block;
     /*border: 1px solid #ccc;*/
