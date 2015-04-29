@@ -141,7 +141,7 @@ input.Number {
 	right: 0px;
 	top: 0px;
 	bottom: 0px;
-	width: 300px;
+	width: 200px;
 	background: #eee;
 	z-index: 1;
 	/*overflow: auto;*/
@@ -269,12 +269,34 @@ input.Number {
 	vertical-align: middle;
 }
 
+
+.chart-container {
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: small;
+	padding-top: 5px;
+	vertical-align: middle;
+}
+
 .drp{
 
 	height: 100px;
 	width: 400px;
 
 }
+
+
+.map-container {
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: small;
+	padding-top: 5px;
+	vertical-align: middle;
+}
+
+
 
 .ui-container {
 	position: absolute;
@@ -287,7 +309,7 @@ input.Number {
 
 }
 
-.free-container-cross {
+.main-container-cross {
 	position: relative;
 	display:block;
     height: auto;
@@ -302,32 +324,32 @@ input.Number {
     margin-top:15px;
 }
 
-.outnode {
+.main-container-outnode {
 	position: relative;
 	display:block;
     height: auto;
-    bottom: 80%;
+    bottom: 90%;
     top: 0;
     left: 0;
     right: 0;
     float:right;
     margin-left:auto;
     margin-right:15px;
-    margin-top:15px;
+    margin-top:14px;
 }
 
-.square {
+.main-container-square {
 	position: relative;
 	display:block;
     height: auto;
-    bottom: 80%;
+    bottom: 90%;
     top: 0;
     left: 0;
     right: 0;
     float:right;
     margin-left:auto;
     margin-right:15px;
-    margin-top:15px;
+    margin-top:14px;
 }
 
 .event{

@@ -7,9 +7,12 @@ var Sidebar = function ( editor ) {
 	var container = new UI.Panel();
 	container.setId( 'sidebar' );
 
+	// container.add( new Sidebar.FileMenu( editor ) );
+	// container.add( new Sidebar.Container( editor ) );
+	//container.add( new Sidebar.Template( editor ) );
 	container.add( new Sidebar.Forms( editor ) );
-	container.add( new Sidebar.States( editor ) );
-	container.add( new Sidebar.Container( editor ) );
+	// container.add( new Sidebar.States( editor ) );
+	
 	// container.add( new Sidebar.ContainerThrowAway( editor ) );
 	//container.add( new Sidebar.ContainerProperties( editor ) );
 

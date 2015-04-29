@@ -1,16 +1,140 @@
 var codeMirrorDict = {};
 var rs = '';
+var thisistheTarget;
+var map;
+
+var myCodeMirror;
+
+var relationships = {};
+
+relationships.connections = {};
+var once = true;
+
+var jsonData;
+
 
 function randomString(){
 
 return '' + (function co(lor){   return (lor +=
-  [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
-  && (lor.length == 6) ?  lor : co(lor); })('');
+  [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)]) && (lor.length == 6) ?  lor : co(lor); })('');
 
 }
 
 
+function fly(f) {
+    
+if(isNaN(jsonData.data[f].latlng[0]) || jsonData.data[f].latlng[0] === undefined || jsonData.data[f].latlng[0] === null){
+
+
+    
+}
+
+else{
+
+
+  var tempValue = myCodeMirror.getValue();
+  var tempItems = tempValue.split('<');
+
+  var tempString = "";
+
+  console.log(tempItems);
+
+  for(var i=0;i<tempItems.length;i++){
+
+      if(i==0){
+
+        tempString += "Capital - ";  
+        tempString += jsonData.data[f].capital;  
+
+        tempString += " ";
+      }
+
+      if(i==1){
+        // tempString += "Capital - ";  
+        tempString += jsonData.data[f].currency;  
+      }
+
+      if(i==2){
+        tempString += jsonData.data[f].languages.nld;  
+      }
+      
+  }
+
+
+  myCodeMirror.getDoc().setValue(tempString);
+
+  map.flyTo([
+        jsonData.data[f].latlng[0],
+        jsonData.data[f].latlng[1]]);
+}
+}
+
+
 function dispatchers(editor){
+
+
+
+  editor.signals.actionRelationships.add(function(){
+
+
+    if(once){
+
+    var jd = 0;
+
+    setInterval(function(){
+
+        fly(jd++);
+
+    },4000);
+
+    once = false;
+
+  }
+
+
+
+
+    // console.log(myCodeMirror.getValue());
+
+    // editor.getDoc().setValue('var msg = "Hi";');
+
+    // for(var jd in jsonData.data){
+
+    // }
+
+    // fly();
+
+
+    // for(var r in relationships.connections){
+
+
+      // console.log(r);
+
+/*      if($('#'+ r).has('.chart-container')){
+
+          for(var c=0;c<r.length;c++){
+            if ($(r[c].id.has('.mapboxgl-canvas'))) {
+
+              var next = 0;
+              console.log("yes");
+              // setInterval(function(){
+
+              //   fly();
+
+              // },2000);
+
+            }
+          }
+
+      }*/
+
+      
+    // }
+
+
+  });
+
+
 
   editor.signals.addInteractToContainer.add(function(cntrId){
             
@@ -33,23 +157,87 @@ function dispatchers(editor){
                     x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
                     y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
+
+                  var lefts = target.style.left.split('p');
+                  lefts = parseInt(lefts[0],'10');
+                  // console.log('lefts',lefts);
+
+                  var tops = target.style.top.split('p');
+                  tops = parseInt(tops[0],'10');
+                  // console.log('tops',tops);
+
+                  target.style.left = (lefts + x) + "px";
+                  target.style.top = (tops + y) + "px";
+
+
+                  jsPlumb.revalidate($(this));
+                jsPlumb.repaintEverything();
+
                 // translate the element
-                target.style.webkitTransform =
+                /*target.style.webkitTransform =
                 target.style.transform =
                   'translate(' + x + 'px, ' + y + 'px)';
 
                 // update the posiion attributes
-                target.setAttribute('data-x', x);
-                target.setAttribute('data-y', y);
+                /*target.setAttribute('data-x', x);
+                target.setAttribute('data-y', y);*/
+
+                // jsPlumb.repaint(event.target.children[0].id);
+
+                
+                
+                // var regexp = /\(([^)]+)\)/;
+                // var match = regexp.exec($(event.target)[0].style.transform);
+                // var xsplit = match[1].split(',');
+                // jsPlumb.repaintEverything();
+                // jsPlumb.revalidate(event.target.id,[{left:xsplit[0],top:xsplit[1]}]);
+                
+                
               },
               // call this function on every dragend event
               onend: function (event) {
-                /*var textEl = event.target.querySelector('p');
 
-                textEl && (textEl.textContent =
-                  'moved a distance of '
-                  + (Math.sqrt(event.dx * event.dx +
-                               event.dy * event.dy)|0) + 'px');*/
+
+                
+                // console.log(event.target.children[0].id);
+                // jsPlumb.repaint(event.target, {left:x, top:y});
+                
+
+                console.log('end',$(event.target)[0]);
+
+                if($(event.target)[0].style.transform !== ''){
+                
+                var regexp = /\(([^)]+)\)/;
+                var match = regexp.exec($(event.target)[0].style.transform);
+                var xsplit = match[1].split(',');
+                console.log('xsplit',xsplit[0],xsplit[1]);
+                
+                //thisistheTarget.revalidate(event.target.id,[{left:xsplit[0],top:xsplit[1]}]);
+                //thisistheTarget.revalidate(this,[{left:xsplit[0],top:xsplit[1]}]);
+                //thisistheTarget.repaintEverything();
+
+                jsPlumb.revalidate($(this));
+                jsPlumb.repaintEverything();
+
+                //jsPlumb.repaint($(this));
+                //thisistheTarget.repaint(this);
+
+              }
+
+                // console.log('end',event.target,event.target.children[0]);
+                // jsPlumb.repaintEverything();
+                // jsPlumb.revalidate(event.target.id);
+                
+
+                // jsPlumb.repaint(event.target.children[0].id);
+                //jsPlumb.repaintEverything();
+                
+                // var textEl = event.target.querySelector('p');
+
+                // textEl && (textEl.textContent =
+                //   'moved a distance of '
+                //   + (Math.sqrt(event.dx * event.dx +
+                //                event.dy * event.dy)|0) + 'px');
               }
               
             }).resizable({
@@ -72,16 +260,35 @@ function dispatchers(editor){
                                         + offset.x + 'px,'
                                         + offset.y + 'px)');
 
-              // target.textContent = event.rect.width + '×' + event.rect.height;
-            });/*.on('hold', function (event) {
-                  var interaction = event.interaction;
+              //jsPlumb.repaint(event.target.children[0].id);
 
-                  if (!interaction.interacting()) {
-                    interaction.start({ name: 'drag' },
-                                      event.interactable,
-                                      event.currentTarget);
-                  }
-              });*/
+              if ($(event.target).find('.mapboxgl-canvas').length) {
+                    map.resize();
+
+                }
+              jsPlumb.repaintEverything();
+              jsPlumb.revalidate(event.target.id);
+
+              // target.textContent = event.rect.width + '×' + event.rect.height;
+            })
+
+              .on('resizeend',function(event){
+
+                if ($(event.target).find('.mapboxgl-canvas').length) {
+                    map.resize();
+
+                }
+                
+              });
+            // .on('hold', function (event) {
+            //       var interaction = event.interaction;
+
+            //       if (!interaction.interacting()) {
+            //         interaction.start({ name: 'drag' },
+            //                           event.interactable,
+            //                           event.currentTarget);
+            //       }
+            //   });
 
             $('#'+cntrId).mouseover(function(event) {
               
@@ -109,6 +316,60 @@ function dispatchers(editor){
 
     });
 
+/*editor.signals.addInteractToContainer.add(function(cntrId){
+            
+
+          // console.log('cntrId',cntrId);
+
+        //   $('#'+cntrId).resizable({
+        //     resize : function(event, ui) {
+        //         jsPlumb.repaint(ui.helper);
+        //     }
+        // });
+
+        $('.mainDivContainer').resizable({
+          resize : function(event, ui) {
+            // jsPlumb.repaint(ui.helper);
+            jsPlumb.revalidate(ui.helper);
+        },
+        handles: "all"
+    });
+
+
+          // interact('#' + cntrId).resizable({
+          //     edges: { left: true, right: true, bottom: true, top: true }
+          //   })
+          //   .on('resizestart', function (event) {
+          //     // console.log('resizeStarted');
+
+          //     }).on('resizemove', function (event) {
+          //     var target = event.target;
+
+          //     // update the element's style
+          //     target.style.width  = event.rect.width + 'px';
+          //     target.style.height = event.rect.height + 'px';
+
+          //     // translate when resizing from top or left edges
+          //     offset.x += event.deltaRect.left;
+          //     offset.y += event.deltaRect.top;
+
+          //     target.style.transform = ('translate('+ offset.x + 'px,'+ offset.y + 'px)');
+
+          //     //jsPlumb.repaint(event.target.children[0].id);
+          //     jsPlumb.repaintEverything();
+          //     // jsPlumb.revalidate(event.target.id);
+
+          //     // target.textContent = event.rect.width + '×' + event.rect.height;
+          //   });
+
+          jsPlumb.draggable(cntrId);
+          // jsPlumb.draggable($('#'+cntrId)[0].children[0].id);
+          
+
+          
+      
+    });
+*/
       editor.signals.addDragnDropToContainer.add(function(cntr) {
         console.log(cntr);
 
@@ -180,7 +441,7 @@ function dispatchers(editor){
 
 
 
-                var myCodeMirror = CodeMirror($(childContainer)[0], {
+                myCodeMirror = CodeMirror($(childContainer)[0], {
                       value: 'Start typing here. Insert <> to connect blocks using arrows',
                       mode:  "arrows",
                       viewportMargin: 5,
@@ -218,8 +479,6 @@ function dispatchers(editor){
                             'bottom': '90%',
                             'top': '0',
                             'left': leftDist + 'px',
-                            'right': '0',
-                            'float':'right',
 
                             'margin-left':'auto',
                             'margin-right':'15px',
@@ -227,6 +486,8 @@ function dispatchers(editor){
 
 
                           });
+
+
 
                 $('#'+uniqueId).mouseenter(mouseStart(uniqueId));
                 $('#'+uniqueId).mouseleave(mouseEnd(uniqueId));
@@ -240,6 +501,15 @@ function dispatchers(editor){
                 function mouseEnd(s){
                   return function() {$('#'+s).css('color','');};
                 }
+
+
+                        
+
+
+                          /*jsPlumb.addEndpoint("uniqueId", {
+                            endpoint:"Dot",
+                            anchor:[ "Perimeter", { shape:"Circle" } ]
+                          });*/
 
 
                       //console.log('rs',rs);
@@ -346,6 +616,8 @@ function dispatchers(editor){
                           '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h4" tabindex="-1" href="javascript:;" unselectable="on">Heading 4</a></li>'+
                           '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h5" tabindex="-1" href="javascript:;" unselectable="on">Heading 5</a></li>'+
                           '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h6" tabindex="-1" href="javascript:;" unselectable="on">Heading 6</a></li>'+
+                          '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="xl" tabindex="-1" href="javascript:;" unselectable="on">Extra Large</a></li>'+
+                          '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="sm" tabindex="-1" href="javascript:;" unselectable="on">Small</a></li>'+
                         '</ul>'+
                       '</li>';
                     }
@@ -384,7 +656,63 @@ function dispatchers(editor){
                 $(event.target).find('.wysihtml5-toolbar').css('display','');
                 $(event.target).find('.form-control').remove();
 
+
+                $('.wysihtml5-toolbar .btn').click(function(event){
+                        
+                  if(event.currentTarget.innerText == "Bold"){
+                    $(".CodeMirror").css('font-weight',"bold");
+                  }
+
+                  if(event.currentTarget.innerText == "Italic"){
+                    $(".CodeMirror").css('font-style',"italic");
+                  }
+
+                  if(event.currentTarget.innerText == "Underline"){
+                    $(".CodeMirror").css('text-decoration',"underline");
+                  }
+                  
+                  
+
+                });
+
                 $('.dropdown-menu li a').click(function(event){
+
+                
+                  if($(this)[0].attributes[1].value == 'h1'){
+                    $(".CodeMirror").css('font-size',"22pt");
+                  }
+
+                  else if($(this)[0].attributes[1].value == 'h2'){
+                    $(".CodeMirror").css('font-size',"20pt");
+                  }
+
+                  else if($(this)[0].attributes[1].value == 'h3'){
+                    $(".CodeMirror").css('font-size',"18pt");
+                  }
+
+                  else if($(this)[0].attributes[1].value == 'h4'){
+                    $(".CodeMirror").css('font-size',"16pt");
+                  }
+
+                  else if($(this)[0].attributes[1].value == 'h5'){
+                    $(".CodeMirror").css('font-size',"14pt");
+                  }
+
+                  else if($(this)[0].attributes[1].value == 'h6'){
+                    $(".CodeMirror").css('font-size',"12pt");
+                  }
+
+                  else if($(this)[0].attributes[1].value == 'p'){
+                    $(".CodeMirror").css('font-size',"14pt");
+                  }
+
+                  else if($(this)[0].attributes[1].value == 'xl'){
+                    $(".CodeMirror").css('font-size',"26pt");
+                  }
+
+                  else if($(this)[0].attributes[1].value == 'sm'){
+                    $(".CodeMirror").css('font-size',"10pt");
+                  }
 
                   console.log($(this)[0].attributes[1].value);
 
@@ -487,11 +815,16 @@ function dispatchers(editor){
 
                   });
 
+  
 
+            
+            
+            //thisistheTarget = jsPlumb.makeTarget($(event.target)[0].parentElement.id, {
+              thisistheTarget = jsPlumb.makeTarget(event.target.id, {
+                            anchor:"Continuous",
+                            endpoint:["Dot", { width:40, height:20 }]
+                          });
 
-                  
-
-          
 
             //$('#'+commentid).wysihtml5();
 
@@ -509,7 +842,7 @@ function dispatchers(editor){
 
 
 
-              $(event.target).append('<p>Click or drop here to upload file</p>');
+              $(event.target).append('<p>Click or drop image to upload</p>');
               // var imageDropzone = $('#'+event.target.id).dropzone({ url: "/file-upload" });
 
               var myDropzone = new Dropzone('#'+event.target.id, { url: "/file-upload"});
@@ -540,50 +873,75 @@ function dispatchers(editor){
 
               });
 
-
-
-/*              var imageid = event.target.id + '-Image';
-              console.log(imageid);
-              var img = '<img src="http://www.eonline.com/eol_images/Entire_Site/201438/rs_560x415-140408154504-1024.baby-elephant-grass.ls.4814.jpg" id="' + imageid +'"></img>';
-              
-              $(childContainer).append(img);
-              // childContainer.appendChild(img);
-              $(event.target).append(childContainer);*/
-                
-                /*$(event.target).append('<textarea class="form-control" autofocus="" rows="5" id="' + imageid +'"></textarea>');
-                $('#'+imageid).wysihtml5({
-                  toolbar: {
-                    "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
-                    "emphasis": false, //Italics, bold, etc. Default true
-                    "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-                    "html": false, //Button which allows you to edit the generated HTML. Default false
-                    "link": false, //Button to insert a link. Default true
-                    "image": true, //Button to insert an image. Default true,
-                    "color": false, //Button to change color of font  
-                    "blockquote": false, //Blockquote  
-                    }
-              });*/
-
-
-              // editor.signals.resizeContainer.dispatch(cntr);
           }
-
-
-
-            })
-        .on('dragleave', function (event) {
-            /*console.log('drag leave');
-            console.log(event);*/
-            // event.target.style.background = '';
-            //$(event.target.children[0]).append('<p>Start typing here ...</p>');
-
-            
 
           if (event.relatedTarget.id == 'Chart') {
 
-            var childContainer = new FreeContainer(editor,'chart-container');
+            var chartContainer = $('<div class="chart-container"> </div>');
+
+            // var chartContainer = new FreeContainer(editor,'chart-container');
+
+            $(event.target).append('<p>Drag and drop or click to upload json file</p>');
+
+
+
+            var chartDropzone = new Dropzone('#'+event.target.id, { url: "/file-upload"});
+
+              chartDropzone.on('success',function(){
+
+                  $.ajax({
+                method: "GET",
+                url: "/last-file",
+              })
+              .done(function(data){
+
+                console.log("success",data);
+
+                jsonData = data;
+
+                $( "p" ).remove();
+                $( "p" ).remove( ":contains('Click')" );
+                $( "div" ).remove( ".dz-preview" );
+                var chartRandom = randomString();
+                chartContainer.append('<table class="table" id=' + event.target.id + "-" +chartRandom +'>  <thead> <tr> <th class="val-edit">Location</th><th class="val-edit">Latitude</th><th class="val-edit">Longitude</th> </tr></thead> <tbody class="tablebody"></tbody></table>');
+
+                $(event.target).append(chartContainer);
+
+                $.each(data.data, function(index, val) {
+
+                $("#"+event.target.id + "-" + chartRandom).append('<tr><td class="val-edit">'+ val.name.common + '</td><td class="val-edit">'+ val.latlng[0]+ '</td><td class="val-edit">' + val.latlng[1] +'</td></tr>');
+                 
+                });
+
+
+                $.fn.editable.defaults.mode = 'inline';
+
+                $(".val-edit").editable();
+
+                jsPlumb.makeSource(event.target.id, {
+                  anchor:["Continuous", { faces:[ "left" ] } ],
+                  endpoint:["Dot", { width:5, height:5 }],
+                maxConnections:1
+              });
+
+
+
+
+
+                // $(event.target).append(imageContainer);
+
+                //$(event.target).append('<p> Success</p>');
+                //$(event.target).append('<img src=data:image/jpeg;base64,' + data + '></img>');
+                
+              });
+
+              });
+
+
+
+
               
-            $(event.target).append(childContainer);
+            /*$(event.target).append(childContainer);
 
 
               var data = [4, 8, 15, 16, 23, 42];
@@ -604,7 +962,7 @@ function dispatchers(editor){
                   .style('padding', '3px')
                   .style('margin', '1px')
                   .style('color', 'white')
-                  .text(function(d) { return d; });
+                  .text(function(d) { return d; });*/
 
                   /*console.log('dReturn',dReturn);
                   var styleProps = $( dReturn[0]).css([
@@ -633,19 +991,36 @@ function dispatchers(editor){
               margin: 1px;
               color: white;
               }*/
+
+
+              
           }
 
-          
+
+          if (event.relatedTarget.id == 'Map') {
+
+            // var mapContainer = $('<div class="map-container" id="mapbox-map"> </div>');
+
+            map = new mapboxgl.Map({
+              container: event.target.id, // container id
+              style: 'https://www.mapbox.com/mapbox-gl-styles/styles/outdoors-v7.json', //stylesheet location
+              center: [40.7294245, -73.993707], // starting position
+              zoom: 15 // starting zoom
+            });
 
 
+            //jsPlumb.makeTarget($(event.target)[0].parentElement.id, {
+              jsPlumb.makeTarget(event.target.id, {
+                            anchor:"Continuous",
+                            endpoint:["Dot", { width:5, height:5 }]
+            });
 
-            /*$('.wysihtml5-sandbox').contents().find('body').on("keydown",function() {
-              console.log("Handler for .keypress() called.");
-              });*/
 
+          }
 
-            // console.log(event.target.children[0]);
-            // event.target.classList.add('drop-activated');
+            })
+        .on('dragleave', function (event) {
+            
             });
       });
 

@@ -82,6 +82,11 @@ var Editor = function () {
 		deleteArrowfromContainer: new SIGNALS.Signal(),
 
 
+		redLines: new SIGNALS.Signal(),
+		actionRelationships: new SIGNALS.Signal(),
+		textBoxAppend: new SIGNALS.Signal(),
+
+
 	};
 
 	this.config = new Config();

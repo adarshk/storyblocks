@@ -14,7 +14,7 @@ var Toolbar = function ( editor ) {
 
 	// translate / rotate / scale
 
-	var translate = new UI.Button( 'translate' ).onClick( function () {
+	/*var translate = new UI.Button( 'translate' ).onClick( function () {
 
 		signals.transformModeChanged.dispatch( 'translate' );
 
@@ -52,9 +52,53 @@ var Toolbar = function ( editor ) {
 
 	var showGrid = new UI.Checkbox().onChange( update ).setValue( false );
 	buttons.add( showGrid );
-	buttons.add( new UI.Text( 'show' ) );
+	buttons.add( new UI.Text( 'show' ) );*/
 
-	function update() {
+
+	var showRedLines = new UI.Checkbox().onChange( enableDisable ).setValue( true );
+	buttons.add( showRedLines );
+	buttons.add( new UI.Text( 'Grid' ) );
+
+
+	function enableDisable(){
+		signals.redLines.dispatch( showRedLines.getValue() );
+	}
+
+
+	signals.redLines.add(function(red){
+
+		if(red){
+			$('.free-container').css('outline','1px dashed red');
+			$('.main-container-cross').show();
+			$('.main-container-square').show();
+			$('.main-container-outnode').show();
+			$('._jsPlumb_endpoint').show();
+			$('._jsPlumb_connector').show();
+			$('.wysihtml5-toolbar').show();
+
+			$('.arrowNode').show();
+
+			$('#sidebar').show();
+		}
+		else{
+			$('.free-container').css('outline','');
+
+			$('.main-container-cross').hide();
+			$('.main-container-square').hide();
+			$('.main-container-outnode').hide();
+
+			$('._jsPlumb_endpoint').hide();
+			$('._jsPlumb_connector').hide();
+			$('.wysihtml5-toolbar').hide();
+			$('.arrowNode').hide();
+			$('#sidebar').hide();
+		}
+
+	});
+
+	enableDisable();
+
+	/*function update() {
 
 		signals.snapChanged.dispatch( snap.getValue() === true ? grid.getValue() : null );
 		signals.spaceChanged.dispatch( local.getValue() === true ? "local" : "world" );
@@ -62,7 +106,7 @@ var Toolbar = function ( editor ) {
 
 	}
 
-	update();
+	update();*/
 
 	return container;
 

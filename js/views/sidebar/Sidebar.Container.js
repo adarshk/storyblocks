@@ -28,7 +28,7 @@ Sidebar.Container = function(editor){
 
 	
 	var icon = document.createElement('span');
-	icon.className = 'fa fa-square-o fa-4x';
+	icon.className = 'fa fa-plus-square-o fa-4x';
 	
 	icon.id = 'container-icon';
     col6.appendChild(icon);

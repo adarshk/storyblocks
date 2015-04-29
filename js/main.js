@@ -6,6 +6,38 @@
 			var editor = new Editor();
 
 
+			jsPlumb.bind("ready", function() {
+
+				jsPlumb.setContainer($("#storyBlocks"));
+
+				jsPlumb.bind("connection", function(info) {
+				   console.log('info',info);
+
+				   if(info.sourceId in relationships.connections){
+
+				   relationships.connections[info.sourceId].push(info.target);
+				   // console.log(relationships);
+				   editor.signals.actionRelationships.dispatch();
+
+					}
+
+					else{
+
+				   relationships.connections[info.sourceId] = [];
+				   relationships.connections[info.sourceId].push(info.target);
+				   // console.log(relationships);
+				   editor.signals.actionRelationships.dispatch();
+
+					}
+
+
+				});
+
+			});
+
+			mapboxgl.accessToken = 'pk.eyJ1IjoiYWRhcnNoayIsImEiOiJZZ0NTRTFNIn0.ODTFzy_g4suBlO0jX641dQ';
+
+
 			// var viewport = new Viewport( editor );
 			// document.body.appendChild( viewport.dom );
 
@@ -25,10 +57,12 @@
 			// document.body.appendChild( fc );
 			// $('#'+sidebar.dom.id).css('z-index','1');
 
-			// var toolbar = new Toolbar(editor);
-			// document.body.appendChild(toolbar.dom);
+			var toolbar = new Toolbar(editor);
+			document.body.appendChild(toolbar.dom);
 
 			dispatchers(editor);
+
+			directDispatch(editor);
 
 			// var freeContainer = new FreeContainer(editor);
 			// document.body.appendChild(freeContainer.dom);

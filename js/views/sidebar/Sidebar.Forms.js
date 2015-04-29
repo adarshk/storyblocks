@@ -26,7 +26,7 @@ Sidebar.Forms = function(editor){
 	container.addStatic(new UI.Text('Forms'));
 	container.add(new UI.Break());
 
-		editor.signals.elementDragnDrop.add(function(elementId){
+		/*editor.signals.elementDragnDrop.add(function(elementId){
 		if(elementId == 'Map'){
 			var map = new Map();
 			var country = new Country(map,data,editor);
@@ -60,7 +60,7 @@ Sidebar.Forms = function(editor){
 
 		}
 
-	});
+	});*/
 
 
 	
@@ -118,10 +118,15 @@ Sidebar.Forms = function(editor){
 			.on('dragend',dragend);
 
 		function dragstart(event){
+
+
+
+			freeContainer = new FreeContainer(editor,'free-container',event);
+			$('#storyBlocks').append(freeContainer);
 			
 
 
-			if(event.target.id == "Text"){
+			/*if(event.target.id == "Text"){
 
 			// console.log("dragstart", event);
 
@@ -174,20 +179,28 @@ Sidebar.Forms = function(editor){
             $('body').append(childContainer);
             
 
-        }
+        }*/
 
 
 			
 		}
 
 		function dragmove(event){
+
+
+			$(freeContainer).css('left', event.pageX);
+			$(freeContainer).css('top', event.pageY);
+
+
 			/*console.log("moving");
 			console.log(event);*/
 
 			
 			// if(event.speed < 10){
-			$(childContainer).css('left', event.pageX);
-			$(childContainer).css('top', event.pageY);
+			
+			/*$(childContainer).css('left', event.pageX);
+			$(childContainer).css('top', event.pageY);*/
+			
 			// }
 			
 
@@ -195,6 +208,31 @@ Sidebar.Forms = function(editor){
 		}
 
 		function dragend(event){
+
+
+			
+			editor.signals.addInteractToContainer.dispatch(freeContainer.id);
+
+			var elem = $(freeContainer).find('.free-container')[0]
+
+			editor.signals.textBoxAppend.dispatch(elem,event);
+
+			// if(event.target.id == "Text"){
+
+				/*var commentid = elem.id + '-comment';
+
+				var childContainer = $('<div class="text-container"> </div>');
+
+				$(childContainer).append('<textarea class="form-control" rows="5" id="' + commentid +'"></textarea>');
+
+                $(elem).append(childContainer);*/
+
+
+				// editor.signals.textBoxAppend.dispatch(elem);
+			// }
+
+			
+
 			/*console.log("moveend");
 			console.log(event);*/
 			//editor.signals.addInteractToContainer.dispatch(childContainer.id);
@@ -205,7 +243,9 @@ Sidebar.Forms = function(editor){
 			/*console.log("dragend");
 			console.log(event);
 			console.log(childContainer);*/
-			$(childContainer).remove();
+			
+
+			// $(childContainer).remove();
 
 		}
 

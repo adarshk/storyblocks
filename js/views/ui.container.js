@@ -37,7 +37,7 @@ UI.Cross = function(){
 
 
 	var dom = document.createElement('span');
-	dom.className = "fa fa-times free-container-cross";
+	dom.className = "fa fa-times main-container-cross";
 
 	this.dom = dom;
 
@@ -58,7 +58,7 @@ UI.OutNode = function(){
 
 
 	var dom = document.createElement('span');
-	dom.className = "fa fa-arrows-h outnode";
+	dom.className = "fa fa-arrows main-container-outnode";
 
 	this.dom = dom;
 
@@ -79,7 +79,7 @@ UI.Square = function(){
 
 
 	var dom = document.createElement('span');
-	dom.className = "fa fa-square square";
+	dom.className = "fa fa-square main-container-square";
 
 	this.dom = dom;
 
