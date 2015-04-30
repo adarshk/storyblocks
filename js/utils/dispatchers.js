@@ -1,138 +1,10 @@
-var codeMirrorDict = {};
-var rs = '';
-var thisistheTarget;
-var map;
-
-var myCodeMirror;
-
-var relationships = {};
-
-relationships.connections = {};
-var once = true;
-
-var jsonData;
 
 
-function randomString(){
-
-return '' + (function co(lor){   return (lor +=
-  [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)]) && (lor.length == 6) ?  lor : co(lor); })('');
-
-}
-
-
-function fly(f) {
-    
-if(isNaN(jsonData.data[f].latlng[0]) || jsonData.data[f].latlng[0] === undefined || jsonData.data[f].latlng[0] === null){
-
-
-    
-}
-
-else{
-
-
-  var tempValue = myCodeMirror.getValue();
-  var tempItems = tempValue.split('<');
-
-  var tempString = "";
-
-  console.log(tempItems);
-
-  for(var i=0;i<tempItems.length;i++){
-
-      if(i==0){
-
-        tempString += "Capital - ";  
-        tempString += jsonData.data[f].capital;  
-
-        tempString += " ";
-      }
-
-      if(i==1){
-        // tempString += "Capital - ";  
-        tempString += jsonData.data[f].currency;  
-      }
-
-      if(i==2){
-        tempString += jsonData.data[f].languages.nld;  
-      }
-      
-  }
-
-
-  myCodeMirror.getDoc().setValue(tempString);
-
-  map.flyTo([
-        jsonData.data[f].latlng[0],
-        jsonData.data[f].latlng[1]]);
-}
-}
-
-
-function dispatchers(editor){
-
-
-
-  editor.signals.actionRelationships.add(function(){
-
-
-    if(once){
-
-    var jd = 0;
-
-    setInterval(function(){
-
-        fly(jd++);
-
-    },4000);
-
-    once = false;
-
-  }
 
 
 
 
-    // console.log(myCodeMirror.getValue());
-
-    // editor.getDoc().setValue('var msg = "Hi";');
-
-    // for(var jd in jsonData.data){
-
-    // }
-
-    // fly();
-
-
-    // for(var r in relationships.connections){
-
-
-      // console.log(r);
-
-/*      if($('#'+ r).has('.chart-container')){
-
-          for(var c=0;c<r.length;c++){
-            if ($(r[c].id.has('.mapboxgl-canvas'))) {
-
-              var next = 0;
-              console.log("yes");
-              // setInterval(function(){
-
-              //   fly();
-
-              // },2000);
-
-            }
-          }
-
-      }*/
-
-      
-    // }
-
-
-  });
+function dispatchers(editor){
 
 
 
@@ -1024,18 +896,5 @@ function dispatchers(editor){
             });
       });
 
-
-
-    editor.signals.updateRelationship.add(function(parentNode,childNode) {
-        
-        if (parentNode in connectedNodes){
-          connectedNodes[parentNode].push(childNode);
-        }
-        else{
-          connectedNodes[parentNode] = [];
-          connectedNodes[parentNode].push(childNode);
-        }
-
-    });
 
 }

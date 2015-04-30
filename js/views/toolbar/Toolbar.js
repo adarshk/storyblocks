@@ -55,14 +55,62 @@ var Toolbar = function ( editor ) {
 	buttons.add( new UI.Text( 'show' ) );*/
 
 
+
+
+
 	var showRedLines = new UI.Checkbox().onChange( enableDisable ).setValue( true );
 	buttons.add( showRedLines );
 	buttons.add( new UI.Text( 'Grid' ) );
+	var cl = new UI.Color();
+	// buttons.add(  cl.setHexValue("eeeeee"));
 
+
+	var showDrag = new UI.Checkbox().onChange( enableDisableDrag ).setValue( true );
+	buttons.add( showDrag );
+	buttons.add( new UI.Text( 'Dragging' ) );
+
+
+	
+	function enableDisableDrag(){
+		signals.enableDisableDragging.dispatch(showDrag.getValue() );
+	}
 
 	function enableDisable(){
 		signals.redLines.dispatch( showRedLines.getValue() );
+		
 	}
+
+	
+
+
+	signals.enableDisableDragging.add(function(drag){
+
+		if(drag){
+
+			for(var rl in relationships){
+
+			interact('#'+rl)
+				.draggable({
+
+					enabled: true
+					});
+			}
+		}
+
+		else{
+			
+			for(var rl2 in relationships){
+
+			interact('#'+rl2)
+				.draggable({
+
+					enabled: false
+					});
+			}
+		}
+
+
+	});
 
 
 	signals.redLines.add(function(red){
@@ -79,6 +127,7 @@ var Toolbar = function ( editor ) {
 			$('.arrowNode').show();
 
 			$('#sidebar').show();
+
 		}
 		else{
 			$('.free-container').css('outline','');
@@ -97,6 +146,7 @@ var Toolbar = function ( editor ) {
 	});
 
 	enableDisable();
+	// enableDisbleDragging();
 
 	/*function update() {
 

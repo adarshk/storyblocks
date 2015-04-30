@@ -86,6 +86,8 @@ var Editor = function () {
 		actionRelationships: new SIGNALS.Signal(),
 		textBoxAppend: new SIGNALS.Signal(),
 
+		enableDisableDragging: new SIGNALS.Signal(),
+
 
 	};
 

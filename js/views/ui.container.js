@@ -79,7 +79,7 @@ UI.Square = function(){
 
 
 	var dom = document.createElement('span');
-	dom.className = "fa fa-square main-container-square";
+	dom.className = "fa fa-arrow-down main-container-square";
 
 	this.dom = dom;
 

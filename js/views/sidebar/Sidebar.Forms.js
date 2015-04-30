@@ -213,7 +213,13 @@ Sidebar.Forms = function(editor){
 			
 			editor.signals.addInteractToContainer.dispatch(freeContainer.id);
 
-			var elem = $(freeContainer).find('.free-container')[0]
+			var elem = $(freeContainer).find('.free-container')[0];
+
+			relationships[freeContainer.id] = {};
+
+			relationships[freeContainer.id]["div"] = freeContainer;
+			relationships[freeContainer.id]["children"] = event.target;
+			
 
 			editor.signals.textBoxAppend.dispatch(elem,event);
 

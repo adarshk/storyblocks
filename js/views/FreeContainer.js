@@ -22,6 +22,15 @@ var FreeContainer = function ( editor, className, mPos ) {
 	editor.signals.deleteFreeContainer.add(function(containerDelete) {
 
 		delete codeMirrorDict[$(containerDelete).find('.free-container')[0].id];
+		
+		for(var r in relationships){
+
+			if(containerDelete.id == r){
+
+				delete relationships[r];
+
+			}
+		}
 		$("#"+containerDelete.id).remove();
 	});
 
@@ -100,7 +109,11 @@ var FreeContainer = function ( editor, className, mPos ) {
 
 		// console.log("square clicked");
 		// console.log(event);
-		editor.signals.showSpectrum.dispatch(event.path[1].id);
+		// editor.signals.showSpectrum.dispatch(event.path[1].id);
+
+		console.log(event);
+		// event.target.className = "fa fa-arrow-up main-container-square";
+		
 	});
 
 	editor.signals.showSpectrum.add(function(showColorId) {
@@ -115,6 +128,11 @@ var FreeContainer = function ( editor, className, mPos ) {
 		$('#'+showColorId).on('move.spectrum', function(e, tinycolor) { 
 			// console.log(tinycolor);
 			// console.log(tinycolor.toHexString());
+
+
+			$('.CodeMirror-scroll').css('background-color',tinycolor.toHexString());
+
+
 			$('#'+showColorId).css('background',tinycolor.toHexString());
 			$('#'+showColorId).css('opacity',''+1);
 			if (tinycolor.toHexString() !== "#ffffff") {

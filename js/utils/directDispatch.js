@@ -1,4 +1,176 @@
+var codeMirrorDict = {};
+var rs = '';
+var thisistheTarget;
+var map;
+
+var myCodeMirror;
+
+var relationships = {};
+
+relationships["connections"] = {};
+var once = true;
+
+var jsonData;
+
+
+
+jsPlumb.bind("connection", function(info) {
+           console.log('info',info);
+
+           if(info.sourceId in relationships["connections"]){
+
+           relationships["connections"][info.sourceId].push(info.target);
+           // console.log(relationships);
+           editor.signals.actionRelationships.dispatch();
+
+          }
+
+          else{
+
+           relationships.connections[info.sourceId] = [];
+           relationships.connections[info.sourceId].push(info.target);
+           // console.log(relationships);
+           editor.signals.actionRelationships.dispatch();
+
+          }
+
+
+});
+
+
+jsPlumb.bind("connectionDetached", function(info,originalEvent) {
+           
+           delete relationships.connections[info.sourceId];
+
+
+});
+
+
+
+
+function randomString(){
+
+return '' + (function co(lor){   return (lor +=
+  [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)]) && (lor.length == 6) ?  lor : co(lor); })('');
+
+}
+
+
+function fly(f) {
+    
+if(isNaN(jsonData.data[f].latlng[0]) || jsonData.data[f].latlng[0] === undefined || jsonData.data[f].latlng[0] === null){
+
+
+    
+}
+
+else{
+
+
+  var tempValue = myCodeMirror.getValue();
+  var tempItems = tempValue.split('<');
+
+  var tempString = "";
+
+  console.log(tempItems);
+
+  for(var i=0;i<tempItems.length;i++){
+
+      if(i==0){
+
+        tempString += "Capital - ";  
+        tempString += jsonData.data[f].capital;  
+
+        tempString += " ";
+      }
+
+      if(i==1){
+        // tempString += "Capital - ";  
+        tempString += jsonData.data[f].currency;  
+      }
+
+      if(i==2){
+        tempString += jsonData.data[f].languages.nld;  
+      }
+      
+  }
+
+
+  myCodeMirror.getDoc().setValue(tempString);
+
+  map.flyTo([
+        jsonData.data[f].latlng[0],
+        jsonData.data[f].latlng[1]]);
+}
+}
+
+
+
   function directDispatch(editor){
+
+
+
+        editor.signals.actionRelationships.add(function(){
+
+
+    if(once){
+
+    var jd = 0;
+
+    setInterval(function(){
+
+        fly(jd++);
+
+    },4000);
+
+    once = false;
+
+  }
+
+
+
+
+    // console.log(myCodeMirror.getValue());
+
+    // editor.getDoc().setValue('var msg = "Hi";');
+
+    // for(var jd in jsonData.data){
+
+    // }
+
+    // fly();
+
+
+    // for(var r in relationships.connections){
+
+
+      // console.log(r);
+
+/*      if($('#'+ r).has('.chart-container')){
+
+          for(var c=0;c<r.length;c++){
+            if ($(r[c].id.has('.mapboxgl-canvas'))) {
+
+              var next = 0;
+              console.log("yes");
+              // setInterval(function(){
+
+              //   fly();
+
+              // },2000);
+
+            }
+          }
+
+      }*/
+
+      
+    // }
+
+
+  });
+
+
       editor.signals.textBoxAppend.add(function(elem,event){
 
 
@@ -42,11 +214,18 @@
                   });
 
 
+                var minLines = 2;
+                var startingValue = '';
+                for (var i = 0; i < minLines; i++) {
+                    startingValue += '\n';
+                }
+
 
                 myCodeMirror = CodeMirror($(childContainer)[0], {
                       value: 'Start typing here. Insert <> to connect blocks using arrows',
                       mode:  "arrows",
                       viewportMargin: 5,
+                      autoClearEmptyLines: true,
                     });
 
                 codeMirrorDict[elem.id] = {};
@@ -170,7 +349,7 @@
                 var myCustomTemplates = {
                     custom1: function(context) {
                       return "<li>" +
-                        "<a id="+ commentid + "-color-button " +  "class='btn btn-default' data-wysihtml5-command='' href='" +
+                        "<a id="+ commentid + "-color-button " +  "class='btn btn-default' data-wysihtml5-command=''" +
                         
                         "' data-wysihtml5-command-value='&hellip;'>" +
                         "<span class='fa fa-minus-square-o'></span></a>" +
@@ -203,8 +382,10 @@
                           '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h4" tabindex="-1" href="javascript:;" unselectable="on">Heading 4</a></li>'+
                           '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h5" tabindex="-1" href="javascript:;" unselectable="on">Heading 5</a></li>'+
                           '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h6" tabindex="-1" href="javascript:;" unselectable="on">Heading 6</a></li>'+
-                          '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="xl" tabindex="-1" href="javascript:;" unselectable="on">Extra Large</a></li>'+
                           '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="sm" tabindex="-1" href="javascript:;" unselectable="on">Small</a></li>'+
+                          '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="xsm" tabindex="-1" href="javascript:;" unselectable="on">Smaller</a></li>'+
+                          '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="xxsm" tabindex="-1" href="javascript:;" unselectable="on">Smallest</a></li>'+
+                          '<li><a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="xl" tabindex="-1" href="javascript:;" unselectable="on">Extra Large</a></li>'+
                         '</ul>'+
                       '</li>';
                     }
@@ -245,15 +426,18 @@
                       $('.wysihtml5-toolbar .btn').click(function(event){
                               
                         if(event.currentTarget.innerText == "Bold"){
-                          $(".CodeMirror").css('font-weight',"bold");
+                          $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-weight',"bold");
+                          // $(".CodeMirror").css('font-weight',"bold");
                         }
 
                         if(event.currentTarget.innerText == "Italic"){
-                          $(".CodeMirror").css('font-style',"italic");
+                          $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-style',"italic");
+                          // $(".CodeMirror").css('font-style',"italic");
                         }
 
                         if(event.currentTarget.innerText == "Underline"){
-                          $(".CodeMirror").css('text-decoration',"underline");
+                          $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('text-decoration',"underline");
+                          // $(".CodeMirror").css('text-decoration',"underline");
                         }
                         
                         
@@ -263,41 +447,68 @@
 
                                 $('.dropdown-menu li a').click(function(event){
 
+
+                                  // console.log("dropdown",event);
+                                  // console.log("dropdown2",$(this)[0].parentElement.parentElement.parentElement);
+                                  // console.log("dropdown3",$(this).parent('.free-container'));
+                                  // console.log("dropdown4",$(event.currentTarget).parents('.free-container'));
+                                  // console.log("this",$(this));
                           
                                     if($(this)[0].attributes[1].value == 'h1'){
-                                      $(".CodeMirror").css('font-size',"22pt");
+
+                                      $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-size','26pt');
+                                      //$(".CodeMirror").css('font-size',"26pt");
+                                      //$(this)[0].parent('.free-container').find('.CodeMirror').css('font-size','26pt');
                                     }
 
                                     else if($(this)[0].attributes[1].value == 'h2'){
-                                      $(".CodeMirror").css('font-size',"20pt");
+                                      $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-size','24pt');
+                                      // $(".CodeMirror").css('font-size',"24pt");
                                     }
 
                                     else if($(this)[0].attributes[1].value == 'h3'){
-                                      $(".CodeMirror").css('font-size',"18pt");
+                                      $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-size','22pt');
+                                      // $(".CodeMirror").css('font-size',"22pt");
                                     }
 
                                     else if($(this)[0].attributes[1].value == 'h4'){
-                                      $(".CodeMirror").css('font-size',"16pt");
+                                      $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-size','20pt');
+                                      // $(".CodeMirror").css('font-size',"20pt");
                                     }
 
                                     else if($(this)[0].attributes[1].value == 'h5'){
-                                      $(".CodeMirror").css('font-size',"14pt");
+                                      $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-size','18pt');
+                                      // $(".CodeMirror").css('font-size',"18pt");
                                     }
 
                                     else if($(this)[0].attributes[1].value == 'h6'){
-                                      $(".CodeMirror").css('font-size',"12pt");
+                                      $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-size','16pt');
+                                      // $(".CodeMirror").css('font-size',"16pt");
                                     }
 
                                     else if($(this)[0].attributes[1].value == 'p'){
-                                      $(".CodeMirror").css('font-size',"14pt");
+                                      $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-size','14pt');
+                                      // $(".CodeMirror").css('font-size',"14pt");
                                     }
 
                                     else if($(this)[0].attributes[1].value == 'xl'){
-                                      $(".CodeMirror").css('font-size',"26pt");
+                                      $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-size','30pt');
+                                      // $(".CodeMirror").css('font-size',"30pt");
                                     }
 
                                     else if($(this)[0].attributes[1].value == 'sm'){
-                                      $(".CodeMirror").css('font-size',"10pt");
+                                      $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-size','12pt');
+                                      // $(".CodeMirror").css('font-size',"12pt");
+                                    }
+
+                                    else if($(this)[0].attributes[1].value == 'xsm'){
+                                      $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-size','10pt');
+                                      // $(".CodeMirror").css('font-size',"10pt");
+                                    }
+
+                                    else if($(this)[0].attributes[1].value == 'xxsm'){
+                                      $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-size','8pt');
+                                      // $(".CodeMirror").css('font-size',"8pt");
                                     }
 
                                     console.log($(this)[0].attributes[1].value);
@@ -339,10 +550,12 @@
 
                                 $('#'+commentid+ "-color-button").click(function(event){
 
-                                    console.log("pencil clicked",event);
-                                    console.log($(event.currentTarget.parentElement.parentElement.parentElement));
+                                  $(event.currentTarget.parentElement.parentElement).spectrum("enable");
 
-                                    console.log($(event.currentTarget.parentElement.parentElement.parentElement)[0].children[2].contentDocument.activeElement);
+                                    console.log("pencil clicked",event);
+                                    // console.log($(event.currentTarget.parentElement.parentElement.parentElement));
+
+                                    // console.log($(event.currentTarget.parentElement.parentElement.parentElement)[0].children[2].contentDocument.activeElement);
 
 
                                     // editor.signals.showSpectrum.dispatch(commentid+ "-color-button");
@@ -358,31 +571,48 @@
                                     $(event.currentTarget.parentElement.parentElement.parentElement)
 
                                       .on('move.spectrum', function(e, tinycolor) {
+
+                                        $(event.currentTarget.parentElement.parentElement.parentElement).find(".CodeMirror-scroll").css("background-color",tinycolor.toHexString());
+                                        // $('.CodeMirror-scroll').css('background-color',tinycolor.toHexString());
                                         // console.log(tinycolor);
                                         // console.log(tinycolor.toHexString());
-                                        mainTinyColor = tinycolor;
-                                        $($(event.currentTarget.parentElement.parentElement.parentElement)[0].children[2].contentDocument.activeElement).css('color',tinycolor);
+                                        
+
+                                        // mainTinyColor = tinycolor;
+                                        // $($(event.currentTarget.parentElement.parentElement.parentElement)[0].children[2].contentDocument.activeElement).css('color',tinycolor);
                                         
                                         
                                       
                                       })
                                         .on('change.spectrum', function(e, tinycolor) {
 
+                                          $(event.currentTarget.parentElement.parentElement.parentElement).find(".CodeMirror-scroll").css("background-color",tinycolor.toHexString());
 
-                                          mainTinyColor = tinycolor;
-                                          $($(event.currentTarget.parentElement.parentElement.parentElement)[0].children[2].contentDocument.activeElement).css('color',tinycolor);
+
+                                          // mainTinyColor = tinycolor;
+                                          // $($(event.currentTarget.parentElement.parentElement.parentElement)[0].children[2].contentDocument.activeElement).css('color',tinycolor);
                                         
                                         
                                       
                                       })
 
                                         .on('hide.spectrum', function(e, tinycolor) {
-                                        console.log(tinycolor);
+                                        // console.log(tinycolor);
 
-                                        mainTinyColor = tinycolor;
-                                        $($(event.currentTarget.parentElement.parentElement.parentElement)[0].children[2].contentDocument.activeElement).css('color',tinycolor);
 
-                                        $(event.currentTarget.parentElement.parentElement.parentElement).spectrum('disable');
+                                        $(event.currentTarget.parentElement.parentElement.parentElement).find(".CodeMirror-scroll").css("background-color",tinycolor.toHexString());
+
+                                        $(event.currentTarget.parentElement.parentElement).spectrum("disable");
+
+                                        //enable this below
+                                        // mainTinyColor = tinycolor;
+                                        // $($(event.currentTarget.parentElement.parentElement.parentElement)[0].children[2].contentDocument.activeElement).css('color',tinycolor);
+
+                                        // $(event.currentTarget.parentElement.parentElement.parentElement).spectrum('disable');
+                                        
+
+
+
                                         // console.log(tinycolor.toHexString());
                                         // $('#'+showColorId).css('background',tinycolor.toHexString());
                                         // $('#'+showColorId).css('opacity',''+1);
@@ -393,6 +623,58 @@
                                         //   $('#'+showColorId).children().css('color','#000000');
                                         // }
                                         // $('#'+showColorId).spectrum("disable");
+                                        
+                                      
+                                      })
+                                      ;
+
+                                  });
+
+
+
+                                $('#'+commentid+ "-background-color-cnbutton").click(function(event){
+
+                                  $(event.currentTarget.parentElement.parentElement).spectrum("enable");
+
+                                    console.log("pencil clicked",event);
+                                    // console.log($(event.currentTarget.parentElement.parentElement.parentElement));
+
+                                    // console.log($(event.currentTarget.parentElement.parentElement.parentElement)[0].children[2].contentDocument.activeElement);
+
+
+                                    // editor.signals.showSpectrum.dispatch(commentid+ "-color-button");
+
+                                    $(event.currentTarget.parentElement.parentElement).spectrum({
+                                        color: "#ffffff",
+                                        showInput:true,
+                                        preferredFormat: "rgb",
+                                        containerClassName: "color-picker"
+                                        });
+
+
+                                    $(event.currentTarget.parentElement.parentElement.parentElement)
+
+                                      .on('move.spectrum', function(e, tinycolor) {
+
+                                        $(event.currentTarget.parentElement.parentElement.parentElement).find(".CodeMirror-scroll").css("color",tinycolor.toHexString());
+                
+                                        
+                                        
+                                      
+                                      })
+                                        .on('change.spectrum', function(e, tinycolor) {
+
+                                          $(event.currentTarget.parentElement.parentElement.parentElement).find(".CodeMirror-scroll").css("color",tinycolor.toHexString());
+
+                                      
+                                      })
+
+                                        .on('hide.spectrum', function(e, tinycolor) {
+                                        // console.log(tinycolor);
+
+
+                                        $(event.currentTarget.parentElement.parentElement.parentElement).find(".CodeMirror-scroll").css("color",tinycolor.toHexString());
+                                        $(event.currentTarget.parentElement.parentElement).spectrum("disable");
                                         
                                       
                                       })
@@ -589,7 +871,7 @@
             map = new mapboxgl.Map({
               container: elem.id, // container id
               style: 'https://www.mapbox.com/mapbox-gl-styles/styles/outdoors-v7.json', //stylesheet location
-              center: [40.7294245, -73.993707], // starting position
+              center: [40.727630, -73.991352], // starting position
               zoom: 15 // starting zoom
             });
 
@@ -604,6 +886,19 @@
           }
 
       });
+
+
+    editor.signals.updateRelationship.add(function(parentNode,childNode) {
+        
+        if (parentNode in connectedNodes){
+          connectedNodes[parentNode].push(childNode);
+        }
+        else{
+          connectedNodes[parentNode] = [];
+          connectedNodes[parentNode].push(childNode);
+        }
+
+    });
 
 
 
