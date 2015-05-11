@@ -21,7 +21,8 @@ Sidebar.Forms = function(editor){
 
 
 	// var formNames = ['map-marker', 'area-chart', 'text', 'image','video'];
-	var formNames = ['Map', 'Chart', 'Text', 'Image','Video', 'Tweet'];
+	//var formNames = ['Map', 'Chart', 'Text', 'Image','Video', 'Tweet', 'Empty'];
+	var formNames = ['Map', 'Chart', 'Text', 'Table', 'Image','Video', 'Tweet', 'Empty'];
 
 	container.addStatic(new UI.Text('Forms'));
 	container.add(new UI.Break());
@@ -120,8 +121,15 @@ Sidebar.Forms = function(editor){
 		function dragstart(event){
 
 
+			var type;
+			console.log("event.target.id",event.target.id);
 
-			freeContainer = new FreeContainer(editor,'free-container',event);
+			if(formNames.indexOf(event.target.id) > -1){
+				type = event.target.id;
+				console.log("type",type);
+			}
+
+			freeContainer = new FreeContainer(editor,'free-container',event,type);
 			$('#storyBlocks').append(freeContainer);
 			
 
@@ -219,9 +227,219 @@ Sidebar.Forms = function(editor){
 
 			relationships[freeContainer.id]["div"] = freeContainer;
 			relationships[freeContainer.id]["children"] = event.target;
-			
+
 
 			editor.signals.textBoxAppend.dispatch(elem,event);
+
+
+
+
+			//for Map
+
+			$("#gotolocation").on('click',function(e){
+
+				console.log("gotolocation");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+
+			$("#addmarker").on('click',function(e){
+
+				console.log("addmarker");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+
+
+
+
+
+
+
+			//for Text
+
+			$("#updatetext").on('click',function(e){
+
+				console.log("updatetext");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+
+			$("#replacetext").on('click',function(e){
+
+				console.log("replacetext");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+			
+
+
+			//for image
+
+			$("#transition").on('click',function(e){
+
+				console.log("transition");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+
+
+
+			//For video
+
+			$("#playvideo").on('click',function(e){
+
+				console.log("playvideo");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+			$("#loopvideo").on('click',function(e){
+
+				console.log("loopvideo");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+
+
+
+
+
+			//For tweet
+
+			$("#locationtweet").on('click',function(e){
+
+				console.log("locationtweet");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+			$("#imagetweet").on('click',function(e){
+
+				console.log("imagetweet");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+
+			$("#texttweet").on('click',function(e){
+
+				console.log("texttweet");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+			$("#usernametweet").on('click',function(e){
+
+				console.log("usernametweet");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+
+
+
+
+
+
+
+			//For chart
+
+			$("#continuouschart2").on('click',function(e){
+
+				console.log("continuouschart2");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle.secondOne').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+			$("#singlevaluechart2").on('click',function(e){
+
+				console.log("singlevaluechart2");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle.secondOne').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+
+
+			
+			//For empty
+
+
+			$("#showinputempty").on('click',function(e){
+
+				/*console.log("showinputempty",e);
+				console.log("showinputempty2",$(e.currentTarget).text());*/
+
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				// console.log($(md).find('.dropdown-toggle').text());
+				// $(e.currentTarget).parents('.main-container').find('.dropdown-toggle').text("Hello");
+				//$(this).parents('.main-container').find('.dropdown-toggle').text("Show Input");
+				
+
+				e.preventDefault();
+			});
 
 			// if(event.target.id == "Text"){
 
@@ -262,8 +480,35 @@ Sidebar.Forms = function(editor){
 	};
 
 
+	/*var addMap = new UI.Media();
+	addMap.addMapIcon();
+	container.add(addMap);
+
+	var addText = new UI.Media();
+	addText.addTextIcon();
+	container.add(addText);
+
+	var addChart = new UI.Media();
+	addChart.addChartIcon();
+	container.add(addChart);
+
+	var addImage = new UI.Media();
+	addImage.addImageIcon();
+	container.add(addImage);
+
+	var addVideo = new UI.Media();
+	addVideo.addVideoIcon();
+	container.add(addVideo);*/
 
 	container.add(new UI.Break());
+
+	/*var showRedLines = new UI.Checkbox().onChange( ed ).setValue( true );
+	container.add( showRedLines );
+	container.add( new UI.Text( 'Grid' ) );
+
+	function ed(){
+
+	}*/
 
 
 

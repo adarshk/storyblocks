@@ -79,7 +79,7 @@ UI.Square = function(){
 
 
 	var dom = document.createElement('span');
-	dom.className = "fa fa-arrow-down main-container-square";
+	dom.className = "fa fa-square-o main-container-square";
 
 	this.dom = dom;
 
@@ -90,3 +90,72 @@ UI.Square = function(){
 
 UI.Square.prototype = Object.create(UI.Element.prototype);
 UI.Square.prototype.constructor = UI.Square;
+
+UI.Arrow = function(){
+
+	UI.Element.call(this);
+
+	var scope = this;
+
+
+	var dom = document.createElement('span');
+	dom.className = "fa fa-arrow-down main-container-arrow";
+
+	this.dom = dom;
+
+
+	return this;
+
+};
+
+UI.Arrow.prototype = Object.create(UI.Element.prototype);
+UI.Arrow.prototype.constructor = UI.Arrow;
+
+
+
+UI.Plus = function(){
+
+	UI.Element.call(this);
+
+	var scope = this;
+
+
+	var dom = document.createElement('span');
+	dom.className = "fa fa-plus main-container-plus";
+
+	this.dom = dom;
+
+
+	return this;
+
+};
+
+UI.Plus.prototype = Object.create(UI.Element.prototype);
+UI.Plus.prototype.constructor = UI.Plus;
+
+
+
+
+
+UI.Checkbox = function(){
+
+	UI.Element.call(this);
+
+	var scope = this;
+
+	var newDom = $('<form role="form" class="main-container-checkbox-form"><div class="checkbox main-container-checkbox-div"><input type="checkbox" id="connect" checked><label for="checkbox1"></label></div></form>');
+
+	// $('body').append('<form id="grid-checkbox" role="form"><div class="checkbox"><input type="checkbox" id="checkbox1" checked><label for="checkbox1">Grid</label></div></form>');
+	
+	/*var dom = document.createElement('span');
+	dom.className = "fa fa-Checkbox main-container-Checkbox";*/
+
+	this.dom = newDom;
+
+
+	return this;
+
+};
+
+UI.Checkbox.prototype = Object.create(UI.Element.prototype);
+UI.Checkbox.prototype.constructor = UI.Checkbox;

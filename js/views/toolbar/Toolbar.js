@@ -128,6 +128,13 @@ var Toolbar = function ( editor ) {
 
 			$('#sidebar').show();
 
+
+			/*for(var rk in relationships["connections"]){
+
+				jsPlumb.hide($("#"+rk));
+
+			}*/
+
 		}
 		else{
 			$('.free-container').css('outline','');
@@ -141,6 +148,13 @@ var Toolbar = function ( editor ) {
 			$('.wysihtml5-toolbar').hide();
 			$('.arrowNode').hide();
 			$('#sidebar').hide();
+
+
+			/*for(var rk2 in relationships["connections"]){
+
+				jsPlumb.show($("#"+rk2));
+
+			}*/
 		}
 
 	});

@@ -3,7 +3,7 @@ var rs = '';
 var thisistheTarget;
 var map;
 
-var myCodeMirror;
+var myCodeMirror = [];
 
 var relationships = {};
 
@@ -11,17 +11,52 @@ relationships["connections"] = {};
 var once = true;
 
 var jsonData;
+var tweetData;
+
+var tweetContainer;
+
+var thisisMainImageContainer;
+
+var thisisCounter =0;
+
+
+var bold_selected = false;
+
+
+var thisistheChartDivId;
+
+var controlCenterFirstTime = true;
+var connectionsComplete = false;
+
+
+
+
+/*for ( var i = 0, len = localStorage.length; i < len; ++i ) {
+  console.log( localStorage.getItem( localStorage.key( i ) ) );
+}*/
+
+
+
+
 
 
 
 jsPlumb.bind("connection", function(info) {
            console.log('info',info);
 
+
+           /*var sourcechild = $(info.source).children()[0];
+           var targetchild = $(info.target).children()[0];*/
+
+
+           thisisCounter++;
+
+
            if(info.sourceId in relationships["connections"]){
 
            relationships["connections"][info.sourceId].push(info.target);
            // console.log(relationships);
-           editor.signals.actionRelationships.dispatch();
+           // editor.signals.actionRelationships.dispatch(info.source,info.target);
 
           }
 
@@ -30,8 +65,13 @@ jsPlumb.bind("connection", function(info) {
            relationships.connections[info.sourceId] = [];
            relationships.connections[info.sourceId].push(info.target);
            // console.log(relationships);
-           editor.signals.actionRelationships.dispatch();
+           // editor.signals.actionRelationships.dispatch(info.source,info.target);
 
+          }
+
+          if(thisisCounter == 3){
+            connectionsComplete = true;
+            // editor.signals.actionRelationships.dispatch(info.source,info.target);
           }
 
 
@@ -67,7 +107,7 @@ if(isNaN(jsonData.data[f].latlng[0]) || jsonData.data[f].latlng[0] === undefined
 else{
 
 
-  var tempValue = myCodeMirror.getValue();
+  var tempValue = myCodeMirror[1].getValue();
   var tempItems = tempValue.split('<');
 
   var tempString = "";
@@ -96,12 +136,273 @@ else{
   }
 
 
-  myCodeMirror.getDoc().setValue(tempString);
+  myCodeMirror[1].getDoc().setValue(tempString);
 
   map.flyTo([
         jsonData.data[f].latlng[0],
-        jsonData.data[f].latlng[1]]);
+        jsonData.data[f].latlng[1]
+        
+    ]);
 }
+}
+
+
+
+function controlCenter(country_name){
+
+  var country = thisistheData[country_name];
+  //check first time - dont remove, otherwise remove previous chart and append new one
+
+
+  if(controlCenterFirstTime){
+  
+    controlCenterFirstTime = false;
+
+  }
+
+  else{
+    $('#'+thisistheChartDivId).find('svg').remove();
+  }
+
+
+  setText(country.text);
+  setMap(country.lat,country.lng);
+  drawGraph(country.values,country.name);
+
+
+}
+
+
+function setText(thetext){
+
+  
+  myCodeMirror[1].getDoc().setValue(thetext);
+}
+
+
+function setMap(lat,lng){
+
+  map.flyTo([
+        lat,lng
+    ]);
+
+}
+
+
+function drawGraph(ba,cname){
+
+    var margin = {top: 80, right: 80, bottom: 80, left: 80},
+                  width = 960 - margin.left - margin.right,
+                  height = 500 - margin.top - margin.bottom;
+
+              var parse = d3.time.format("%b %Y").parse;
+
+              // Scales and axes. Note the inverted domain for the y-scale: bigger is up!
+              var x = d3.scale.linear().range([0, width]),
+                  y = d3.scale.linear().range([height, 0]),
+                  xAxis = d3.svg.axis().scale(x).tickSize(-height).tickSubdivide(true).tickFormat(d3.format("d")),
+                  yAxis = d3.svg.axis().scale(y).ticks(4).orient("right");
+
+              // An area generator, for the light fill.
+              var area = d3.svg.area()
+                  .interpolate("monotone")
+                  .x(function(d) { return x(d.year); })
+                  .y0(height)
+                  .y1(function(d) { return y(d.value); });
+
+              // A line generator, for the dark stroke.
+              var line = d3.svg.line()
+                  .interpolate("monotone")
+                  .x(function(d) { return x(d.year); })
+                  .y(function(d) { return y(d.value); });
+
+              // d3.csv("readme.csv", type, function(error, data) {
+
+                // Filter to one symbol; the S&P 500.
+                /*var values = data.filter(function(d) {
+                  return d.symbol == "S&P 500";
+                });*/
+
+                // Compute the minimum and maximum date, and the maximum price.
+                x.domain([ba[0].year, ba[ba.length - 1].year]);
+                y.domain([0, d3.max(ba, function(d) { return d.value; })]).nice();
+
+                // Add an SVG element with the desired dimensions and margin.
+                var svg = d3.select("#"+thisistheChartDivId).append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                  .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                    .on("click", click);
+
+                // Add the clip path.
+                svg.append("clipPath")
+                    .attr("id", "clip")
+                  .append("rect")
+                    .attr("width", width)
+                    .attr("height", height);
+
+                // Add the area path.
+                svg.append("path")
+                    .attr("class", "area")
+                    .attr("clip-path", "url(#clip)")
+                    .attr("d", area(ba));
+
+                    svg.append("text")
+                      .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.bottom) + ")")
+                      .style("text-anchor", "middle")
+                      .text(cname);
+
+                // Add the x-axis.
+                svg.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(xAxis);
+
+                // Add the y-axis.
+                svg.append("g")
+                    .attr("class", "y axis")
+                    .attr("transform", "translate(" + width + ",0)")
+                    .call(yAxis);
+
+                // Add the line path.
+                svg.append("path")
+                    .attr("class", "line")
+                    .attr("clip-path", "url(#clip)")
+                    .attr("d", line(ba));
+
+                // Add a small label for the symbol name.
+                /*svg.append("text")
+                    .attr("x", width - 6)
+                    .attr("y", height - 6)
+                    .style("text-anchor", "end")
+                    .text(values[0].symbol);*/
+
+                // On click, update the x-axis.
+                function click() {
+                  var n = ba.length - 1,
+                      i = Math.floor(Math.random() * n / 2),
+                      j = i + Math.floor(Math.random() * n / 2) + 1;
+                  x.domain([ba[i].year, ba[j].year]);
+                  var t = svg.transition().duration(750);
+                  t.select(".x.axis").call(xAxis);
+                  t.select(".area").attr("d", area(ba));
+                  t.select(".line").attr("d", line(ba));
+                }
+
+}
+
+
+
+function mapFly(lat,lng,imgsrc, username){
+
+  /*map.flyTo([
+        jsonData.data[f].latlng[0],
+        jsonData.data[f].latlng[1]
+        
+    ]);*/
+
+
+  map.flyTo([
+        lat,lng
+    ]);
+
+
+
+// map.on('style.load', function() {
+  /*map.addSource(username, {
+    "type": "geojson",
+    "data": {
+      "type": "FeatureCollection",
+      "features": [{
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [lng,lat]
+        },
+        "properties": {
+          "title": username,
+          "marker-symbol": "circle-stroked"
+        }
+       
+        
+      }]
+    }
+    });*/
+  // });
+
+  /*var tt = new mapboxgl.Popup({
+    closeOnClick: false
+  })
+  .setLatLng([lat,lng])
+  .setHTML('<img style="width:10%; height:10%"src=' +  imgsrc + '></img>')
+  .addTo(map);*/
+
+}
+
+
+function paraText(username,tweettext){
+
+  var tempString = username + " : " + tweettext;
+  myCodeMirror[1].getDoc().setValue(tempString);
+}
+
+
+var a,b;
+
+function updateImage(imgsrc,num){
+
+
+
+                
+    // imageContainer.append('<img src=' +  imgsrc + '></img>');
+    //$(thisisMainImageContainer).append(imageContainer);
+
+  /*if(num > 0){
+
+    var n = num - 1;
+    // a = $(thisisMainImageContainer).find("img");
+    // console.log($(thisisMainImageContainer).find("img"));
+    a = $(thisisMainImageContainer).find("img");
+    // a = a[n];
+  // $(thisisMainImageContainer).find("img").remove("img");
+}
+
+
+  b = $('<img />')
+          .attr('src', '/img/nepalEarthquake/' + num + '.jpg')
+          .attr('id',  num + '-appended')
+          .appendTo(thisisMainImageContainer);
+
+console.log(a,b[0]);
+  ramjet.transform(a,b[0]);*/
+
+
+if(num > 0){
+
+  /*var n = num - 1;
+  a = $(thisisMainImageContainer).find("img");
+    a = a[n];*/
+  $(thisisMainImageContainer).find("img").remove("img");
+}
+
+// console.log(num);
+
+b =  $('<img />')
+          .attr('src', '/img/nepalEarthquake/' + num + '.jpg')
+          .attr('id',  num + '-appended')
+          .appendTo(thisisMainImageContainer);
+
+if(a !== undefined){
+// ramjet.transform(a,b[0]);
+}
+
+  // $(thisisMainImageContainer).append('<img src=' +  imgsrc + '></img>');
+
+
+
+  // var imgd = $('<img src="' + );
+
 }
 
 
@@ -109,23 +410,98 @@ else{
   function directDispatch(editor){
 
 
+ /*     for ( var i = 0, len = localStorage.length; i < len; ++i ) {
+  console.log( localStorage.getItem( localStorage.key( i ) ) );
+}*/
 
-        editor.signals.actionRelationships.add(function(){
+        editor.signals.actionRelationships.add(function(source,target){
+
+          var sourcechild = $(source).children()[0];
+          var targetchild = $(target).children()[0];
+
+            
+
+          var jd = 0;
+
+            var st = setInterval(function(){
+
+                var dj;
+
+                if(jd < 21){
+                  
+                  if (jd == 0) {
+
+                      $( "p" ).remove( ":contains('Click')" );
+                      $( "div" ).remove( ".dz-preview" );
+                      dj = jd;
+
+                  }
+
+                  console.log(localStorage.key( jd ));
+                if(localStorage.key( dj ) != "threejs-editor"){
+
+                var stringToSplit = localStorage.getItem( localStorage.key( jd ));
 
 
-    if(once){
+                var splitArray = stringToSplit.split(",");
 
-    var jd = 0;
 
-    setInterval(function(){
+                var assembleText;
+                if(splitArray.length > 5){
+                  for(var i=3;i<splitArray.length - 1;i++){
+                    assembleText += splitArray[i];
+                  }
 
-        fly(jd++);
+                mapFly(splitArray[1],splitArray[2],splitArray[splitArray.length - 1],splitArray[0]);
+                paraText(splitArray[0],assembleText);
+                updateImage(splitArray[splitArray.length - 1],jd);
 
-    },4000);
+                }
 
-    once = false;
 
-  }
+                else{
+                  mapFly(splitArray[1],splitArray[2],splitArray[splitArray.length - 1],splitArray[0]);
+                paraText(splitArray[0],splitArray[3]);
+                updateImage(splitArray[splitArray.length - 1],jd);
+                }
+
+                jd++;
+                // dj  = jd++;
+
+                // console.log(splitArray);
+
+                /*mapFly(splitArray[1],splitArray[2]);
+                paraText(splitArray[0]);
+                updateImage(spl);*/
+
+              }
+            }
+
+              else{
+                clearInterval(st);
+              }
+
+            },5000);
+
+            // once = false;
+
+          });
+            
+
+
+            /*if(once){
+
+            var jd = 0;
+
+            setInterval(function(){
+
+                fly(jd++);
+
+            },4000);
+
+            once = false;
+
+          }*/
 
 
 
@@ -168,7 +544,7 @@ else{
     // }
 
 
-  });
+  // });
 
 
       editor.signals.textBoxAppend.add(function(elem,event){
@@ -220,9 +596,9 @@ else{
                     startingValue += '\n';
                 }
 
-
-                myCodeMirror = CodeMirror($(childContainer)[0], {
-                      value: 'Start typing here. Insert <> to connect blocks using arrows',
+                //value: 'Start typing here. Insert <> to connect blocks using arrows',
+                myCodeMirror[myCodeMirror.length] = CodeMirror($(childContainer)[0], {
+                      value: 'Start typing here ...',
                       mode:  "arrows",
                       viewportMargin: 5,
                       autoClearEmptyLines: true,
@@ -232,7 +608,7 @@ else{
 
 
 
-                myCodeMirror.on('change', function(cm,change) {
+                myCodeMirror[myCodeMirror.length-1].on('change', function(cm,change) {
                     
                     // console.log($(childContainer)[0]);
                     // console.log(elem);
@@ -296,7 +672,7 @@ else{
                 });
 
 
-                myCodeMirror.on('update', function(cm) {
+                myCodeMirror[myCodeMirror.length-1].on('update', function(cm) {
 
                 // console.log('updated');
                 // console.log('cm',cm);
@@ -427,6 +803,7 @@ else{
                               
                         if(event.currentTarget.innerText == "Bold"){
                           $(event.currentTarget).parents('.free-container').find('.CodeMirror').css('font-weight',"bold");
+                          bold_selected = true;
                           // $(".CodeMirror").css('font-weight',"bold");
                         }
 
@@ -573,6 +950,8 @@ else{
                                       .on('move.spectrum', function(e, tinycolor) {
 
                                         $(event.currentTarget.parentElement.parentElement.parentElement).find(".CodeMirror-scroll").css("background-color",tinycolor.toHexString());
+
+                                        $(event.currentTarget.parentElement.parentElement.parentElement).css("background-color",tinycolor.toHexString());
                                         // $('.CodeMirror-scroll').css('background-color',tinycolor.toHexString());
                                         // console.log(tinycolor);
                                         // console.log(tinycolor.toHexString());
@@ -697,6 +1076,9 @@ else{
 
             if (event.target.id == 'Image') {
 
+
+              thisisMainImageContainer = elem;
+
               // var imageContainer = new FreeContainer(editor,'image-container');
               var imagedivid = elem.id + '-image-div';
               var imageContainer = $('<div class="image-container"> </div>');
@@ -737,6 +1119,12 @@ else{
 
               });
 
+
+                        jsPlumb.makeTarget(elem.id, {
+                            anchor:"Continuous",
+                            endpoint:["Dot", { width:40, height:20 }]
+                          });
+
           }
 
 
@@ -770,23 +1158,62 @@ else{
                 $( "p" ).remove( ":contains('Click')" );
                 $( "div" ).remove( ".dz-preview" );
                 var chartRandom = randomString();
-                chartContainer.append('<table class="table" id=' + elem.id + "-" +chartRandom +'>  <thead> <tr> <th class="val-edit">Location</th><th class="val-edit">Latitude</th><th class="val-edit">Longitude</th> </tr></thead> <tbody class="tablebody"></tbody></table>');
+                chartContainer.append('<table class="table" id=' + elem.id + "-" +chartRandom +'>  <thead> <tr> <th class="val-edit">Country</th><th class="val-edit">Capital</th><th class="val-edit">Latitude</th><th class="val-edit">Longitude</th> <th class="val-edit">Poverty Level</th></tr></thead> <tbody class="tablebody"></tbody></table>');
 
                 $(elem).append(chartContainer);
 
-                $.each(data.data, function(index, val) {
+                console.log(data.data);
+
+                /*$.each(data.data, function(index, val) {
 
                 $("#"+elem.id + "-" + chartRandom).append('<tr><td class="val-edit">'+ val.name.common + '</td><td class="val-edit">'+ val.latlng[0]+ '</td><td class="val-edit">' + val.latlng[1] +'</td></tr>');
                  
+                });*/
+
+
+                $.each(thisistheData, function(index, val) {
+
+                $("#"+elem.id + "-" + chartRandom).append('<tr><td class="val-edit">'+ val.name + '</td><td class="val-edit">'+ val.capital+'</td><td class="val-edit">'+ val.lat+ '</td><td class="val-edit">' + val.lng +'</td><td class="val-edit">' + val.values[0].year + "-2010" + '</td></tr>');
+
+
                 });
+
+
+                $('table tbody tr').hover(function() {
+                    $(this).addClass('highlight');
+                    // var hoverSplit = $(this)[0].innerText.split(/[ ,]+/);
+                    // console.log(hoverSplit[0].split(" "));
+                    // console.log($(this)[0].firstElementChild.innerText);
+
+                    if(connectionsComplete){
+                      controlCenter($(this)[0].firstElementChild.innerText);
+                    }
+                 }, function() {
+                    $(this).removeClass('highlight');
+                 });
 
 
                 $.fn.editable.defaults.mode = 'inline';
 
                 $(".val-edit").editable();
 
-                jsPlumb.makeSource(elem.id, {
+                // console.log("charttest",event);
+
+                /*jsPlumb.makeSource(elem.id, {
                   anchor:["Continuous", { faces:[ "left" ] } ],
+                  endpoint:["Dot", { width:5, height:5 }],
+                maxConnections:1
+              });*/
+
+                /*jsPlumb.makeSource(elem.id, {
+                  anchor:[0.7,0,0,1,50,0],
+                  overlays:[ "Arrow"],
+                  endpoint:["Dot", { width:5, height:5 }],
+                  maxConnections:1
+              });*/
+
+                jsPlumb.makeSource(elem.id, {
+                  anchor:["Continuous", { faces:[ "left","right","top","bottom" ] } ],
                   endpoint:["Dot", { width:5, height:5 }],
                 maxConnections:1
               });
@@ -876,14 +1303,400 @@ else{
             });
 
 
+
+            /*jsPlumb.makeSource(elem.id, {
+                  anchor:["Continuous", { faces:[ "left" ] } ],
+                  endpoint:["Dot", { width:5, height:5 }],
+                maxConnections:1
+              });*/
+
             //jsPlumb.makeTarget($(elem)[0].parentElement.id, {
-              jsPlumb.makeTarget(elem.id, {
+              /*jsPlumb.makeTarget(elem.id, {
                             anchor:"Continuous",
+                            endpoint:["Dot", { width:5, height:5 }]
+            });*/
+
+            console.log($(elem).parents('.main-container').find('.free-container').context.id);
+            jsPlumb.makeTarget($(elem).parents('.main-container').find('.free-container').context.id, {
+                            anchor:[0.7,0,0,1],
                             endpoint:["Dot", { width:5, height:5 }]
             });
 
 
           }
+
+
+          if (event.target.id == 'Tweet') {
+
+/*            var tweetContainer = $('<div class="form-group twitter">'+
+                '<label for="twittersearch"></label>'+
+                '<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Search for tweets with # or for a user with @">'+
+                '<button type="submit" class="btn btn-default pull-right" style="position:relative">Search</button>'+
+                  '</div>'
+                  
+                  
+
+                  );*/
+
+            tweetContainer = $(
+              '<div class="form-group" style="margin-top:50px">'+
+              '<div class="col-sm-10"'+
+               ' <label for="twitter"></label>'+
+                '<input type="text" id="twittersearch" autofocus class="form-control col-md-4" placeholder="Search for tweets with # or for a user with @">'+
+              '</div>'+
+              '<button type="button" id="twittersubmit"class="btn btn-default">Search</button>'+
+              '</div>'
+              
+            );
+
+            $(elem).append(tweetContainer);
+
+            $('#'+'twittersubmit').on('click',function(event){
+
+
+              $('#'+elem.id).find('.form-group').remove();
+
+
+              var tweetRandom = randomString();
+
+
+
+              var tweetformContainer = $('<table class="table" id=' + elem.id + "-" +tweetRandom +'>  <thead> <tr> <th class="val-edit">Username</th><th class="val-edit">Latitude</th><th class="val-edit">Longitude</th><th class="val-edit">TweetText</th><th class="val-edit">Image</th> </tr></thead> <tbody class="tablebody"></tbody></table>');
+
+                $(elem).append(tweetformContainer);
+
+
+
+                for ( var i = 0, len = 30; i < len; ++i ) {
+                      var stringArray = localStorage.getItem( localStorage.key( i ) );
+                      var splitArray = stringArray.split(",");
+
+                      // console.log(splitArray);
+
+                    
+
+                      var assembleText = "";
+                      if(splitArray.length > 5){
+                        for(var j=3;j<splitArray.length - 1;j++){
+                          assembleText += splitArray[j];
+
+                      }
+
+                      console.log(assembleText);
+
+                      $("#"+elem.id + "-" + tweetRandom).append('<tr><td class="val-edit">'+ splitArray[0] + '</td><td class="val-edit">'+ splitArray[1]+ '</td><td class="val-edit">'+ splitArray[2] + '</td><td class="val-edit">' + assembleText +'</td><td class="val-edit">' + splitArray[splitArray.length-1] + '</td></tr>');
+
+                    }
+
+
+                    else{
+
+                      $("#"+elem.id + "-" + tweetRandom).append('<tr><td class="val-edit">'+ splitArray[0] + '</td><td class="val-edit">'+ splitArray[1]+ '</td><td class="val-edit">'+ splitArray[2] + '</td><td class="val-edit">' + splitArray[3] +'</td><td class="val-edit">' + splitArray[splitArray.length-1] + '</td></tr>');
+
+                    }
+
+
+                      
+
+              }
+
+              /*$('table tbody tr').hover(function() {
+                    $(this).addClass('highlight');
+                    // var hoverSplit = $(this)[0].innerText.split(/[ ,]+/);
+                    // console.log(hoverSplit[0].split(" "));
+                    // console.log($(this)[0].firstElementChild.innerText);
+
+                    if(connectionsComplete){
+                      controlCenter($(this)[0].firstElementChild.innerText);
+                    }
+                 }, function() {
+                    $(this).removeClass('highlight');
+                 });*/
+
+              /*jsPlumb.makeSource(elem.id, {
+                  anchor:[0.7,0,0,1,50,0],
+                  overlays:[ "Arrow"],
+                  endpoint:["Dot", { width:5, height:5 }],
+                  maxConnections:1
+              });*/
+
+            jsPlumb.makeSource(elem.id, {
+                  anchor:["Continuous", { faces:[ "left","right","top","bottom" ] } ],
+                  endpoint:["Dot", { width:5, height:5 }],
+                maxConnections:1
+              });
+
+
+
+            });
+
+            $('#'+elem.id).on('click',function(event){
+
+              
+              $(this).find('input:text:visible:first').focus();
+              // $('#twittersearch').focus();
+
+            });
+
+        }
+              
+
+
+              
+
+              /*function preload(arrayOfImages) {
+                $(arrayOfImages).each(function(){
+                    $('<img/>')[0].src = this;
+                    console.log($('<img/>')[0].src);
+                    
+                });
+            }
+
+            preload(["img/screen.png"]);*/
+
+              // var searchData = {data: $( "#twittersearch").val()};
+
+              // var posting = $.get( "/twittersearch", searchData,success );
+              // console.log(posting);
+
+              // $.post( "/twittersearch", {"data":"hi"});
+
+              /*function success(data){
+                tweetData = data;
+                console.log(data);
+
+                $('#'+elem.id).find('.form-group').remove();
+
+                var tweetRandom = randomString();
+
+                var tweetformContainer = $('<table class="table" id=' + elem.id + "-" +tweetRandom +'>  <thead> <tr> <th class="val-edit">Username</th><th class="val-edit">Latitude</th><th class="val-edit">Longitude</th><th class="val-edit">TweetText</th><th class="val-edit">Image</th> </tr></thead> <tbody class="tablebody"></tbody></table>');
+                // tweetContainer.append('<table class="table" id=' + elem.id + "-" +tweetRandom +'>  <thead> <tr> <th class="val-edit">Username</th><th class="val-edit">Latitude</th><th class="val-edit">Longitude</th> </tr></thead> <tbody class="tablebody"></tbody></table>');
+
+                $(elem).append(tweetformContainer);
+
+              //   $.each(data.data.statuses, function(index, val) {
+
+              //     $("#"+elem.id + "-" + tweetRandom).append('<tr><td class="val-edit">'+ val.user.screen_name + '</td><td class="val-edit">'+ val.id+ '</td><td class="val-edit">' + val.text +'</td><td class="val-edit">' + val.id + '</td></tr>');
+
+              // });
+
+
+              $.each(data, function(index, val) {
+
+                  var address = "https://maps.googleapis.com/maps/api/geocode/json?address="+val.location+"&key=AIzaSyDMLvEKnAZMZ9JlY6jJRgbdIsJE5YSamxY";
+
+                  // 
+                    
+                  window.setTimeout(function(){
+
+
+                    $.ajax({
+                    method: "GET",
+                    url: address,
+                    dataType: 'json',
+                    contentType: 'text/plain',
+                     xhrFields: {
+                      withCredentials: false
+                    },
+                  })
+                  .done(function(data){
+                    console.log("data",data);
+                    // var jsonObject = JSON.parse(data);
+
+                    if(data.results.length > 0){
+                    val.location = data.results[0].geometry.location;
+
+                    var allv = [val.username,val.location.lat,val.location.lng,val.tweettext,val.img];
+                    // allv.push({"username":val.username},{"lat":val.location.lat},{"lng":val.location.lng},{"tweettext":val.tweettext},{"img":val.img});
+                    // allv.push(val.location.lat);
+                    // allv.push(val.location.lng);
+                    // allv.push(val.tweettext);
+                    // allv.push(val.img);
+
+
+                    localStorage[val.username] = allv;
+                    // localStorage[val.username].push(allv);
+                    
+                    $("#"+elem.id + "-" + tweetRandom).append('<tr><td class="val-edit">'+ val.username + '</td><td class="val-edit">'+ val.location.lat+ '</td><td class="val-edit">'+ val.location.lng + '</td><td class="val-edit">' + val.tweettext +'</td><td class="val-edit">' + val.img + '</td></tr>');
+                    }
+                    
+                  });
+
+                  },index* 10);
+
+                    
+
+              });
+
+
+                  jsonData = localStorage;
+
+
+                jsPlumb.makeSource(elem.id, {
+                  anchor:[0.7,0,0,1,50,0],
+                  overlays:[ "Arrow"],
+                  endpoint:["Dot", { width:5, height:5 }],
+                  maxConnections:1
+              });
+
+            }*/
+
+
+            
+
+              
+              
+
+            // });
+
+
+
+            
+          // }
+
+
+
+
+          if (event.target.id == 'Video') {
+
+            var videoContainer = $(
+
+              '<div class="form-group" id="videoform" style="margin-top:50px">'+
+              '<div class="col-sm-10"'+
+               ' <label for="video"></label>'+
+                '<input type="text" id="videolink" autofocus class="form-control col-md-4" placeholder="Paste a video link here">'+
+              '</div>'+
+              '<button type="button" id="videoembed"class="btn btn-default">Embed</button>'+
+              '</div>'
+
+              );
+
+
+            $(elem).append(videoContainer);
+
+
+            $('#'+elem.id).on('click',function(event){
+
+              
+              $(this).find('input:text:visible:first').focus();
+
+            });
+
+            $('#videoembed').on('click',function(event){
+
+              var srcLink = $('#'+elem.id).find('#videolink').val();
+
+              console.log(srcLink);
+
+              $('#'+elem.id).find('#videoform').remove();
+
+              $(elem).append('<div class="embed-responsive embed-responsive-16by9">'+
+                '<iframe class="embed-responsive-item" src="'+
+                srcLink+
+                '"></iframe>'+
+              '</div>');
+
+            });
+
+          }
+
+
+
+          if (event.target.id == 'Table') {
+
+
+            // var ba = allData["Costa Rica"];
+
+            thisistheChartDivId = elem.id;
+
+            jsPlumb.makeTarget(elem.id, {
+                            anchor:"Continuous",
+                            endpoint:["Dot", { width:40, height:20 }]
+                          });
+
+              
+              // });
+
+              
+
+            /*var margin = {top: 40, right: 20, bottom: 30, left: 40},
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+                var formatPercent = d3.format(".0%");
+
+
+
+                  var x = d3.scale.ordinal()
+                      .rangeRoundBands([0, width], .1);
+
+                  var y = d3.scale.linear()
+                      .range([height, 0]);
+
+                  var xAxis = d3.svg.axis()
+                      .scale(x)
+                      .orient("bottom");
+
+                  var yAxis = d3.svg.axis()
+                      .scale(y)
+                      .orient("left")
+                      .tickFormat(formatPercent);
+
+
+                      var svg = d3.select("#"+elem.id).append("svg")
+                  .attr("width", width + margin.left + margin.right)
+                  .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                  var tip = d3.tip()
+                      .attr('class', 'd3-tip')
+                      .offset([-10, 0])
+                      .html(function(d) {
+                        return "<strong>Value:</strong> <span style='color:red'>" + d.value + "</span>";
+                      })
+
+                      svg.call(tip);
+
+
+                  x.domain(allData["Bangladesh"].map(
+                    function(d) { 
+                      console.log(d);
+                      return d.year; 
+                    })
+
+                  );
+                      y.domain([0, d3.max(allData["Bangladesh"], function(d) { return d.value; })]);
+
+                      svg.append("g")
+                          .attr("class", "x axis")
+                          .attr("transform", "translate(0," + height + ")")
+                          .call(xAxis);
+
+                      svg.append("g")
+                          .attr("class", "y axis")
+                          .call(yAxis)
+                        .append("text")
+                          .attr("transform", "rotate(-90)")
+                          .attr("y", 6)
+                          .attr("dy", ".71em")
+                          .style("text-anchor", "end")
+                          .text("Value");
+
+                      svg.selectAll(".bar")
+                          .data(allData["Bangladesh"])
+                        .enter().append("rect")
+                          .attr("class", "bar")
+                          .attr("x", function(d) { return x(d.year); })
+                          .attr("width", x.rangeBand())
+                          .attr("y", function(d) { return y(d.value); })
+                          .attr("height", function(d) { return height - y(d.value); })
+                          .on('mouseover', tip.show)
+                          .on('mouseout', tip.hide);
+          }*/
+
+          
+        }
 
       });
 

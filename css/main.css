@@ -138,6 +138,7 @@ textarea, input { outline: none; } /* osx */
     border-radius: 6px;
     /*margin: 60px;*/
     padding: 20px;
+      width: 50%;
 }
 
 .states-container{

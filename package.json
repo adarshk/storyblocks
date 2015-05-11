@@ -40,6 +40,9 @@
     "react": "^0.13.0-beta.1"
   },
   "dependencies": {
-    "scroller": "git://github.com/mjohnston/scroller"
+    "scroller": "git://github.com/mjohnston/scroller",
+    "body-parser": "^1.12.3",
+    "node-zip": "^1.1.1",
+    "express-zip": "^2.0.0"
   }
 }

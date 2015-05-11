@@ -45,6 +45,9 @@ function dispatchers(editor){
                   jsPlumb.revalidate($(this));
                 jsPlumb.repaintEverything();
 
+                jsPlumb.repaintEverything();
+              jsPlumb.revalidate(event.target.id);
+
                 // translate the element
                 /*target.style.webkitTransform =
                 target.style.transform =
@@ -91,6 +94,9 @@ function dispatchers(editor){
                 jsPlumb.revalidate($(this));
                 jsPlumb.repaintEverything();
 
+                jsPlumb.repaintEverything();
+              jsPlumb.revalidate(event.target.id);
+
                 //jsPlumb.repaint($(this));
                 //thisistheTarget.repaint(this);
 
@@ -116,6 +122,9 @@ function dispatchers(editor){
               edges: { left: true, right: true, bottom: true, top: true }
             })
             .on('resizestart', function (event) {
+
+              jsPlumb.repaintEverything();
+              jsPlumb.revalidate(event.target.id);
 
               }).on('resizemove', function (event) {
               var target = event.target;
@@ -145,6 +154,9 @@ function dispatchers(editor){
             })
 
               .on('resizeend',function(event){
+
+                jsPlumb.repaintEverything();
+                jsPlumb.revalidate(event.target.id);
 
                 if ($(event.target).find('.mapboxgl-canvas').length) {
                     map.resize();

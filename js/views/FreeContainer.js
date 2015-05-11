@@ -1,7 +1,7 @@
 
 
 
-var FreeContainer = function ( editor, className, mPos ) {
+var FreeContainer = function ( editor, className, mPos,type ) {
 
 	// var container = new UI.Container();
 
@@ -103,7 +103,7 @@ var FreeContainer = function ( editor, className, mPos ) {
 	mainDivContainer.className = "mainDivContainer";
 	mainDivContainer.id = 'A'+divContainer.id;
 
-	var square = new UI.Square();
+	/*var square = new UI.Square();
 	square.id = divContainer.id + '-square';
 	square.onClick(function(event){
 
@@ -111,10 +111,69 @@ var FreeContainer = function ( editor, className, mPos ) {
 		// console.log(event);
 		// editor.signals.showSpectrum.dispatch(event.path[1].id);
 
-		console.log(event);
-		// event.target.className = "fa fa-arrow-up main-container-square";
+		
+		console.log($(event.target).parents('.main-container'));
+		var changeArrow = event.target.className.split(" ");
+		
+		
+		if (changeArrow[1] == "fa-arrow-up") {
+
+			event.target.className = "fa fa-arrow-down main-container-plus";
+
+		}
+
+		else if (changeArrow[1] == "fa-arrow-down") {
+
+			event.target.className = "fa fa-arrow-up main-container-plus";
+
+		}
+		
+	});*/
+
+
+	var checkbox = new UI.Checkbox();
+	checkbox.id = divContainer.id + '-checkbox';
+
+	var arrow = new UI.Arrow();
+	arrow.id = divContainer.id + '-arrow';
+	arrow.onClick(function(event){
+
+		// console.log("arrow clicked");
+		// console.log(event);
+		// editor.signals.showSpectrum.dispatch(event.path[1].id);
+
+		
+		// console.log($(event.target).parents('.main-container'));
+		var changeArrow = event.target.className.split(" ");
+		
+		
+		if (changeArrow[1] == "fa-arrow-up") {
+
+			event.target.className = "fa fa-arrow-down main-container-plus";
+
+		}
+
+		else if (changeArrow[1] == "fa-arrow-down") {
+
+			event.target.className = "fa fa-arrow-up main-container-plus";
+
+		}
 		
 	});
+
+
+	/*var plus = new UI.Plus();
+	plus.id = divContainer.id + '-plus';
+	plus.onClick(function(event){
+
+		// console.log("plus clicked");
+		// console.log(event);
+		// editor.signals.showSpectrum.dispatch(event.path[1].id);
+
+
+		
+		
+	});*/
 
 	editor.signals.showSpectrum.add(function(showColorId) {
 		// console.log(showColorId);
@@ -201,6 +260,7 @@ var FreeContainer = function ( editor, className, mPos ) {
 	$(divContainer).css('left',"" + 0 + "px");
 	$(divContainer).css('top',"" + 30 + "px");
 	$(divContainer).css('background','rgba(0,255,255,0)');
+	// $(divContainer).css('background-color','#ffffff');
 	$(divContainer).css('outline','1px dashed red');
 	$(divContainer).css('width','100%');
 	$(divContainer).css('height','90%');
@@ -211,8 +271,9 @@ var FreeContainer = function ( editor, className, mPos ) {
 	$(mainDivContainer).css('left',"" + posx + "px");
 	$(mainDivContainer).css('top',"" + posy + "px");
 	$(mainDivContainer).css('background','rgba(0,255,255,0)');
+	// $(mainDivContainer).css('background-color','#333333');
 	// $(mainDivContainer).css('outline','1px dashed red');
-	$(mainDivContainer).css('width','200px');
+	$(mainDivContainer).css('width','500px');
 	$(mainDivContainer).css('height','200px');
 	
 
@@ -228,7 +289,411 @@ var FreeContainer = function ( editor, className, mPos ) {
     $(mainDivContainer).append(divContainer);
     $(mainDivContainer).append(icon.dom);
     $(mainDivContainer).append(outnode.dom);
-    $(mainDivContainer).append(square.dom);
+    //$(mainDivContainer).append(square.dom);
+    $(mainDivContainer).append(arrow.dom);
+    $(mainDivContainer).append(checkbox.dom);
+    // $(mainDivContainer).append(plus.dom);
+
+
+
+
+
+    //Template for below
+    /*if(type == "Map"){
+
+			dropdown = $(
+
+    	'<div class="dropdown main-container-dropdown">'+
+    	'<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">'+
+    	'<span class="caret"></span></button>'+
+	    '<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+	      '<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Image</a></li>'+
+	      '<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Video</a></li>'+
+	      '<li role="presentation" class="divider"></li>'+
+	      '<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Location</a></li>'+
+	    '</ul>'+
+	  '</div>'
+
+		
+	  	);
+		}*/
+
+
+    var dropdown;
+    if(type == "Map"){
+
+    dropdown = $(
+
+    	
+    	'<div class="dropdown container-dropdowns" id="mapmenu"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>'+
+				'<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+                        '<li role="presentation"><a role="menuitem" id="gotolocation" tabindex="-1" href="#">Go to location</a></li>'+
+	      				'<li role="presentation"><a role="menuitem" id="addmarker" tabindex="-1" href="#">Add marker</a></li>'+
+                    '</ul>'+
+                    '</div>'
+
+    	/*'<div class="dropdown main-container-dropdown" id="map-dropdown">'+
+    	'<button class="btn btn-default dropdown-toggle" type="button" id="map-menu" data-toggle="dropdown">'+
+    	'<span class="caret"></span></button>'+
+	    '<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+	      '<li role="presentation"><a role="menuitem" id="gotolocation" tabindex="-1" href="#">Go to location</a></li>'+
+	      '<li role="presentation"><a role="menuitem" id="addmarker" tabindex="-1" href="#">Add marker</a></li>'+
+	    '</ul>'+
+	  '</div>'*/
+
+    	/*'<div class="dropdown main-container-dropdown" style="">'+
+  		'<button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
+    	'Dropdown'+
+    	'<span class="caret"></span>'+
+  		'</button>'+
+  		'<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">'+
+  		'Video'+
+  		'</ul>'+
+		'</div>'*/
+		);
+
+		}
+
+		if(type == "Text"){
+
+			dropdown = $(
+
+
+
+				'<div class="dropdown container-dropdowns" id="textmenu"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>'+
+				'<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+                        '<li role="presentation"><a role="menuitem" id="updatetext" tabindex="-1" href="#">Update</a></li>'+
+	      				'<li role="presentation"><a role="menuitem" id="replacetext" tabindex="-1" href="#">Replace</a></li>'+
+                    '</ul>'+
+                    '</div>'
+
+    	/*'<div class="dropdown main-container-dropdown" id="text-dropdown">'+
+    	'<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">'+
+    	'<span class="caret"></span></button>'+
+	    '<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+	      '<li role="presentation"><a role="menuitem" id="updatetext" tabindex="-1" href="#">Update</a></li>'+
+	      '<li role="presentation"><a role="menuitem" id="replacetext" tabindex="-1" href="#">Replace</a></li>'+
+	    '</ul>'+
+	  '</div>'*/
+
+		
+	  	);
+		}
+
+
+		if(type == "Image"){
+
+			dropdown = $(
+
+
+				'<div class="dropdown container-dropdowns" id="imagemenu"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>'+
+				'<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+                        '<li role="presentation"><a role="menuitem" id="transition" tabindex="-1" href="#">Transition</a></li>'+
+                    '</ul>'+
+                    '</div>'
+
+    	/*'<div class="dropdown main-container-dropdown" id="image-dropdown">'+
+    	'<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">'+
+    	'<span class="caret"></span></button>'+
+	    '<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+	      '<li role="presentation"><a role="menuitem" id="transition" tabindex="-1" href="#">Transition</a></li>'+
+	    '</ul>'+
+	  '</div>'*/
+
+		
+	  	);
+		}
+
+		if(type == "Video"){
+
+			dropdown = $(
+
+
+				'<div class="dropdown container-dropdowns" id="videomenu"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>'+
+				'<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+                        '<li role="presentation"><a role="menuitem" id="playvideo" tabindex="-1" href="#">Play</a></li>'+
+	      				'<li role="presentation"><a role="menuitem" id="loopvideo" tabindex="-1" href="#">Loop</a></li>'+
+                    '</ul>'+
+                    '</div>'
+
+    	/*'<div class="dropdown main-container-dropdown" id="video-dropdown">'+
+    	'<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">'+
+    	'<span class="caret"></span></button>'+
+	    '<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+	      '<li role="presentation"><a role="menuitem" id="playvideo" tabindex="-1" href="#">Play</a></li>'+
+	      '<li role="presentation"><a role="menuitem" id="loopvideo" tabindex="-1" href="#">Loop</a></li>'+
+	    '</ul>'+
+	  '</div>'*/
+
+		
+	  	);
+		}
+
+
+
+		if(type == "Tweet"){
+
+			dropdown = $(
+
+
+			'<div class="dropdown container-dropdowns" id="tweetmenu"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>'+
+				'<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+                        '<li role="presentation"><a role="menuitem" id="locationtweet" tabindex="-1" href="#">Location</a></li>'+
+				      '<li role="presentation"><a role="menuitem" id="imagetweet" tabindex="-1" href="#">Image</a></li>'+
+				      '<li role="presentation"><a role="menuitem" id="texttweet"  tabindex="-1" href="#">TweetText</a></li>'+
+				      '<li role="presentation"><a role="menuitem" id="usernametweet" tabindex="-1" href="#">Username</a></li>'+
+                    '</ul>'+
+                    '</div>'	
+
+    	/*'<div class="dropdown main-container-dropdown" id="tweet-dropdown">'+
+    	'<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">'+
+    	'<span class="caret"></span></button>'+
+	    '<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+	      '<li role="presentation"><a role="menuitem" id="locationtweet" tabindex="-1" href="#">Location</a></li>'+
+	      '<li role="presentation"><a role="menuitem" id="imagetweet" tabindex="-1" href="#">Image</a></li>'+
+	      '<li role="presentation"><a role="menuitem" id="texttweet"  tabindex="-1" href="#">TweetText</a></li>'+
+	      '<li role="presentation"><a role="menuitem" id="usernametweet" tabindex="-1" href="#">Username</a></li>'+
+	    '</ul>'+
+	  '</div>'*/
+
+		
+	  	);
+		}
+
+
+		var dropdown2;
+		if(type == "Chart"){
+
+			dropdown = $(
+
+
+				'<div class="dropdown container-dropdowns" id="chartmenu"> <a class="dropdown-toggle firstOne" data-toggle="dropdown" href="#"><b class="caret"></b></a>'+
+				'<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+                '<li role="presentation"><a role="menuitem" id="continuouschart2" tabindex="-1" href="#">Country Data</a></li>'+
+      			'<li role="presentation"><a role="menuitem" id="singlevaluechart2" tabindex="-1" href="#">Location</a></li>'+
+      			'<li role="presentation"><a role="menuitem" id="singlevaluechart2" tabindex="-1" href="#">Poverty Level</a></li>'+
+                    '</ul>'+
+                    '</div>'
+
+    	/*'<div class="dropdown main-container-dropdown" id="chart-dropdown">'+
+    	'<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">'+
+    	'<span class="caret"></span></button>'+
+	    '<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+	    '</ul>'+
+	  '</div>'*/
+
+		
+	  	);
+
+			dropdown2 = $(
+
+
+				'<div class="dropdown container-dropdowns" id="chart2menu"> <a class="dropdown-toggle secondOne" data-toggle="dropdown" href="#"><b class="caret"></b></a>'+
+				'<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+                       /*'<li role="presentation"><a role="menuitem" id="continuouschart2" tabindex="-1" href="#">Hover</a></li>'+
+      					'<li role="presentation"><a role="menuitem" id="singlevaluechart2" tabindex="-1" href="#">Click</a></li>'+*/
+                    '</ul>'+
+                    '</div>'
+
+    	/*'<div class="dropdown main-container-dropdown" id="chart2-dropdown">'+
+    	'<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">'+
+    	'<span class="caret"></span></button>'+
+	    '<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+	      '<li role="presentation"><a role="menuitem" id="continuouschart2" tabindex="-1" href="#">Continuous</a></li>'+
+	      '<li role="presentation"><a role="menuitem" id="singlevaluechart2" tabindex="-1" href="#">Single value</a></li>'+
+	    '</ul>'+
+	  '</div>'*/
+
+		
+	  	);
+		}
+
+
+		if(type == "Empty"){
+
+			dropdown = $(
+
+				
+				'<div class="dropdown container-dropdowns" id="emptymenu"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>'+
+				'<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+                        '<li role="presentation"><a id="showinputempty" role="menuitem" tabindex="-1" href="#">Show Input</a></li>'+
+                    '</ul>'+
+                    '</div>'
+                   
+
+				
+
+    	/*'<div class="dropdown main-container-dropdown" id="empty-dropdown">'+
+    	'<div class="btn-group">'+
+    	'<a class="btn btn-default dropdown-toggle empty-selected-value" type="button" id="menu1" data-toggle="dropdown">'+
+    	'<span class="caret"></span></a>'+
+	    '<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+	      '<li role="presentation"><a id="showinputempty" role="menuitem" tabindex="-1" href="#">Show Input</a></li>'+
+	    '</ul>'+
+	    '</div>'+
+	  '</div>'*/
+	
+		
+	  	);
+		}
+
+
+
+
+
+
+		if(type == "Table"){
+
+			dropdown = $(
+
+
+				'<div class="dropdown container-dropdowns" id="tablemenu"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>'+
+				'<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
+                       '<li role="presentation"><a role="menuitem" id="stackedbars" tabindex="-1" href="#">Stacked Bars</a></li>'+
+      					'<li role="presentation"><a role="menuitem" id="forcegraph" tabindex="-1" href="#">Force Directed graph</a></li>'+
+      					'<li role="presentation"><a role="menuitem" id="radiallayout" tabindex="-1" href="#">Radial Layout</a></li>'+
+                    '</ul>'+
+                    '</div>'
+
+		
+	  	);
+
+		
+		}
+
+
+		/*$("#register").on('click',function(e){
+
+			console.log("Clicked");
+			e.preventDefault();
+		});
+		$("#register").click(function(e){
+			//do something
+			console.log("Clicked");
+			e.preventDefault();
+			});*/
+
+		/*$('.dropdown').click(function(event){
+
+			console.log('drop');
+		});
+
+		$('#accountmenu').click(function(event){
+
+			console.log('drop');
+		});
+
+		$('.dropdown-menu').click(function(event){
+
+			console.log('drop');
+		});
+
+		$('.dropdown-toggle').click(function(event){
+
+			console.log('drop');
+		});
+
+		
+		$('.dropdown-menu li a').click(function(event) {
+			console.log("Dropdown");
+		});
+
+
+		$('.dropdown-toggle').on('show.bs.dropdown', function () {
+
+			console.log("Dropdown");
+		});
+
+
+		$("a.dropdown-toggle").click(function(ev) {
+			console.log("Span dropdown");
+			$("a.dropdown-toggle").dropdown("toggle");
+              //$("a.dropdown-toggle").dropdown("toggle");
+              //return false;
+          });*/
+		
+		/*$('.dropdown-toggle').dropdown();
+		// $('#dropDownId :selected').text();
+		$('.dropdown-menu li > a').click(function(event){
+
+			console.log("Click",event);
+			console.log("Clickw",$('.empty-selected-value').val());
+			// console.log("this",$(this).text());
+
+		});*/
+
+
+
+
+    $(mainDivContainer).append(dropdown).promise().done(function(){
+
+
+    	console.log("appendedDiv");
+
+    	/*$("#register").on('click',function(e){
+
+			console.log("Clicked");
+			e.preventDefault();
+		});*/
+
+    	/*$('#tweet-dropdown').click(function(event){
+
+			console.log('drop');
+		});
+
+		$('dropdown').click(function(event){
+
+			console.log('drop');
+		});
+
+		$('#tweet-dropdown ul li a').click(function(event){
+
+			console.log('drop');
+		});
+
+    	$('.dropdown').click(function(event){
+
+			console.log('drop');
+		});
+
+		$('[data-toggle=dropdown]').dropdown();
+
+		$('#accountmenu').click(function(event){
+
+			console.log('drop');
+		});
+
+		$('.dropdown-menu').click(function(event){
+
+			console.log('drop');
+		});
+
+		$('.dropdown-toggle').click(function(event){
+
+			console.log('drop');
+		});
+
+		
+		$('a').click(function(event) {
+			console.log("Dropdown");
+		});
+
+
+		$('.dropdown-toggle').on('show.bs.dropdown', function () {
+
+			console.log("Dropdown");
+		});
+
+
+		$("a.dropdown-toggle").click(function(ev) {
+			console.log("Span dropdown");
+			$("a.dropdown-toggle").dropdown("toggle");
+              //$("a.dropdown-toggle").dropdown("toggle");
+              //return false;
+          });*/
+
+    });
+    // $(mainDivContainer).append(dropdown2);
     
     
 

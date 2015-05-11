@@ -87,6 +87,7 @@ var Editor = function () {
 		textBoxAppend: new SIGNALS.Signal(),
 
 		enableDisableDragging: new SIGNALS.Signal(),
+		drawGraph: new SIGNALS.Signal(),
 
 
 	};
