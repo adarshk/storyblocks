@@ -1493,7 +1493,7 @@ if(a !== undefined){
 
               $.each(data, function(index, val) {
 
-                  var address = "https://maps.googleapis.com/maps/api/geocode/json?address="+val.location+"&key=AIzaSyDMLvEKnAZMZ9JlY6jJRgbdIsJE5YSamxY";
+                  var address = "https://maps.googleapis.com/maps/api/geocode/json?address="+val.location+"&key=";
 
                   // 
                     
