@@ -14,15 +14,17 @@
 }
 
 #storyBlocks{
-	position: absolute;
-	/*position: relative;*/
+	/*position: absolute;*/
+	position: relative;
 	/*margin-top: -15%;*/
-	top: -50px;
+	/*top: 0;*/
+	/*top: -50px;*/
 	/*top: -60%;*/
+	top: -60%;
 	left:0;
 	bottom:0;
 	width: 100%;
-	height: 200%;
+	height: 400%;
 	/*overflow: auto;*/
 }
 
@@ -503,12 +505,15 @@ input.Number {
 
 
 .CodeMirror {
-  border: 1px solid #eee;
+  border: none;
   height: 20%;
   left: 4px;
   font-family: DDM,sans-serif;
   /*font-family: Tahoma, Geneva, sans-serif;*/
 	font-size: 1.2em;
+	/*letter-spacing: 1.5px;*/
+	background: transparent;
+	/*color: white;*/
 }
 
 .cm-arrows {

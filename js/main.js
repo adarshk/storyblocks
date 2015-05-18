@@ -89,11 +89,11 @@
 
 			});
 
-			d3.json("data/Countries.json",function(error,data){
+			d3.json("data/countries.json",function(error,data){
 
 				countryData = data;
 
-				console.log(countryData);
+				console.log('countryData',countryData);
 
 
 			});
@@ -188,6 +188,16 @@
 
 			$('#save-button').click(function(){
 
+				$.ajax({
+                method: "GET",
+                url: "/get-zip",
+                contentType: 'application/zip, application/octet-stream'
+              })
+              .done(function(zipdata){
+
+             	var blob = new Blob([zipdata], {type: "application/zip"});
+				saveAs(blob, "Story.zip");
+              });
 				
 			});
 

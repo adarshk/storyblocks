@@ -273,7 +273,7 @@ UI.Media.prototype.addIcon = function(formName){
 	}
 
 	else if (formName === 'Empty'){
-		icon.className = 'fa fa-square-o fa-4x';
+		icon.className = 'fa fa-instagram fa-4x';
 	}
 
 	else if (formName === 'Table'){

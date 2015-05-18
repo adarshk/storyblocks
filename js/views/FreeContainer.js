@@ -266,14 +266,14 @@ var FreeContainer = function ( editor, className, mPos,type ) {
 	$(divContainer).css('height','90%');
 
 
-
-	$(mainDivContainer).css('position','fixed');
+	// $(mainDivContainer).css('position','fixed');
+	$(mainDivContainer).css('position','relative');
 	$(mainDivContainer).css('left',"" + posx + "px");
 	$(mainDivContainer).css('top',"" + posy + "px");
 	$(mainDivContainer).css('background','rgba(0,255,255,0)');
 	// $(mainDivContainer).css('background-color','#333333');
 	// $(mainDivContainer).css('outline','1px dashed red');
-	$(mainDivContainer).css('width','500px');
+	$(mainDivContainer).css('width','700px');
 	$(mainDivContainer).css('height','200px');
 	
 
@@ -363,7 +363,6 @@ var FreeContainer = function ( editor, className, mPos,type ) {
 				'<div class="dropdown container-dropdowns" id="textmenu"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>'+
 				'<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
                         '<li role="presentation"><a role="menuitem" id="updatetext" tabindex="-1" href="#">Update</a></li>'+
-	      				'<li role="presentation"><a role="menuitem" id="replacetext" tabindex="-1" href="#">Replace</a></li>'+
                     '</ul>'+
                     '</div>'
 
@@ -469,9 +468,9 @@ var FreeContainer = function ( editor, className, mPos,type ) {
 
 				'<div class="dropdown container-dropdowns" id="chartmenu"> <a class="dropdown-toggle firstOne" data-toggle="dropdown" href="#"><b class="caret"></b></a>'+
 				'<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">'+
-                '<li role="presentation"><a role="menuitem" id="continuouschart2" tabindex="-1" href="#">Country Data</a></li>'+
-      			'<li role="presentation"><a role="menuitem" id="singlevaluechart2" tabindex="-1" href="#">Location</a></li>'+
-      			'<li role="presentation"><a role="menuitem" id="singlevaluechart2" tabindex="-1" href="#">Poverty Level</a></li>'+
+                '<li role="presentation"><a role="menuitem" id="countrydata" tabindex="-1" href="#">Country Data</a></li>'+
+      			'<li role="presentation"><a role="menuitem" id="locationdropdown" tabindex="-1" href="#">Location</a></li>'+
+      			'<li role="presentation"><a role="menuitem" id="povertylevel" tabindex="-1" href="#">Poverty Level</a></li>'+
                     '</ul>'+
                     '</div>'
 

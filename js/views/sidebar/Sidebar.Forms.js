@@ -199,6 +199,8 @@ Sidebar.Forms = function(editor){
 			$(freeContainer).css('left', event.pageX);
 			$(freeContainer).css('top', event.pageY);
 
+			// $(freeContainer).css('position','fixed');
+
 
 			/*console.log("moving");
 			console.log(event);*/
@@ -216,6 +218,9 @@ Sidebar.Forms = function(editor){
 		}
 
 		function dragend(event){
+
+
+			$(freeContainer).css('position','relative');
 
 
 			
@@ -395,30 +400,79 @@ Sidebar.Forms = function(editor){
 
 			//For chart
 
-			$("#continuouschart2").on('click',function(e){
+			$("#countrydata").on('click',function(e){
 
-				console.log("continuouschart2");
+				console.log("countrydata");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+				console.log(md);
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+			$("#locationdropdown").on('click',function(e){
+
+				console.log("locationdropdown");
 				var selectedText = $(e.currentTarget).text();
 				
 				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
 
-				$(md).find('.dropdown-toggle.secondOne').html(selectedText + '<b class="caret"></b>');
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
 				e.preventDefault();
 			});
 
-			$("#singlevaluechart2").on('click',function(e){
 
-				console.log("singlevaluechart2");
+			$("#povertylevel").on('click',function(e){
+
+				console.log("povertylevel");
 				var selectedText = $(e.currentTarget).text();
 				
 				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
 
-				$(md).find('.dropdown-toggle.secondOne').html(selectedText + '<b class="caret"></b>');
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
 				e.preventDefault();
 			});
 
 
 
+
+			$("#stackedbars").on('click',function(e){
+
+				console.log("povertylevel");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+
+
+			$("#forcegraph").on('click',function(e){
+
+				console.log("forcegraph");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
+
+
+			$("#radiallayout").on('click',function(e){
+
+				console.log("radiallayout");
+				var selectedText = $(e.currentTarget).text();
+				
+				var md = $($($($($(e.currentTarget)[0].parentElement)[0].parentElement)[0].parentElement)[0].parentElement)[0];
+
+				$(md).find('.dropdown-toggle').html(selectedText + '<b class="caret"></b>');
+				e.preventDefault();
+			});
 			
 			//For empty
 

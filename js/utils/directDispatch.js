@@ -70,8 +70,8 @@ jsPlumb.bind("connection", function(info) {
           }
 
           if(thisisCounter == 3){
-            connectionsComplete = true;
-            // editor.signals.actionRelationships.dispatch(info.source,info.target);
+            // connectionsComplete = true;  //For world poverty
+            editor.signals.actionRelationships.dispatch(info.source,info.target); //For nepal earthquake
           }
 
 
@@ -136,7 +136,21 @@ else{
   }
 
 
-  myCodeMirror[1].getDoc().setValue(tempString);
+  myCodeMirror[3].getDoc().setValue(tempString);
+
+
+  var parag = "At least 65 people died there and nearly 2,000 were hurt in Tuesday's 7.3 magnitude quake, with fears the figures could rise." +
+
+"Some 400 Nepalese soldiers backed by helicopters are now focusing their search on a nearby river, a senior Nepalese army officer said."+
+
+"At least 17 died in India. The search continues for a missing US aid helicopter with eight on board." +
+
+"Aid agencies have appealed for funding, saying Tuesday's tremor has badly hit efforts to help those already affected by the 7.8-magnitude quake on 25 April."+
+
+"Thousands of Nepalis - many of whom have not returned to their homes since the first quake, which killed over 8,000 people - spent another night in the open.";
+
+
+myCodeMirror[4].getDoc().setValue(parag);
 
   map.flyTo([
         jsonData.data[f].latlng[0],
@@ -481,7 +495,7 @@ if(a !== undefined){
                 clearInterval(st);
               }
 
-            },5000);
+            },10000);
 
             // once = false;
 
@@ -734,7 +748,7 @@ if(a !== undefined){
 
                     custom2: function(context) {
                       return "<li>" +
-                        "<a id="+ commentid + "-background-color-cnbutton " +  "class='btn btn-default' data-wysihtml5-command='' href='" +
+                        "<a id="+ commentid + "-background-color-cnbutton " +  "class='btn btn-default' data-wysihtml5-command=''" +
                         
                         "' data-wysihtml5-command-value='&hellip;'>" +
                         "<span class='fa fa-minus-square'></span></a>" +
@@ -778,8 +792,8 @@ if(a !== undefined){
                     "emphasis": true, //Italics, bold, etc. Default true
                     "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
                     "html": false, //Button which allows you to edit the generated HTML. Default false
-                    "link": true, //Button to insert a link. Default true
-                    "image": true, //Button to insert an image. Default true,
+                    "link": false, //Button to insert a link. Default true
+                    "image": false, //Button to insert an image. Default true,
                     "color": false,
                     custom1: true,
                     custom2: true,
@@ -1013,7 +1027,12 @@ if(a !== undefined){
 
                                 $('#'+commentid+ "-background-color-cnbutton").click(function(event){
 
-                                  $(event.currentTarget.parentElement.parentElement).spectrum("enable");
+                                  console.log("letter-spacing clicked");
+
+                                  $(this).parents('.mainDivContainer').find('.CodeMirror').css('letter-spacing','1.2px');
+                                  //$(event.currentTarget.parentElement.parentElement).find('.CodeMirror').css('letter-spacing','1.5px');
+
+                                  /*$(event.currentTarget.parentElement.parentElement).spectrum("enable");
 
                                     console.log("pencil clicked",event);
                                     // console.log($(event.currentTarget.parentElement.parentElement.parentElement));
@@ -1057,7 +1076,7 @@ if(a !== undefined){
                                         
                                       
                                       })
-                                      ;
+                                      ;*/
 
                                   });
 
@@ -1294,11 +1313,12 @@ if(a !== undefined){
           if (event.target.id == 'Map') {
 
             // var mapContainer = $('<div class="map-container" id="mapbox-map"> </div>');
-
+            //center: [40.727630, -73.991352], //ITP,New York
+            //center: [27.7089604,85.3261328] //Nepal
             map = new mapboxgl.Map({
               container: elem.id, // container id
               style: 'https://www.mapbox.com/mapbox-gl-styles/styles/outdoors-v7.json', //stylesheet location
-              center: [40.727630, -73.991352], // starting position
+              center: [27.7089604,85.3261328], //Nepal
               zoom: 15 // starting zoom
             });
 
@@ -1318,7 +1338,7 @@ if(a !== undefined){
 
             console.log($(elem).parents('.main-container').find('.free-container').context.id);
             jsPlumb.makeTarget($(elem).parents('.main-container').find('.free-container').context.id, {
-                            anchor:[0.7,0,0,1],
+                            anchor:"Continuous",
                             endpoint:["Dot", { width:5, height:5 }]
             });
 
@@ -1442,26 +1462,20 @@ if(a !== undefined){
               
 
 
-              
+            
 
-              /*function preload(arrayOfImages) {
-                $(arrayOfImages).each(function(){
-                    $('<img/>')[0].src = this;
-                    console.log($('<img/>')[0].src);
-                    
-                });
-            }
+              /*var searchData = {data: $( "#twittersearch").val()};
 
-            preload(["img/screen.png"]);*/
+              console.log("SearchString",searchData);
 
-              // var searchData = {data: $( "#twittersearch").val()};
+              $('#'+elem.id).find('.form-group').remove();
 
-              // var posting = $.get( "/twittersearch", searchData,success );
-              // console.log(posting);
+              var posting = $.get( "/twittersearch", searchData,success );
+              console.log(posting);
 
               // $.post( "/twittersearch", {"data":"hi"});
 
-              /*function success(data){
+              function success(data){
                 tweetData = data;
                 console.log(data);
 
@@ -1474,11 +1488,7 @@ if(a !== undefined){
 
                 $(elem).append(tweetformContainer);
 
-              //   $.each(data.data.statuses, function(index, val) {
-
-              //     $("#"+elem.id + "-" + tweetRandom).append('<tr><td class="val-edit">'+ val.user.screen_name + '</td><td class="val-edit">'+ val.id+ '</td><td class="val-edit">' + val.text +'</td><td class="val-edit">' + val.id + '</td></tr>');
-
-              // });
+              
 
 
               $.each(data, function(index, val) {
@@ -1539,7 +1549,7 @@ if(a !== undefined){
                   maxConnections:1
               });
 
-            }*/
+            }
 
 
             
@@ -1547,12 +1557,12 @@ if(a !== undefined){
               
               
 
-            // });
+            });
 
 
 
             
-          // }
+          }*/
 
 
 
