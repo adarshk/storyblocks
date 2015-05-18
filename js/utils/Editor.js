@@ -77,6 +77,17 @@ var Editor = function () {
 		deleteFreeContainer: new SIGNALS.Signal(),
 		resizeContainer: new SIGNALS.Signal(),
 		updateRelationship: new SIGNALS.Signal(),
+		showSpectrum : new SIGNALS.Signal(),
+		addArrowtoContainer: new SIGNALS.Signal(),
+		deleteArrowfromContainer: new SIGNALS.Signal(),
+
+
+		redLines: new SIGNALS.Signal(),
+		actionRelationships: new SIGNALS.Signal(),
+		textBoxAppend: new SIGNALS.Signal(),
+
+		enableDisableDragging: new SIGNALS.Signal(),
+		drawGraph: new SIGNALS.Signal(),
 
 
 	};

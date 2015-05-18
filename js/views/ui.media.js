@@ -104,6 +104,126 @@ UI.Media.prototype.setOptions = function(options){
 
 };
 
+
+UI.Media.prototype.addMapIcon = function(){
+
+	this.dom.className = 'icon-container img-container';
+	this.dom.id = 'map-img';
+	
+
+	var col6Map = document.createElement('div');
+	
+	
+	var mapicon = document.createElement('img');
+
+	mapicon.className = 'icon-img';
+	
+	mapicon.src = '/img/icons/map.png';
+
+
+	col6Map.appendChild(mapicon);
+	this.dom.appendChild(col6Map);
+    
+    return this;
+
+
+};
+
+
+UI.Media.prototype.addTextIcon = function(){
+
+	this.dom.className = 'icon-container img-container';
+	this.dom.id = 'text-img';
+
+	var col6Text = document.createElement('div');
+
+	var texticon = document.createElement('img');
+
+	texticon.className = 'icon-img';
+	
+	texticon.src = '/img/icons/color.png';
+
+    
+    col6Text.appendChild(texticon);
+     
+    this.dom.appendChild(col6Text);
+
+    return this;
+
+
+};
+
+UI.Media.prototype.addChartIcon = function(){
+
+	this.dom.className = 'icon-container img-container';
+	this.dom.id = 'chart-img';
+
+	var col6Text = document.createElement('div');
+
+	var texticon = document.createElement('img');
+
+	texticon.className = 'icon-img';
+	
+	texticon.src = '/img/icons/chart.png';
+
+    
+    col6Text.appendChild(texticon);
+     
+    this.dom.appendChild(col6Text);
+
+    return this;
+
+
+};
+
+
+UI.Media.prototype.addImageIcon = function(){
+
+	this.dom.className = 'icon-container img-container';
+	this.dom.id = 'image-img';
+
+	var col6Text = document.createElement('div');
+
+	var texticon = document.createElement('img');
+
+	texticon.className = 'icon-img';
+	
+	texticon.src = '/img/icons/image.png';
+
+    
+    col6Text.appendChild(texticon);
+     
+    this.dom.appendChild(col6Text);
+
+    return this;
+
+
+};
+
+
+UI.Media.prototype.addVideoIcon = function(){
+
+	this.dom.className = 'icon-container img-container';
+	this.dom.id = 'video-img';
+
+	var col6Text = document.createElement('div');
+
+	var texticon = document.createElement('img');
+
+	texticon.className = 'icon-img';
+	
+	texticon.src = '/img/icons/video.png';
+
+    
+    col6Text.appendChild(texticon);
+     
+    this.dom.appendChild(col6Text);
+
+    return this;
+
+
+};
+
 UI.Media.prototype.addIcon = function(formName){
 
 	// var formName = String(formName);
@@ -133,7 +253,7 @@ UI.Media.prototype.addIcon = function(formName){
 	}
 
 	else if (formName === 'Chart'){
-		icon.className = 'fa fa-area-chart fa-4x';
+		icon.className = 'fa fa-columns fa-4x';
 	}
 
 	else if (formName === 'Text'){
@@ -146,6 +266,18 @@ UI.Media.prototype.addIcon = function(formName){
 
 	else if (formName === 'Video'){
 		icon.className = 'fa fa-file-video-o fa-4x';
+	}
+
+	else if (formName === 'Tweet'){
+		icon.className = 'fa fa-twitter-square fa-4x';
+	}
+
+	else if (formName === 'Empty'){
+		icon.className = 'fa fa-instagram fa-4x';
+	}
+
+	else if (formName === 'Table'){
+		icon.className = 'fa fa-area-chart fa-4x';
 	}
 
 

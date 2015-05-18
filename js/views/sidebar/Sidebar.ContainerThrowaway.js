@@ -1,5 +1,5 @@
 
-Sidebar.Container = function(editor){
+Sidebar.ContainerThrowAway = function(editor){
 
 	var signals = editor.signals;
 
@@ -17,18 +17,18 @@ Sidebar.Container = function(editor){
 
 
 
-	container.addStatic(new UI.Text('Containter'));
+	container.addStatic(new UI.Text('Containter Throwaway'));
 	container.add(new UI.Break());
 
 
 	var mainContainer = new UI.Panel();
-	mainContainer.setClass("sidebar-container");
+	mainContainer.setClass("main-throwaway-container");
 
 	var col6 = document.createElement('div');
 
 	
 	var icon = document.createElement('span');
-	icon.className = 'fa fa-plus-square-o fa-4x';
+	icon.className = 'fa fa-square-o fa-4x';
 	
 	icon.id = 'container-icon';
     col6.appendChild(icon);
@@ -42,7 +42,7 @@ Sidebar.Container = function(editor){
 	mainContainer.onMouseOver(function() {
 
 		// mapBox.dom.background = '#72FFE6';				
-		$('.sidebar-container').css('background','#72FFE6');
+		$('.main-throwaway-container').css('background','#72FFE6');
 
 	});
 
@@ -50,7 +50,7 @@ Sidebar.Container = function(editor){
 
 
 		// mapBox.dom.background = '#72FFE6';				
-		$('.sidebar-container').css('background','');
+		$('.main-throwaway-container').css('background','');
 
 	});
 
@@ -93,7 +93,7 @@ Sidebar.Container = function(editor){
 		function dragstart(event){
 			/*console.log("start");
 			console.log(event);*/
-			freeContainer = new FreeContainer(editor,'free-container',event);
+			freeContainer = new FreeContainer(editor,'throwaway-container',event);
 			$('#storyBlocks').append(freeContainer);
 		}
 
@@ -119,7 +119,7 @@ Sidebar.Container = function(editor){
 			// console.log('Childdd',$(freeContainer).find('.free-container')[0]);
 			
 
-			editor.signals.addDragnDropToContainer.dispatch($(freeContainer).find('.free-container')[0]);
+			// editor.signals.addDragnDropToContainer.dispatch($(freeContainer).find('.free-container')[0]);
 
 		}
 
