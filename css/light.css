@@ -1,4 +1,91 @@
-﻿.FancySelect {
+﻿@font-face {
+  font-family: "DDR";
+  src: url(fonts/Domaine_Display_Regular.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "DDM";
+  src: url(fonts/Domaine_Display_Medium.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "DDI";
+  src: url(fonts/Domaine_Display_Medium_Italic.otf) format("opentype");
+}
+
+#storyBlocks{
+	/*position: absolute;*/
+	position: relative;
+	/*margin-top: -15%;*/
+	/*top: 0;*/
+	/*top: -50px;*/
+	/*top: -60%;*/
+	top: -60%;
+	left:0;
+	bottom:0;
+	width: 100%;
+	height: 400%;
+	/*overflow: auto;*/
+}
+
+svg{
+	position: absolute;
+	top: 0;
+	left:0;
+	width: 100%;
+	height: 90%;
+}
+
+
+#grid-checkbox{
+  
+  width: 10%;
+  top: 55px;
+  position: absolute;
+  left: 89%;
+  z-index: 3;
+
+}
+
+
+#drag-checkbox{
+	
+  width: 10%;
+  top: 55px;
+  position: absolute;
+  left: 94%;
+  z-index: 3;	
+}
+
+
+#sidebar-checkbox{
+	
+  width: 10%;
+  top: 55px;
+  position: absolute;
+  left: 96%;
+  z-index: 3;	
+}
+
+#save-button{
+
+	top: 15px;
+  	position: absolute;
+  	left: 89%;
+  	z-index: 3;	
+
+}
+
+#preview-button{
+
+	top: 15px;
+  	position: absolute;
+  	left: 94%;
+  	z-index: 3;	
+
+}
+
+.FancySelect {
 	background: #fff;
 	border: 1px solid #ccc;
 	padding: 0;
@@ -33,7 +120,7 @@ input.Number {
 	right: 300px;
 	bottom: 50%;
 	/*bottom: 0px;*/
-	outline: 1px dashed red;
+	/*outline: 1px dashed red;*/
 }
 
 	#viewport #info {
@@ -123,9 +210,9 @@ input.Number {
 #sidebar {
 	position: absolute;
 	right: 0px;
-	top: 0px;
-	bottom: 0px;
-	width: 300px;
+	top: 100px;
+	/*bottom: 0px;*/
+	width: 200px;
 	background: #eee;
 	z-index: 1;
 	/*overflow: auto;*/
@@ -233,7 +320,7 @@ input.Number {
 	background: rgba(255,255,255,0);
 }
 
-.free-container {
+/*.free-container {
 	position: absolute;
 	top: 50%;
 	left: 30%;
@@ -241,7 +328,46 @@ input.Number {
 	bottom: 10%;
 	background: rgba(0,255,255,0);
 	outline: 1px dashed red;
+}*/
+
+
+.image-container {
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: small;
+	padding-top: 5px;
+	vertical-align: middle;
 }
+
+
+.chart-container {
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: small;
+	padding-top: 5px;
+	vertical-align: middle;
+}
+
+.drp{
+
+	height: 100px;
+	width: 400px;
+
+}
+
+
+.map-container {
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: small;
+	padding-top: 5px;
+	vertical-align: middle;
+}
+
+
 
 .ui-container {
 	position: absolute;
@@ -254,7 +380,17 @@ input.Number {
 
 }
 
-.free-container-cross {
+.icon-img{
+	width:100%;
+	height:100%;
+}
+
+.img-container{
+	width:50%;
+	height:50%;
+}
+
+.main-container-cross {
 	position: relative;
 	display:block;
     height: auto;
@@ -269,18 +405,80 @@ input.Number {
     margin-top:15px;
 }
 
-.outnode {
+.main-container-outnode {
 	position: relative;
 	display:block;
     height: auto;
-    bottom: 80%;
+    bottom: 90%;
     top: 0;
     left: 0;
     right: 0;
     float:right;
     margin-left:auto;
     margin-right:15px;
-    margin-top:15px;
+    margin-top:14px;
+}
+
+.main-container-square {
+	position: relative;
+	display:block;
+    height: auto;
+    bottom: 90%;
+    top: 0;
+    left: 0;
+    right: 0;
+    float:right;
+    margin-left:auto;
+    margin-right:15px;
+    margin-top:14px;
+}
+
+.main-container-arrow {
+	position: relative;
+	display:block;
+    height: auto;
+    bottom: 90%;
+    top: 0;
+    left: 0;
+    right: 0;
+    float:right;
+    margin-left:auto;
+    margin-right:15px;
+    margin-top:14px;
+}
+
+
+.main-container-plus {
+	position: relative;
+	display:block;
+    height: auto;
+    bottom: 90%;
+    top: 0;
+    left: 0;
+    right: 0;
+    float:right;
+    margin-left:auto;
+    margin-right:15px;
+    margin-top:14px;
+}
+
+
+.main-container-dropdown {
+	position: relative;
+	display:block;
+    height: auto;
+    bottom: 90%;
+    top: 0;
+    left: 0;
+    right: 0;
+    float:left;
+    margin-left:auto;
+    margin-right:15px;
+    margin-top:30px;
+    outline: none;
+    outline-color: transparent;
+    border-color: transparent;
+    border:none;
 }
 
 .event{
@@ -289,4 +487,101 @@ input.Number {
 	left: 200px;
 	right: 40%;
 	bottom: 0px;
+}
+
+.sp-container.color-picker {
+	background: white;
+	border: 1px dashed red;
+}
+
+#overflowTest{
+	position: relative;
+	top: 100%;
+	width: 200px;
+	height: 200px;
+	outline: 1px dashed red;
+}
+
+
+
+.CodeMirror {
+  border: none;
+  height: 20%;
+  left: 4px;
+  font-family: DDM,sans-serif;
+  /*font-family: Tahoma, Geneva, sans-serif;*/
+	font-size: 1.2em;
+	/*letter-spacing: 1.5px;*/
+	background: transparent;
+	/*color: white;*/
+}
+
+.cm-arrows {
+	color: red;
+}
+
+.twitter{
+	width: 60%;
+}
+
+.navbar-nav > li > a {padding-top:0px !important; padding-bottom:0px !important;}
+.navbar {
+	min-height:15px !important;
+
+	width: 12%;
+  left: 88%;
+  position: absolute;
+  top: 15px;
+}
+
+.container-dropdowns{
+
+	margin-top:10px;
+	width: 20%;
+	display:block;
+	float:left;
+}
+
+.main-container-checkbox-form{
+	float:right;
+	
+}
+
+
+tr.highlight   
+{    
+   background-color: #063774;   
+   color: White;   
+} 
+
+
+path.line {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+path.area {
+  fill: #e7e7e7;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line {
+  stroke: #fff;
+}
+
+.x.axis .minor {
+  stroke-opacity: .5;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke: #000;
 }
