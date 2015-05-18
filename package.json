@@ -2,7 +2,7 @@
   "name": "StoryBlocks",
   "version": "0.0.0",
   "description": "Thesis! (in Progress)",
-  "main": "lib/ReactCanvas.js",
+  "main": "server.js",
   "scripts": {
     "start": "./node_modules/.bin/gulp",
     "test": "./node_modules/.bin/jest"

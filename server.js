@@ -24,8 +24,6 @@ var zipGenerate = zip.generate({base64:false,compression:'DEFLATE'});*/
 
 app.use(bodyParser.json());
 
-//google  https://maps.googleapis.com/maps/api/geocode/json?address=Okmulgee+OK&key=AIzaSyDMLvEKnAZMZ9JlY6jJRgbdIsJE5YSamxY
-
 
 var Twit = require('twit');
 
