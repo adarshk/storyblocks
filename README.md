@@ -6,6 +6,9 @@ Look at an example here https://vimeo.com/128038770 and
 
 https://vimeo.com/128038818
 
+
+<img src="images/storyblocks.png" width="75%" height="75%"/>
+
 <br/>
 
 ####Summary####
@@ -51,7 +54,7 @@ Interactions:
 
 This is a work in progress but the demo will be up soon on my website at adarshk.com and the link will be updated here to reflect that.
 
-###Sample images###
+<!-- ###Sample images###
 **Concept**
 
 <img src="images/FormsAndStates_mixMatch.png" width="50%" height="50%"/>
@@ -60,7 +63,7 @@ This is a work in progress but the demo will be up soon on my website at adarshk
 
 <img src="images/dragndrop.png" width="50%" height="50%"/>
 
-<img src="images/image&graphics.png" width="50%" height="50%"/>
+<img src="images/image&graphics.png" width="50%" height="50%"/-->
 
 
 
