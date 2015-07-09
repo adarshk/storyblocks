@@ -69,6 +69,10 @@ var Toolbar = function ( editor ) {
 	buttons.add( showDrag );
 	buttons.add( new UI.Text( 'Dragging' ) );
 
+	var multiPage = new UI.Checkbox().onChange( enableDisableDrag ).setValue( true );
+	buttons.add( multiPage );
+	buttons.add( new UI.Text( 'Dragging' ) );
+
 
 	
 	function enableDisableDrag(){
