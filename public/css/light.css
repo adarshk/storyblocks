@@ -1,0 +1,587 @@
+﻿@font-face {
+  font-family: "DDR";
+  src: url(fonts/Domaine_Display_Regular.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "DDM";
+  src: url(fonts/Domaine_Display_Medium.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "DDI";
+  src: url(fonts/Domaine_Display_Medium_Italic.otf) format("opentype");
+}
+
+#storyBlocks{
+	/*position: absolute;*/
+	position: relative;
+	/*margin-top: -15%;*/
+	/*top: 0;*/
+	/*top: -50px;*/
+	/*top: -60%;*/
+	top: -60%;
+	left:0;
+	bottom:0;
+	width: 100%;
+	height: 400%;
+	/*overflow: auto;*/
+}
+
+svg{
+	position: absolute;
+	top: 0;
+	left:0;
+	width: 100%;
+	height: 90%;
+}
+
+
+#grid-checkbox{
+  
+  width: 10%;
+  top: 55px;
+  position: absolute;
+  left: 89%;
+  z-index: 3;
+
+}
+
+
+#drag-checkbox{
+	
+  width: 10%;
+  top: 55px;
+  position: absolute;
+  left: 94%;
+  z-index: 3;	
+}
+
+
+#sidebar-checkbox{
+	
+  width: 10%;
+  top: 55px;
+  position: absolute;
+  left: 96%;
+  z-index: 3;	
+}
+
+#save-button{
+
+	top: 15px;
+  	position: absolute;
+  	left: 89%;
+  	z-index: 3;	
+
+}
+
+#preview-button{
+
+	top: 15px;
+  	position: absolute;
+  	left: 94%;
+  	z-index: 3;	
+
+}
+
+.FancySelect {
+	background: #fff;
+	border: 1px solid #ccc;
+	padding: 0;
+	cursor: default;
+	overflow: auto;
+	outline: none;
+}
+
+	.FancySelect .option {
+		padding: 4px;
+		color: #666;
+		white-space: nowrap;
+	}
+
+	.FancySelect .option.active {
+		background-color: #f8f8f8;
+	}
+
+input.Number {
+	color: #0080f0;
+	font-size: 12px;							/** TODO: Use of !imporant is not ideal **/
+	background-color: transparent!important;	/* For now this is a quick fix a rendering issue due to inherited background */
+	border: 1px solid transparent;
+	padding: 2px;
+	cursor: col-resize;
+}
+
+#viewport {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 300px;
+	bottom: 50%;
+	/*bottom: 0px;*/
+	/*outline: 1px dashed red;*/
+}
+
+	#viewport #info {
+		text-shadow: 1px 1px 0px rgba(0,0,0,0.25);
+	}
+
+#script {
+	position: absolute;
+	top: 32px;
+	left: 0px;
+	right: 300px;
+	bottom: 32px;
+	opacity: 0.9;
+}
+
+#player {
+	position: absolute;
+	top: 32px;
+	left: 0px;
+	right: 300px;
+	bottom: 32px;
+}
+
+#menubar {
+	position: absolute;
+	width: 100%;
+	height: 32px;
+	background: #eee;
+	padding: 0px;
+	margin: 0px;
+	right: 0px;
+	top: 0px;
+}
+
+	#menubar .menu {
+		float: left;
+		cursor: pointer;
+		padding-right: 8px;
+	}
+
+	#menubar .menu.right {
+		float: right;
+		cursor: auto;
+		text-align: right;
+	}
+
+		#menubar .menu .title {
+			display: inline-block;
+			color: #888;
+			margin: 0px;
+			padding: 8px;
+		}
+
+		#menubar .menu .options {
+			position: absolute;
+			display: none;
+			padding: 5px 0px;
+			background: #eee;
+			width: 150px;
+		}
+
+		#menubar .menu:hover .options {
+			display: block;
+		}
+
+			#menubar .menu .options hr {
+				border-color: #ddd;
+			}
+
+			#menubar .menu .options .option {
+				color: #666;
+				background-color: transparent;
+				padding: 5px 10px;
+				margin: 0px !important;
+			}
+
+				#menubar .menu .options .option:hover {
+					color: #fff;
+					background-color: #08f;
+				}
+
+				#menubar .menu .options .option:active {
+					color: #666;
+					background: transparent;
+				}
+
+#sidebar {
+	position: absolute;
+	right: 0px;
+	top: 100px;
+	/*bottom: 0px;*/
+	width: 200px;
+	background: #eee;
+	z-index: 1;
+	/*overflow: auto;*/
+}
+
+	#sidebar * {
+		vertical-align: middle;
+	}
+
+	#sidebar input,
+	#sidebar textarea,
+	#sidebar select {
+		/* background: #ccc; */
+	}
+
+/*	#sidebar .media{
+
+		display: inline-block;
+		position: relative;
+		width: 50px;
+		height: 50px;
+		background:teal;
+		border: 1px dotted black;
+
+		margin-left: 5px;
+		margin-right: 5px;
+
+		text-align: center;
+		color: black;
+
+	}*/
+
+	#sidebar .Panel {
+		margin-bottom: 10px;
+	}
+
+	#sidebar .Panel.collapsed {
+		margin-bottom: 0px;
+	}
+
+	#sidebar > .Panel {
+		color: #888;
+		padding: 10px;
+		border-top: 1px solid #ccc;
+	}
+
+	#sidebar #outliner {
+		width: 100%;
+		height: 140px;
+		color: #444;
+		font-size: 12px;
+	}
+
+#toolbar {
+	position: absolute;
+	left: 0px;
+	right: 300px;
+	bottom: 0px;
+	height: 32px;
+	background: #eee;
+	color: #333;
+}
+
+	#toolbar .Panel {
+		padding: 4px;
+		color: #888;
+	}
+
+	#toolbar button {
+		margin-right: 6px;
+	}
+
+
+
+.fa{
+	/*vertical-align: middle;*/
+}
+.formname{
+	
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: small;
+	padding-top: 5px;
+	/*margin: 5px;*/
+	/*margin-left: 5px;*/
+	/*margin-top: 5px;*/
+	vertical-align: middle;
+}
+
+.draggable{
+	background:teal;
+}
+
+/*.formname:first-letter{
+	text-transform: capitalize;
+}*/
+
+
+#ViewportContainers {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 300px;
+	bottom: 50%;
+	background: rgba(255,255,255,0);
+}
+
+/*.free-container {
+	position: absolute;
+	top: 50%;
+	left: 30%;
+	right: 300px;
+	bottom: 10%;
+	background: rgba(0,255,255,0);
+	outline: 1px dashed red;
+}*/
+
+
+.image-container {
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: small;
+	padding-top: 5px;
+	vertical-align: middle;
+}
+
+
+.chart-container {
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: small;
+	padding-top: 5px;
+	vertical-align: middle;
+}
+
+.drp{
+
+	height: 100px;
+	width: 400px;
+
+}
+
+
+.map-container {
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: small;
+	padding-top: 5px;
+	vertical-align: middle;
+}
+
+
+
+.ui-container {
+	position: absolute;
+    height: auto;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-right: 10px;
+
+}
+
+.icon-img{
+	width:100%;
+	height:100%;
+}
+
+.img-container{
+	width:50%;
+	height:50%;
+}
+
+.main-container-cross {
+	position: relative;
+	display:block;
+    height: auto;
+    bottom: 90%;
+    top: 0;
+    left: 0;
+    right: 0;
+    float:right;
+
+    margin-left:auto;
+    margin-right:15px;
+    margin-top:15px;
+}
+
+.main-container-outnode {
+	position: relative;
+	display:block;
+    height: auto;
+    bottom: 90%;
+    top: 0;
+    left: 0;
+    right: 0;
+    float:right;
+    margin-left:auto;
+    margin-right:15px;
+    margin-top:14px;
+}
+
+.main-container-square {
+	position: relative;
+	display:block;
+    height: auto;
+    bottom: 90%;
+    top: 0;
+    left: 0;
+    right: 0;
+    float:right;
+    margin-left:auto;
+    margin-right:15px;
+    margin-top:14px;
+}
+
+.main-container-arrow {
+	position: relative;
+	display:block;
+    height: auto;
+    bottom: 90%;
+    top: 0;
+    left: 0;
+    right: 0;
+    float:right;
+    margin-left:auto;
+    margin-right:15px;
+    margin-top:14px;
+}
+
+
+.main-container-plus {
+	position: relative;
+	display:block;
+    height: auto;
+    bottom: 90%;
+    top: 0;
+    left: 0;
+    right: 0;
+    float:right;
+    margin-left:auto;
+    margin-right:15px;
+    margin-top:14px;
+}
+
+
+.main-container-dropdown {
+	position: relative;
+	display:block;
+    height: auto;
+    bottom: 90%;
+    top: 0;
+    left: 0;
+    right: 0;
+    float:left;
+    margin-left:auto;
+    margin-right:15px;
+    margin-top:30px;
+    outline: none;
+    outline-color: transparent;
+    border-color: transparent;
+    border:none;
+}
+
+.event{
+	position: absolute;
+	top: 50%;
+	left: 200px;
+	right: 40%;
+	bottom: 0px;
+}
+
+.sp-container.color-picker {
+	background: white;
+	border: 1px dashed red;
+}
+
+#overflowTest{
+	position: relative;
+	top: 100%;
+	width: 200px;
+	height: 200px;
+	outline: 1px dashed red;
+}
+
+
+
+.CodeMirror {
+  border: none;
+  height: 20%;
+  left: 4px;
+  font-family: DDM,sans-serif;
+  /*font-family: Tahoma, Geneva, sans-serif;*/
+	font-size: 1.2em;
+	/*letter-spacing: 1.5px;*/
+	background: transparent;
+	/*color: white;*/
+}
+
+.cm-arrows {
+	color: red;
+}
+
+.twitter{
+	width: 60%;
+}
+
+.navbar-nav > li > a {padding-top:0px !important; padding-bottom:0px !important;}
+.navbar {
+	min-height:15px !important;
+
+	width: 12%;
+  left: 88%;
+  position: absolute;
+  top: 15px;
+}
+
+.container-dropdowns{
+
+	margin-top:10px;
+	width: 20%;
+	display:block;
+	float:left;
+}
+
+.main-container-checkbox-form{
+	float:right;
+	
+}
+
+
+tr.highlight   
+{    
+   background-color: #063774;   
+   color: White;   
+} 
+
+
+path.line {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+path.area {
+  fill: #e7e7e7;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line {
+  stroke: #fff;
+}
+
+.x.axis .minor {
+  stroke-opacity: .5;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke: #000;
+}

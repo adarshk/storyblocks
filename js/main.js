@@ -1,11 +1,19 @@
-			window.URL = window.URL || window.webkitURL;
+var SB = require("./anew/StoryBlocks.js");
+
+
+
+
+
+
+
+/*			window.URL = window.URL || window.webkitURL;
 			window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
 
 			window.connectedNodes = {};
 
 			var editor = new Editor();
 
-
+			
 			jsPlumb.bind("ready", function() {
 
 				jsPlumb.setContainer($("#storyBlocks"));
@@ -14,7 +22,7 @@
 
 			mapboxgl.accessToken = 'pk.eyJ1IjoiYWRhcnNoayIsImEiOiJZZ0NTRTFNIn0.ODTFzy_g4suBlO0jX641dQ';
 
-
+*/
 
 			/*$.ajax({
                 method: "GET",
@@ -27,8 +35,11 @@
 				saveAs(blob, "testFileSave.zip");
               });*/
 
-			
+/*	
 
+	var StoryBlocks = StoryBlocks || {};
+
+	StoryBlocks.load = function(){
 
 			var povertyData;
 			var countryData;
@@ -37,6 +48,8 @@
 			var allData = {};
 
 			var thisistheData = {};
+
+
 			d3.tsv("data/Poverty.csv", function(error, data) {
 
 				povertyData = data;
@@ -54,27 +67,27 @@
 
 						for(var st=0; st<splitTokens.length;st++){
 
-							if(st == 0){
+							if(st === 0){
 								allData[splitTokens[st]] = [];
-								/*allData[splitTokens[st]]["year"] = [];
-								allData[splitTokens[st]]["values"] = [];*/
+								// allData[splitTokens[st]]["year"] = [];
+								// allData[splitTokens[st]]["values"] = [];
 							}
 
 							else{
-								if(splitTokens[st] == ""){
+								if(splitTokens[st] === ""){
 									var temp = st+1977;
 
 									allData[splitTokens[0]].push({"year":temp, "value":0});
-									/*allData[splitTokens[0]]["year"].push(temp);
-									allData[splitTokens[0]]["values"].push(0);*/
+									// allData[splitTokens[0]]["year"].push(temp);
+									// allData[splitTokens[0]]["values"].push(0);
 								}
 
 								else{
 									var temp = st+1977;
 									var x = parseInt(splitTokens[st],10);
 									allData[splitTokens[0]].push({"year":temp, "value":x});
-									/*allData[splitTokens[0]]["year"].push(temp);
-									allData[splitTokens[0]]["values"].push(x);*/
+									// allData[splitTokens[0]]["year"].push(temp);
+									// allData[splitTokens[0]]["values"].push(x);
 								}
 								
 							}
@@ -88,6 +101,14 @@
                 console.log(allData);
 
 			});
+
+	};
+
+module.exports = StoryBlocks;
+
+*/
+			
+	/*
 
 			d3.json("data/countries.json",function(error,data){
 
@@ -142,10 +163,7 @@
 					}
 				}
 
-				/*if(first && second){
-
-					
-				}*/
+				
 			}
 
 		}
@@ -157,11 +175,11 @@
 			// document.body.appendChild( viewport.dom );
 
 
-			/*var script = new Script( editor );
-			document.body.appendChild( script.dom );
+			// var script = new Script( editor );
+			// document.body.appendChild( script.dom );
 
-			var player = new Player( editor );
-			document.body.appendChild( player.dom );*/
+			// var player = new Player( editor );
+			// document.body.appendChild( player.dom );
 
 			var sidebar = new Sidebar(editor);
 			document.body.appendChild(sidebar.dom);
@@ -172,8 +190,8 @@
 			// document.body.appendChild( fc );
 			// $('#'+sidebar.dom.id).css('z-index','1');
 
-			/*var toolbar = new Toolbar(editor);
-			document.body.appendChild(toolbar.dom);*/
+			// var toolbar = new Toolbar(editor);
+			// document.body.appendChild(toolbar.dom);
 
 			$('body').append('<form id="grid-checkbox" role="form"><div class="checkbox"><input type="checkbox" id="checkbox1" checked><label for="checkbox1">Grid</label></div></form>');
 			$('body').append('<form id="drag-checkbox" role="form"><div class="checkbox"><input type="checkbox" id="checkbox2" checked><label for="checkbox2">Drag</label></div></form>');
@@ -324,156 +342,5 @@
 			//editor.setTheme( editor.config.getKey( 'theme' ) );
 			editor.setTheme( '/css/light.css' );
 
-			/*editor.storage.init( function () {
-
-				editor.storage.get( function ( state ) {
-
-					if ( state !== undefined ) {
-
-						editor.fromJSON( state );
-
-					}
-
-					var selected = editor.config.getKey( 'selected' );
-
-					if ( selected !== undefined ) {
-
-						editor.selectByUuid( selected );
-
-					}
-
-				} );
-
-				//
-
-				var timeout;
-
-				var saveState = function ( scene ) {
-
-					if ( editor.config.getKey( 'autosave' ) === false ) {
-
-						return;
-
-					}
-
-					clearTimeout( timeout );
-
-					timeout = setTimeout( function () {
-
-						editor.signals.savingStarted.dispatch();
-
-						timeout = setTimeout( function () {
-
-							editor.storage.set( editor.toJSON() );
-
-							editor.signals.savingFinished.dispatch();
-
-						}, 100 );
-
-					}, 1000 );
-
-				};
-
-				var signals = editor.signals;
-
-				signals.editorCleared.add( saveState );
-				signals.geometryChanged.add( saveState );
-				signals.objectAdded.add( saveState );
-				signals.objectChanged.add( saveState );
-				signals.objectRemoved.add( saveState );
-				signals.materialChanged.add( saveState );
-				signals.sceneGraphChanged.add( saveState );
-				signals.scriptChanged.add( saveState );
-
-				var showDialog = function ( content ) {
-
-					dialog.clear();
-
-					dialog.add( content );
-					dialog.showModal();
-
-				};
-
-				signals.showDialog.add( showDialog );
-
-			} );*/
-
-			//
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		// Uncomment later
-		/*	document.addEventListener( 'dragover', function ( event ) {
-
-				event.preventDefault();
-				event.dataTransfer.dropEffect = 'copy';
-
-			}, false );
-
-			document.addEventListener( 'drop', function ( event ) {
-
-				event.preventDefault();
-				editor.loader.loadFile( event.dataTransfer.files[ 0 ] );
-
-			}, false );
-
-			document.addEventListener( 'keydown', function ( event ) {
-
-				switch ( event.keyCode ) {
-
-					case 8: // prevent browser back
-						event.preventDefault();
-						break;
-
-				}
-
-			}, false );
-
-			var onWindowResize = function ( event ) {
-
-				editor.signals.windowResize.dispatch();
-
-			};
-
-			window.addEventListener( 'resize', onWindowResize, false );
-
-			onWindowResize();
-
-			//
-
-			var hash = window.location.hash;
-
-			if ( hash.substr( 1, 4 ) === 'app=' ) {
-
-				if ( confirm( 'Any unsaved data will be lost. Are you sure?' ) ) {
-
-					var loader = new THREE.XHRLoader();
-					loader.crossOrigin = '';
-					loader.load( hash.substr( 5 ), function ( text ) {
-
-						var json = JSON.parse( text );
-
-						editor.clear();
-						editor.fromJSON( json );
-
-					} );
-
-				}
-
-			}*/
+*/
+			
