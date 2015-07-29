@@ -43,3 +43,4 @@ gulp.task('watch', function () {
 
 gulp.task('default', ['scripts', 'serve', 'watch']);
 gulp.task('no', ['serve', 'watch']);
+gulp.task('works', ['scripts', 'watch']);
